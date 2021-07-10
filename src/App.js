@@ -8,7 +8,6 @@ import FindPage from "./component/pages/FindPage/index";
 import ProfilePage from "./component/pages/ProfilePage/index";
 import ProfileEditPage from "./component/pages/ProfileEditPage/index";
 import MotieEditPage from "./component/pages/MotieEditPage/index";
-import GuestBookPage from "./component/pages/GuestBookPage/index";
 import WritePage from "./component/pages/WritePage/index";
 import FeedPage from "./component/pages/FeedPage/index";
 import RecommendPage from "./component/pages/RecommendPage/index";
@@ -28,7 +27,6 @@ function App() {
         <Route exact path="/profile/:id" component={ProfilePage}/>
         <Route exact path="/profile/:id/edit" component={ProfileEditPage}/>
         <Route exact path="/profile/:id/motie-edit" component={MotieEditPage}/>
-        <Route exact path="/profile/:id/guestbook" component={GuestBookPage}/>
         <Route exact path="/profile/:id/write" component={WritePage}/>
 
         <Route exact path="/feed" component={FeedPage}/>
