@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 function IconButton(props) {
     return (
-        <Button onClick={props.onClick}>{props.children}</Button>
+        <Button onClick={props.onClick}>
+            {props.icon && <props.icon fontSize="1.4rem"/>}
+        </Button>
     );
 }
 
