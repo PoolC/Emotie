@@ -15,8 +15,10 @@ const Input = styled.input`
     border-radius: 20px;
     background-color: #1E1E1E;
     color: #ffffff;
+    transition: border-color 300ms;
 
     &:focus {
         outline: none;
+        border-color: #ffffff;
     }
 `
