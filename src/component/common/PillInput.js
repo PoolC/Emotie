@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 function PillInput(props) {
     return (
-        <Input type="text" placeholder={props.placeholder}/>
+        <Input type="text" width={props.width} placeholder={props.placeholder}/>
     );
 }
 
@@ -10,6 +10,7 @@ export default PillInput;
 
 const Input = styled.input`
     height: 40px;
+    width : ${props => props.width || "150px"};
     padding: 0 30px;
     border: 1px solid #808080;
     border-radius: 20px;
