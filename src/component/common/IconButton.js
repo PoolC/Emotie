@@ -9,11 +9,11 @@ function IconButton(props) {
 export default IconButton;
 
 const Button = styled.button`
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: none;
     border-radius: 50%;
-    padding: calc(25px - 0.7rem);
+    padding: calc(20px - 0.7rem);
     background-color: transparent;
     color: #ffffff;
     transition: opacity 300ms;
