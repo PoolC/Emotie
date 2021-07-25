@@ -34,6 +34,7 @@ function App() {
         <Route exact path="/recommend" component={RecommendPage}/>
 
         <Route exact path="/setting" component={SettingPage}/>
+        
         <Route exact path="/error" component={ErrorPage}/>
         <Route exact path="/test" component={TestPage}/>
 
