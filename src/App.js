@@ -13,6 +13,7 @@ import FeedPage from "./component/pages/FeedPage/index";
 import RecommendPage from "./component/pages/RecommendPage/index";
 import SettingPage from "./component/pages/SettingPage/index";
 import ErrorPage from "./component/pages/ErrorPage/index";
+import TestPage from "./component/pages/TestPage/index";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
         <Route exact path="/setting" component={SettingPage}/>
         <Route exact path="/error" component={ErrorPage}/>
+        <Route exact path="/test" component={TestPage}/>
 
         <Route component={() => <Redirect to="/"/>}/>
       </Switch>
