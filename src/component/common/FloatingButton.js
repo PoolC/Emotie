@@ -11,6 +11,9 @@ function FloatingButton(props) {
 export default FloatingButton;
 
 const Button = styled.button`
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
     width: 54px;
     height: 54px;
     border: none;
@@ -26,5 +29,10 @@ const Button = styled.button`
     }
     &:active {
         opacity: 0.6;
+    }
+
+    @media only screen and (max-width: 768px) {
+        bottom: 15px;
+        right: 15px;
     }
 `
