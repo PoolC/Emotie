@@ -9,12 +9,18 @@ export const Container = styled.div`
     background-color: ${props => props.emotion?.color || "white"};
 
     @media only screen and (max-width: 768px) {
-        padding: 15px;
+        flex-flow: column nowrap;
+        padding: 30px 30px 0 30px;
     }
 `
 
 export const MotieLayout = styled.div`
     width: 40%;
+
+    @media only screen and (max-width: 768px) {
+        width: unset;
+        height: 300px;
+    }
 `
 
 export const ContentLayout = styled.div`
@@ -76,6 +82,10 @@ export const FollowerLayout = styled.div`
     opacity: ${props => props.isEditMode ? 0.2 : 1};
     transition: opacity 300ms;
     pointer-events: ${props => props.isEditMode ? 'none' : 'unset'};
+
+    @media only screen and (max-width: 768px) {
+        margin-top: 10px;
+    }
 `
 export const State = styled.span`
     font-size: 0.9rem;
@@ -116,4 +126,8 @@ export const PostList = styled.div`
     flex-flow: column nowrap;
     gap: 10px;
     overflow-y: scroll;
+
+    @media only screen and (max-width: 768px) {
+        padding-bottom: 30px;
+    }
 `
