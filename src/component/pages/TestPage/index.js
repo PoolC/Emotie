@@ -22,8 +22,8 @@ function LandingPage(props) {
             <PillButton>테스트</PillButton>
             <PillButton negative>테스트</PillButton>
             <PostList>
-                <PostCard/>
-                <PostCard emotion={Emotions.HAPPY}/>
+                <PostCard hideEmotion share blur report delete/>
+                <PostCard hideEmotion share blur report/>
                 <PostCard emotion={Emotions.SAD}/>
             </PostList>
             <ProfileList>
