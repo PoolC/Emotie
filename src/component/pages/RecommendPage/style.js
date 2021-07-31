@@ -11,3 +11,18 @@ export const Container = styled.div`
         padding: 75px 15px 15px 15px;
     }
 `
+
+export const ProfileList = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 80%;
+    gap: 20px;
+
+    @media only screen and (max-width: 768px) {
+        flex-flow: column nowrap;
+        align-items: center;
+        width: 100%;
+        gap: 15px;
+    }
+`
