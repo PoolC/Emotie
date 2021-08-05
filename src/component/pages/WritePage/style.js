@@ -42,6 +42,11 @@ export const Tag = styled.div`
     display: flex;
     justify-content: center;
 
+    &:hover {
+        background-color: #333333;
+        opacity: 1;
+    }
+
     @media only screen and (max-width: 768px) {
         width: 65px;
     }
