@@ -18,9 +18,11 @@ export const PostList = styled.div`
     align-items: center;
     width: 60%;
     gap: 20px;
+    min-width: 700px;
 
     @media only screen and (max-width: 768px) {
         width: 100%;
         gap: 15px;
+        min-width: unset;
     }
 `
