@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import Emotions from "../../../utils/Emotions";
 
 import { 
-    Container, MotieLayout, ContentLayout, 
-    HeaderLayout, Nickname, Description,
+    Container, 
+    HeaderLayout, MotieLayout, ContentLayout, 
+    InfoLayout, Nickname, Description,
     FollowerLayout, State,
     PostLayout, CategoryLayout, Category, PostList,
     InputLayout, PillInputWrapper
@@ -15,7 +16,8 @@ import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
 import PillInput from "../../common/PillInput";
 import IconButton from "../../common/IconButton";
-import { IoPencil } from "react-icons/io5";
+import { IoSettingsSharp, IoHeart, IoPencil } from "react-icons/io5";
+import { RiFileListFill } from "react-icons/ri";
 
 function ProfilePage(props) {
     const { id } = useParams();
@@ -75,11 +77,21 @@ function ProfilePage(props) {
 
     return (
         <Container emotion={Emotions.SURPRISED}>
+            {/* 헤더 */}
+            <HeaderLayout left="0">
+                <IconButton icon={IoHeart} color="black"/>
+                <IconButton icon={RiFileListFill} color="black"/>
+            </HeaderLayout>
+            <HeaderLayout right="0">
+                <IconButton icon={IoSettingsSharp} color="black"/>
+            </HeaderLayout>
+            {/* 모티 */}
             <MotieLayout>
                 <MotieFrame emotion={Emotions.SURPRISED}/>
             </MotieLayout>
+            {/* 내용 */}
             <ContentLayout>
-                <HeaderLayout>
+                <InfoLayout>
                     <Nickname value={nickname} size={nickname.length} onChange={onNicknameChange} disabled={!isEditMode}/>
                     {isMyProfile 
                         ? <>{isEditMode 
@@ -94,7 +106,7 @@ function ProfilePage(props) {
                         }</>
                         : <PillShadowButton width="100px" onClick={follow}>팔로우</PillShadowButton>
                     }
-                </HeaderLayout>
+                </InfoLayout>
                 <Description value={description} onChange={onDescriptionChange} disabled={!isEditMode}/>
                 <FollowerLayout isEditMode={isEditMode}>
                     <State>팔로워 12</State>
@@ -116,13 +128,13 @@ function ProfilePage(props) {
                                     ? <PostCard key={index} nickname={post.nickname} content={post.content} hideEmotion report delete/>
                                     : <PostCard key={index} nickname={post.nickname} content={post.content} hideEmotion/>)}
                     </PostList>
+                    {category === 1 && 
+                        <InputLayout>
+                            <PillInputWrapper><PillInput width="100%" placeholder="방명록을 남기세요"/></PillInputWrapper>
+                            <IconButton icon={IoPencil} color="black" size="1.5rem"/>
+                        </InputLayout>
+                    }
                 </PostLayout>
-                {category === 1 && 
-                    <InputLayout>
-                        <PillInputWrapper><PillInput width="100%" placeholder="방명록을 남기세요"/></PillInputWrapper>
-                        <IconButton icon={IoPencil} color="black" size="1.5rem"/>
-                    </InputLayout>
-                }
             </ContentLayout>
         </Container>
     );
