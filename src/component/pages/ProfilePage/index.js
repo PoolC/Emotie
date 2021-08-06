@@ -10,7 +10,7 @@ import {
     PostLayout, CategoryLayout, Category, PostList
 } from "./style";
 import MotieFrame from "../../common/MotieFrame";
-import PillButton from "../../common/PillButton";
+import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
 
 function ProfilePage(props) {
@@ -79,15 +79,15 @@ function ProfilePage(props) {
                     {isMyProfile 
                         ? <>{isEditMode 
                             ? <>
-                                <PillButton width="100px" onClick={() => stopEditMode(false)} negative>취소</PillButton>
-                                <PillButton width="100px" onClick={() => stopEditMode(true)}>완료</PillButton>
+                                <PillShadowButton width="100px" onClick={() => stopEditMode(false)} negative>취소</PillShadowButton>
+                                <PillShadowButton width="100px" onClick={() => stopEditMode(true)}>완료</PillShadowButton>
                             </>
                             : <>
-                                <PillButton width="100px" onClick={write} negative>마음글 쓰기</PillButton>
-                                <PillButton width="100px" onClick={startEditMode}>프로필 수정</PillButton>
+                                <PillShadowButton width="100px" onClick={write} negative>마음글 쓰기</PillShadowButton>
+                                <PillShadowButton width="100px" onClick={startEditMode}>프로필 수정</PillShadowButton>
                             </>
                         }</>
-                        : <PillButton width="100px" onClick={follow}>구독하기</PillButton>
+                        : <PillShadowButton width="100px" onClick={follow}>구독하기</PillShadowButton>
                     }
                 </HeaderLayout>
                 <Description value={description} onChange={onDescriptionChange} disabled={!isEditMode}/>
