@@ -25,15 +25,16 @@ function ProfilePage(props) {
     const [previousDescription, setPreviousDescription] = useState('');
 
     const [category, setCategory] = useState(0);
-    const [geulList, setGeulList] = useState([]);
+    const [postList, setPostList] = useState([]);
     const [guestbookList, setGuestbookList] = useState([]);
 
     useEffect(() => {
         // 임시 정보
         setNickname(id);
         setDescription('자기소개는 언제나 어려워\n두 줄만 들어가려면 몇 글자 정도여야하는지 모르겠네요 스크롤 생기는 거 싫은데');
+        setMyProfile(true);
         // 임시 글 & 방명록
-        setGeulList([
+        setPostList([
             {emotion: Emotions.HAPPY},
             {emotion: Emotions.SAD}, 
             {emotion: Emotions.FLUTTER}, 
@@ -43,7 +44,7 @@ function ProfilePage(props) {
             {nickname: '닉네임', content: '내용'}, 
             {nickname: '닉네임2', content: '구독하고 갑니다'}, 
             {nickname: '닉네임3', content: '테스트'}]);
-    }, []);
+    }, [id]);
 
     // 클릭 이벤트
     const follow = () => {
@@ -102,8 +103,14 @@ function ProfilePage(props) {
                     </CategoryLayout>
                     <PostList>
                         {category === 0 
-                            ? geulList.map((post, index) => <PostCard key={index} emotion={post.emotion}/>)
-                            : guestbookList.map((post, index) => <PostCard key={index} nickname={post.nickname} content={post.content}/>)}
+                            ? postList.map((post, index) => 
+                                isMyProfile 
+                                    ? <PostCard key={index} emotion={post.emotion} share delete/>
+                                    : <PostCard key={index} emotion={post.emotion} share blur report/>)
+                            : guestbookList.map((post, index) => 
+                                isMyProfile
+                                    ? <PostCard key={index} nickname={post.nickname} content={post.content} hideEmotion report delete/>
+                                    : <PostCard key={index} nickname={post.nickname} content={post.content} hideEmotion/>)}
                     </PostList>
                 </PostLayout>
             </ContentLayout>
