@@ -131,3 +131,22 @@ export const PostList = styled.div`
         padding-bottom: 30px;
     }
 `
+export const InputLayout = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 15px;
+
+    @media only screen and (max-width: 768px) {
+        padding: 10px 30px;
+        margin: -10px -30px 0 -30px;
+        background-color: #3C3C3C;
+        box-shadow: 0 0 2px black;
+        z-index: 1;
+    }
+`
+export const PillInputWrapper = styled.div`
+    flex: 1 0 0;
+    display: flex;
+`

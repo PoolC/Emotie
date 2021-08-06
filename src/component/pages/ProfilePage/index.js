@@ -7,11 +7,15 @@ import {
     Container, MotieLayout, ContentLayout, 
     HeaderLayout, Nickname, Description,
     FollowerLayout, State,
-    PostLayout, CategoryLayout, Category, PostList
+    PostLayout, CategoryLayout, Category, PostList,
+    InputLayout, PillInputWrapper
 } from "./style";
 import MotieFrame from "../../common/MotieFrame";
 import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
+import PillInput from "../../common/PillInput";
+import IconButton from "../../common/IconButton";
+import { IoPencil } from "react-icons/io5";
 
 function ProfilePage(props) {
     const { id } = useParams();
@@ -88,7 +92,7 @@ function ProfilePage(props) {
                                 <PillShadowButton width="100px" onClick={startEditMode}>프로필 수정</PillShadowButton>
                             </>
                         }</>
-                        : <PillShadowButton width="100px" onClick={follow}>구독하기</PillShadowButton>
+                        : <PillShadowButton width="100px" onClick={follow}>팔로우</PillShadowButton>
                     }
                 </HeaderLayout>
                 <Description value={description} onChange={onDescriptionChange} disabled={!isEditMode}/>
@@ -113,6 +117,12 @@ function ProfilePage(props) {
                                     : <PostCard key={index} nickname={post.nickname} content={post.content} hideEmotion/>)}
                     </PostList>
                 </PostLayout>
+                {category === 1 && 
+                    <InputLayout>
+                        <PillInputWrapper><PillInput width="100%" placeholder="방명록을 남기세요"/></PillInputWrapper>
+                        <IconButton icon={IoPencil} color="black" size="1.5rem"/>
+                    </InputLayout>
+                }
             </ContentLayout>
         </Container>
     );
