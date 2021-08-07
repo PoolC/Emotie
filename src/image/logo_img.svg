@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 560 560" style="enable-background:new 0 0 560 560;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:#AEE477;}
+	.st2{fill:#9FA7EF;}
+	.st3{fill:#E7D8CE;}
+	.st4{fill:#F29CB6;}
+	.st5{fill:#FFF27D;}
+	.st6{fill:#FF855D;}
+</style>
+<g>
+	<defs>
+		<path id="SVGID_1_" d="M280,0C125.4,0,0,125.4,0,280s125.4,280,280,280s280-125.4,280-280S434.6,0,280,0z M280,486.1
+			c-113.8,0-206.1-92.3-206.1-206.1S166.2,73.9,280,73.9S486.1,166.2,486.1,280S393.8,486.1,280,486.1z"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st0">
+		<rect x="164.3" y="-54.8" class="st1" width="115.7" height="642.9"/>
+		<rect x="280" y="-54.8" class="st2" width="115.7" height="642.9"/>
+		<rect x="395.7" y="-54.8" class="st3" width="115.7" height="642.9"/>
+		<rect x="511.4" y="-54.8" class="st4" width="115.7" height="642.9"/>
+		<rect x="48.6" y="-54.8" class="st5" width="115.7" height="642.9"/>
+		<rect x="-67.1" y="-54.8" class="st6" width="115.7" height="642.9"/>
+	</g>
+</g>
+</svg>
