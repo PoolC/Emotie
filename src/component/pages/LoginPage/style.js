@@ -19,7 +19,7 @@ export const Gap = styled.div`
     }
 `
 
-export const ButtonFallback = styled.a`
+export const ButtonText = styled.a`
     width:300px;
     height:20px;
     font-size: 10pt;
