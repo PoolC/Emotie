@@ -11,3 +11,41 @@ export const Container = styled.div`
         padding: 75px 15px 15px 15px;
     }
 `
+export const Wrap = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding:40px;
+    gap:20px;
+    @media only screen and (max-width: 768px) {
+    }
+`
+
+export const Logo = styled.img`
+    width:200px;
+    @media only screen and (max-width: 768px) {
+    }
+`
+
+export const Title = styled.div`
+    width: 400px;
+    height: 40px;
+    font-size: 24pt;
+    text-align:center;
+    font-weight:bold;
+    color:#FFFFFF;
+
+    @media only screen and (max-width: 768px) {
+    }
+`
+
+export const Text = styled.div`
+    width:400px;
+    height:60px;
+    font-size: 18pt;
+    text-align:center;
+    color:#FFFFFF;
+
+    @media only screen and (max-width: 768px) {
+    }
+`
