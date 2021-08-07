@@ -9,7 +9,7 @@ import PillInput from "../../common/PillInput";
 
 
 import { 
-    Container, Title, Text, Logo, Switch, ButtonFallback
+    Container, Title, Text, Logo, Switch, ButtonText
 } from "./style";
 
 const inputprops = ["이메일", "비밀번호"];
@@ -26,7 +26,7 @@ function LoginPage(props) {
             <Text>Emotie에 오신 걸 환영합니다</Text>
             {input}
             <PillButton width="260px">로그인</PillButton>
-            <ButtonFallback>비밀번호를 잊으셨나요?</ButtonFallback>
+            <ButtonText>비밀번호를 잊으셨나요?</ButtonText>
             <Switch href="">계정이 없으신가요? 가입하기</Switch>
         </Container>
     );
