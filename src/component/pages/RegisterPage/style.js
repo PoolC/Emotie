@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { GiCheckMark } from "react-icons/gi"
 
 export const Container = styled.div`
     display: flex;
@@ -6,11 +7,10 @@ export const Container = styled.div`
     align-items: center;
     padding: 110px 30px 20px 30px;
     box-sizing: border-box;
-    gap:20px;
+    gap:10px;
 
     @media only screen and (max-width: 768px) {
         padding: 90px 15px 15px 15px;
-        gap:10px;
     }
 `
 export const Gap = styled.div`
@@ -60,22 +60,26 @@ export const Text = styled.div`
     }
 `
 
-export const Switch = styled.a`
+export const Border = styled.a`
     border-top:1px solid #FFFFFF;
     width:400px;
     height:40px;
     margin:30px;
     font-size:10pt;
     color:#FFFFFF;
-    text-decoration:none;
     display:flex;
     justify-content:center;
     align-items:center;
+    
+    @media only screen and (max-width: 768px) {
+    } 
+`
+export const Link = styled.a`
+    text-decoration:none;
     :hover{
         text-decoration:underline;
     }
-    @media only screen and (max-width: 768px) {
-    } 
+
 `
 
 export const Logo = styled.img`
@@ -128,6 +132,21 @@ export const GenderButton = styled.button`
         opacity: 0.6;
     }
 `
+export const ButtonText = styled.a`
+    width:300px;
+    height:20px;
+    font-size: 10pt;
+    text-align:center;
+    text-decoration:none;
+    color:#FFFFFF;
+    margin-top:-10px;
+    :hover{
+        text-decoration:underline;
+    }
+    @media only screen and (max-width: 768px) {
+    }
+`
+
 export const BirthInput = styled.input`
     height: 40px;
     width : ${props => props.width || "150px"};
@@ -145,6 +164,26 @@ export const BirthInput = styled.input`
     }
 `
 
+export const CheckSection = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap:5px;
+`
+export const CheckLabel = styled.label`
+    color: #ffffff;
+    margin-left:16px;
+`
+
+export const CheckBox = styled.div`
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ffffff;
+`
+
+export const CheckIcon = styled(GiCheckMark)`
+    color: white;
+`;
 
 
 
