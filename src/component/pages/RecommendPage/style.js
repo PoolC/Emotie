@@ -24,5 +24,6 @@ export const ProfileList = styled.div`
         align-items: center;
         width: 100%;
         gap: 15px;
+        max-width: 400px;
     }
 `
