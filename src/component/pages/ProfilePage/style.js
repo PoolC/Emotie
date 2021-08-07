@@ -14,6 +14,18 @@ export const Container = styled.div`
     }
 `
 
+export const HeaderLayout = styled.div`
+    position: fixed;
+    top: 0;
+    left: ${props => props.left || "unset"};
+    right: ${props => props.right || "unset"};
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 30px;
+    box-sizing: border-box;
+    gap: 20px;
+`
+
 export const MotieLayout = styled.div`
     width: 40%;
 
@@ -29,7 +41,7 @@ export const ContentLayout = styled.div`
     flex-flow: column nowrap;
     gap: 10px;
 `
-export const HeaderLayout = styled.div`
+export const InfoLayout = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
@@ -130,4 +142,24 @@ export const PostList = styled.div`
     @media only screen and (max-width: 768px) {
         padding-bottom: 30px;
     }
+`
+export const InputLayout = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: 10px;
+    gap: 15px;
+
+    @media only screen and (max-width: 768px) {
+        padding: 10px 30px;
+        margin: 0 -30px;
+        background-color: #3C3C3C;
+        box-shadow: 0 0 2px black;
+        z-index: 1;
+    }
+`
+export const PillInputWrapper = styled.div`
+    flex: 1 0 0;
+    display: flex;
 `

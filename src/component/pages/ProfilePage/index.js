@@ -4,14 +4,20 @@ import { useParams } from "react-router-dom";
 import Emotions from "../../../utils/Emotions";
 
 import { 
-    Container, MotieLayout, ContentLayout, 
-    HeaderLayout, Nickname, Description,
+    Container, 
+    HeaderLayout, MotieLayout, ContentLayout, 
+    InfoLayout, Nickname, Description,
     FollowerLayout, State,
-    PostLayout, CategoryLayout, Category, PostList
+    PostLayout, CategoryLayout, Category, PostList,
+    InputLayout, PillInputWrapper
 } from "./style";
 import MotieFrame from "../../common/MotieFrame";
-import PillButton from "../../common/PillButton";
+import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
+import PillInput from "../../common/PillInput";
+import IconButton from "../../common/IconButton";
+import { IoSettingsSharp, IoHeart, IoPencil } from "react-icons/io5";
+import { RiFileListFill } from "react-icons/ri";
 
 function ProfilePage(props) {
     const { id } = useParams();
@@ -25,15 +31,16 @@ function ProfilePage(props) {
     const [previousDescription, setPreviousDescription] = useState('');
 
     const [category, setCategory] = useState(0);
-    const [geulList, setGeulList] = useState([]);
+    const [postList, setPostList] = useState([]);
     const [guestbookList, setGuestbookList] = useState([]);
 
     useEffect(() => {
         // 임시 정보
         setNickname(id);
         setDescription('자기소개는 언제나 어려워\n두 줄만 들어가려면 몇 글자 정도여야하는지 모르겠네요 스크롤 생기는 거 싫은데');
+        setMyProfile(true);
         // 임시 글 & 방명록
-        setGeulList([
+        setPostList([
             {emotion: Emotions.HAPPY},
             {emotion: Emotions.SAD}, 
             {emotion: Emotions.FLUTTER}, 
@@ -43,7 +50,7 @@ function ProfilePage(props) {
             {nickname: '닉네임', content: '내용'}, 
             {nickname: '닉네임2', content: '구독하고 갑니다'}, 
             {nickname: '닉네임3', content: '테스트'}]);
-    }, []);
+    }, [id]);
 
     // 클릭 이벤트
     const follow = () => {
@@ -70,26 +77,36 @@ function ProfilePage(props) {
 
     return (
         <Container emotion={Emotions.SURPRISED}>
+            {/* 헤더 */}
+            <HeaderLayout left="0">
+                <IconButton icon={IoHeart} color="black"/>
+                <IconButton icon={RiFileListFill} color="black"/>
+            </HeaderLayout>
+            <HeaderLayout right="0">
+                <IconButton icon={IoSettingsSharp} color="black"/>
+            </HeaderLayout>
+            {/* 모티 */}
             <MotieLayout>
                 <MotieFrame emotion={Emotions.SURPRISED}/>
             </MotieLayout>
+            {/* 내용 */}
             <ContentLayout>
-                <HeaderLayout>
+                <InfoLayout>
                     <Nickname value={nickname} size={nickname.length} onChange={onNicknameChange} disabled={!isEditMode}/>
                     {isMyProfile 
                         ? <>{isEditMode 
                             ? <>
-                                <PillButton width="100px" onClick={() => stopEditMode(false)} negative>취소</PillButton>
-                                <PillButton width="100px" onClick={() => stopEditMode(true)}>완료</PillButton>
+                                <PillShadowButton width="100px" onClick={() => stopEditMode(false)} negative>취소</PillShadowButton>
+                                <PillShadowButton width="100px" onClick={() => stopEditMode(true)}>완료</PillShadowButton>
                             </>
                             : <>
-                                <PillButton width="100px" onClick={write} negative>마음글 쓰기</PillButton>
-                                <PillButton width="100px" onClick={startEditMode}>프로필 수정</PillButton>
+                                <PillShadowButton width="100px" onClick={write} negative>마음글 쓰기</PillShadowButton>
+                                <PillShadowButton width="100px" onClick={startEditMode}>프로필 수정</PillShadowButton>
                             </>
                         }</>
-                        : <PillButton width="100px" onClick={follow}>구독하기</PillButton>
+                        : <PillShadowButton width="100px" onClick={follow}>팔로우</PillShadowButton>
                     }
-                </HeaderLayout>
+                </InfoLayout>
                 <Description value={description} onChange={onDescriptionChange} disabled={!isEditMode}/>
                 <FollowerLayout isEditMode={isEditMode}>
                     <State>팔로워 12</State>
@@ -102,9 +119,21 @@ function ProfilePage(props) {
                     </CategoryLayout>
                     <PostList>
                         {category === 0 
-                            ? geulList.map((post, index) => <PostCard key={index} emotion={post.emotion}/>)
-                            : guestbookList.map((post, index) => <PostCard key={index} nickname={post.nickname} content={post.content}/>)}
+                            ? postList.map((post, index) => 
+                                isMyProfile 
+                                    ? <PostCard key={index} emotion={post.emotion} share delete/>
+                                    : <PostCard key={index} emotion={post.emotion} share blur report/>)
+                            : guestbookList.map((post, index) => 
+                                isMyProfile
+                                    ? <PostCard key={index} nickname={post.nickname} content={post.content} hideEmotion report delete/>
+                                    : <PostCard key={index} nickname={post.nickname} content={post.content} hideEmotion/>)}
                     </PostList>
+                    {category === 1 && 
+                        <InputLayout>
+                            <PillInputWrapper><PillInput width="100%" placeholder="방명록을 남기세요"/></PillInputWrapper>
+                            <IconButton icon={IoPencil} color="black" size="1.5rem"/>
+                        </InputLayout>
+                    }
                 </PostLayout>
             </ContentLayout>
         </Container>
