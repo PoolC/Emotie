@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 
 import PillInput from "./PillInput";
 import IconButton from "./IconButton";
@@ -6,23 +7,28 @@ import LogoIcon from "../../image/logo_text.svg";
 import { IoPeople, IoLayers } from "react-icons/io5";
 
 function Header(props) {
+
+    // 클릭 이벤트
+    const goRecommendPage = () => props.history.push('/recommend');
+    const goFeedPage = () => props.history.push('/feed');
     const showMenu = () => {
 
     };
+
     return (
         <Container backgroundColor={props.backgroundColor}>
             <Icon src={LogoIcon}/>
             {props.search && <Center><PillInput width="300px" placeholder="프로필을 검색합니다"/></Center>}
             <MenuLayout>
-                {props.recommend && <IconButton icon={IoPeople}/>}
-                {props.feed && <IconButton icon={IoLayers}/>}
+                {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage}/>}
+                {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage}/>}
                 <Circle onClick={showMenu}/>
             </MenuLayout>
         </Container>
     );
 }
 
-export default Header;
+export default withRouter(Header);
 
 const Container = styled.div`
     position: fixed;
@@ -52,8 +58,8 @@ const MenuLayout = styled.div`
     gap: 30px;
 `
 const Circle = styled.div`
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.5rem;
+    height: 1.5rem;
     background-color: white;
     border-radius: 50%;
 `
