@@ -25,7 +25,7 @@ function Header(props) {
             <Icon src={isMobile ? LogoImage : LogoText}/>
             {props.search && !isMobile && <Center><PillInput width="300px" placeholder="프로필을 검색합니다"/></Center>}
             <MenuLayout>
-                {isMobile && <IconButton icon={IoSearch}/>}
+                {props.search && isMobile && <IconButton icon={IoSearch}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage}/>}
                 {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage}/>}
                 <Circle onClick={showMenu}/>
