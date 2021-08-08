@@ -24,36 +24,24 @@ export const MotieLayout = styled.div`
 `
 
 export const ContentLayout = styled.div`
+    position: relative;
     display: flex;
     flex: 1 0 0;
     flex-flow: column nowrap;
-    gap: 10px;
+    gap: 20px;
 `
 export const InfoLayout = styled.div`
     display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start;
+    flex-flow: column nowrap;
     gap: 20px;
 `
-export const Nickname = styled.input`
-    flex: 1 0 0;
-    background-color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    color: white;
-    font-size: 1.2rem;
+export const Nickname = styled.h1`
+    margin: 0;
+    color: black;
+    font-size: 1.5rem;
     font-weight: 700;
-    transition: all ease 300ms;
-
-    &:disabled {
-        padding: 0;
-        background-color: transparent;
-        border-radius: 0;
-        color: black;
-        font-size: 1.5rem;
-    }
+    opacity: ${props => props.isEditMode ? 0.2 : 1};
+    transition: opacity 300ms;
 `
 export const Description = styled.textarea`
     background-color: black;
@@ -74,18 +62,30 @@ export const Description = styled.textarea`
         color: black;
     }
 `
+export const DescriptionCount = styled.span`
+    height: 0;
+    align-self: flex-end;
+    margin-top: -15px;
+    font-size: 0.8rem;
+    color: black;
+    overflow: visible;
+    opacity: ${props => props.isEditMode ? 1 : 0};
+    transition: opacity ease 300ms;
+`
+export const MenuLayout = styled.div`
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+`
 export const FollowerLayout = styled.div`
     display: flex;
     flex-flow: row nowrap;
-    margin-top: 40px;
     gap: 40px;
     opacity: ${props => props.isEditMode ? 0.2 : 1};
     transition: opacity 300ms;
     pointer-events: ${props => props.isEditMode ? 'none' : 'unset'};
-
-    @media only screen and (max-width: 768px) {
-        margin-top: 10px;
-    }
 `
 export const State = styled.span`
     font-size: 0.9rem;

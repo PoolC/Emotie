@@ -6,7 +6,8 @@ import Emotions from "../../../utils/Emotions";
 import { 
     Container, 
     MotieLayout, ContentLayout, 
-    InfoLayout, Nickname, Description,
+    InfoLayout, Nickname, Description, DescriptionCount,
+    MenuLayout,
     FollowerLayout, State,
     PostLayout, CategoryLayout, Category, PostList,
     InputLayout, PillInputWrapper
@@ -25,8 +26,6 @@ function ProfilePage(props) {
     const [isMyProfile, setMyProfile] = useState(true);
     const [isEditMode, setEditMode] = useState(false);
 
-    const [nickname, setNickname] = useState('');
-    const [previousNickname, setPreviousNickname] = useState('');
     const [description, setDescription] = useState('');
     const [previousDescription, setPreviousDescription] = useState('');
 
@@ -36,7 +35,6 @@ function ProfilePage(props) {
 
     useEffect(() => {
         // 임시 정보
-        setNickname(id);
         setDescription('자기소개는 언제나 어려워\n두 줄만 들어가려면 몇 글자 정도여야하는지 모르겠네요 스크롤 생기는 거 싫은데');
         setMyProfile(true);
         // 임시 글 & 방명록
@@ -58,7 +56,6 @@ function ProfilePage(props) {
     };
     const write = () => {};
     const startEditMode = () => {
-        setPreviousNickname(nickname);
         setPreviousDescription(description);
         setEditMode(true);
     };
@@ -67,12 +64,12 @@ function ProfilePage(props) {
             // 서버 작업
         }
         else {
-            setNickname(previousNickname);
             setDescription(previousDescription);
         }
         setEditMode(false);
     };
-    const onNicknameChange = (event) => setNickname(event.target.value);
+
+    // 이벤트 감지
     const onDescriptionChange = (event) => setDescription(event.target.value);
 
     return (
@@ -86,7 +83,11 @@ function ProfilePage(props) {
             {/* 내용 */}
             <ContentLayout>
                 <InfoLayout>
-                    <Nickname value={nickname} size={nickname.length} onChange={onNicknameChange} disabled={!isEditMode}/>
+                    <Nickname isEditMode={isEditMode}>{id}</Nickname>
+                    <Description value={description} maxLength="100" onChange={onDescriptionChange} disabled={!isEditMode}/>
+                    <DescriptionCount isEditMode={isEditMode}>{description.length} / 100</DescriptionCount>
+                </InfoLayout>
+                <MenuLayout>
                     {isMyProfile 
                         ? <>{isEditMode 
                             ? <>
@@ -100,12 +101,13 @@ function ProfilePage(props) {
                         }</>
                         : <PillShadowButton width="100px" onClick={follow}>팔로우</PillShadowButton>
                     }
-                </InfoLayout>
-                <Description value={description} onChange={onDescriptionChange} disabled={!isEditMode}/>
-                <FollowerLayout isEditMode={isEditMode}>
-                    <State>팔로워 12</State>
-                    <State>팔로잉 15</State>
-                </FollowerLayout>
+                </MenuLayout>
+                {isMyProfile && 
+                    <FollowerLayout isEditMode={isEditMode}>
+                        <State>팔로워 12</State>
+                        <State>팔로잉 15</State>
+                    </FollowerLayout>
+                }
                 <PostLayout isEditMode={isEditMode}>
                     <CategoryLayout>
                         <Category onClick={() => setCategory(0)} selected={category === 0}>마음글</Category>
