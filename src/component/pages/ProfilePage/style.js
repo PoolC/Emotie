@@ -4,7 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-flow: row nowrap;
     height: 100vh;
-    padding: 80px 200px;
+    padding: 90px 15%;
     box-sizing: border-box;
     background-color: ${props => props.emotion?.color || "white"};
 
@@ -12,18 +12,6 @@ export const Container = styled.div`
         flex-flow: column nowrap;
         padding: 30px 30px 0 30px;
     }
-`
-
-export const HeaderLayout = styled.div`
-    position: fixed;
-    top: 0;
-    left: ${props => props.left || "unset"};
-    right: ${props => props.right || "unset"};
-    display: flex;
-    flex-flow: row nowrap;
-    padding: 30px;
-    box-sizing: border-box;
-    gap: 20px;
 `
 
 export const MotieLayout = styled.div`

@@ -5,19 +5,19 @@ import Emotions from "../../../utils/Emotions";
 
 import { 
     Container, 
-    HeaderLayout, MotieLayout, ContentLayout, 
+    MotieLayout, ContentLayout, 
     InfoLayout, Nickname, Description,
     FollowerLayout, State,
     PostLayout, CategoryLayout, Category, PostList,
     InputLayout, PillInputWrapper
 } from "./style";
+import Header from "../../common/Header";
 import MotieFrame from "../../common/MotieFrame";
 import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
 import PillInput from "../../common/PillInput";
 import IconButton from "../../common/IconButton";
-import { IoSettingsSharp, IoHeart, IoPencil } from "react-icons/io5";
-import { RiFileListFill } from "react-icons/ri";
+import { IoPencil } from "react-icons/io5";
 
 function ProfilePage(props) {
     const { id } = useParams();
@@ -78,13 +78,7 @@ function ProfilePage(props) {
     return (
         <Container emotion={Emotions.SURPRISED}>
             {/* 헤더 */}
-            <HeaderLayout left="0">
-                <IconButton icon={IoHeart} color="black"/>
-                <IconButton icon={RiFileListFill} color="black"/>
-            </HeaderLayout>
-            <HeaderLayout right="0">
-                <IconButton icon={IoSettingsSharp} color="black"/>
-            </HeaderLayout>
+            <Header transparent recommend feed/>
             {/* 모티 */}
             <MotieLayout>
                 <MotieFrame emotion={Emotions.SURPRISED}/>
