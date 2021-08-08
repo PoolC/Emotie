@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive';
 
 import Emotions from "../../../utils/Emotions";
 
@@ -49,6 +50,9 @@ function ProfilePage(props) {
             {nickname: '닉네임2', content: '구독하고 갑니다'}, 
             {nickname: '닉네임3', content: '테스트'}]);
     }, [id]);
+
+    // 미디어 쿼리
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     // 클릭 이벤트
     const follow = () => {
@@ -127,7 +131,7 @@ function ProfilePage(props) {
                     {category === 1 && 
                         <InputLayout>
                             <PillInputWrapper><PillInput width="100%" placeholder="방명록을 남기세요"/></PillInputWrapper>
-                            <IconButton icon={IoPencil} color="black" size="1.5rem"/>
+                            <IconButton icon={IoPencil} color={isMobile ? "white" : "black"} size="1.5rem"/>
                         </InputLayout>
                     }
                 </PostLayout>
