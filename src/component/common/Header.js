@@ -1,12 +1,17 @@
-import styled from "styled-components";
 import { withRouter } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive'
+
+import styled from "styled-components";
 
 import PillInput from "./PillInput";
 import IconButton from "./IconButton";
-import LogoIcon from "../../image/logo_text.svg";
-import { IoPeople, IoLayers } from "react-icons/io5";
+import LogoText from "../../image/logo_text.svg";
+import LogoImage from "../../image/logo_img.svg";
+import { IoSearch, IoPeople, IoLayers } from "react-icons/io5";
 
 function Header(props) {
+    // 미디어 쿼리
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
     // 클릭 이벤트
     const goRecommendPage = () => props.history.push('/recommend');
@@ -17,9 +22,10 @@ function Header(props) {
 
     return (
         <Container backgroundColor={props.backgroundColor}>
-            <Icon src={LogoIcon}/>
-            {props.search && <Center><PillInput width="300px" placeholder="프로필을 검색합니다"/></Center>}
+            <Icon src={isMobile ? LogoImage : LogoText}/>
+            {props.search && !isMobile && <Center><PillInput width="300px" placeholder="프로필을 검색합니다"/></Center>}
             <MenuLayout>
+                {isMobile && <IconButton icon={IoSearch}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage}/>}
                 {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage}/>}
                 <Circle onClick={showMenu}/>
