@@ -17,13 +17,13 @@ function Header(props) {
     const goRecommendPage = () => props.history.push('/recommend');
     const goFeedPage = () => props.history.push('/feed');
     const showMenu = () => {
-
+        // 팝업 메뉴
     };
 
     return (
-        <Container backgroundColor={props.backgroundColor}>
-            <Icon src={isMobile ? LogoImage : LogoText}/>
-            {props.search && !isMobile && <Center><PillInput width="300px" placeholder="프로필을 검색합니다"/></Center>}
+        <Container transparent={props.transparent}>
+            <Icon src={isMobile ? LogoImage : LogoText} transparent={props.transparent}/>
+            {props.search && !isMobile && <Search width="300px" placeholder="프로필을 검색합니다"/>}
             <MenuLayout>
                 {props.search && isMobile && <IconButton icon={IoSearch}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage}/>}
@@ -39,26 +39,30 @@ export default withRouter(Header);
 const Container = styled.div`
     position: fixed;
     top: 0;
+    left: 0;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 60px;
-    padding: 0 30px;
     box-sizing: border-box;
-    background-color: ${props => props.backgroundColor || "#3C3C3C"};
+    background-color: ${props => props.transparent ? "transparent" : "#3C3C3C"};
     z-index: 1;
 `
 const Icon = styled.img`
+    position: absolute;
+    left: 30px;
+    display: ${props => props.transparent ? "none" : "unset"};
     height: 25px;
 `
-const Center = styled.div`
+const Search = styled(PillInput)`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 `
 const MenuLayout = styled.div`
+    position: absolute;
+    right: 30px;
     display: flex;
     flex-flow: row nowrap;
     gap: 30px;
