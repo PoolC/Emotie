@@ -58,7 +58,7 @@ function ProfilePage(props) {
     const follow = () => {
         // 서버 작업
     };
-    const write = () => {};
+    const write = () => props.history.push(`/profile/${id}/write`);
     const startEditMode = () => {
         setPreviousDescription(description);
         setEditMode(true);
