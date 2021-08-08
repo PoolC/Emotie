@@ -7,6 +7,7 @@ import RegisterPage from "./component/pages/RegisterPage/index";
 import FindPage from "./component/pages/FindPage/index";
 import ProfilePage from "./component/pages/ProfilePage/index";
 import MotieEditPage from "./component/pages/MotieEditPage/index";
+import DetailPage from "./component/pages/DetailPage/index";
 import WritePage from "./component/pages/WritePage/index";
 import FeedPage from "./component/pages/FeedPage/index";
 import RecommendPage from "./component/pages/RecommendPage/index";
@@ -26,6 +27,7 @@ function App() {
 
         <Route exact path="/profile/:id" component={withRouter(ProfilePage)}/>
         <Route exact path="/profile/:id/motie-edit" component={withRouter(MotieEditPage)}/>
+        <Route exact path="/profile/:id/post/:postId" component={withRouter(DetailPage)}/>
         <Route exact path="/profile/:id/write" component={withRouter(WritePage)}/>
 
         <Route exact path="/feed" component={withRouter(FeedPage)}/>
