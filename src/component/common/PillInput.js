@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 function PillInput(props) {
     return (
-        <Input type="text" width={props.width} placeholder={props.placeholder}/>
+        <Input type="text" {...props}/>
     );
 }
 
