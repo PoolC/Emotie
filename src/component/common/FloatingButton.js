@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 function FloatingButton(props) {
     return (
-        <Button onClick={props.onClick}>
+        <Button onClick={props.onClick} bottom={props.bottom}>
             {props.icon && <props.icon fontSize="1.4rem"/>}
         </Button>
     );
@@ -12,7 +12,7 @@ export default FloatingButton;
 
 const Button = styled.button`
     position: fixed;
-    bottom: 20px;
+    bottom: ${props => props.bottom ? props.bottom + `px` : `20px`};
     right: 30px;
     width: 54px;
     height: 54px;
@@ -32,7 +32,7 @@ const Button = styled.button`
     }
 
     @media only screen and (max-width: 768px) {
-        bottom: 15px;
+        bottom: ${props => props.bottom ? (props.bottom - 5) + `px` : `15px`};
         right: 15px;
     }
 `
