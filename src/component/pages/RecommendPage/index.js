@@ -15,7 +15,7 @@ function RecommendPage(props) {
 
     return (
         <Container>
-            <Header search/>
+            <Header search feed/>
             <ProfileList>
                 {profiles}
             </ProfileList>
