@@ -13,12 +13,12 @@ function FeedPage(props) {
     const goToTop = () => window.scrollTo(0, 0);
 
     const feeds =  emotions.map((emotion, index) => 
-        <PostCard key={index} emotion={emotion}/>
+        <PostCard key={index} emotion={emotion} share blur report/>
     );
 
     return (
         <Container>
-            <Header search/>
+            <Header search recommend/>
             <PostList>
                 {feeds}
             </PostList>
