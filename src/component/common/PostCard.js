@@ -30,29 +30,29 @@ function PostCard(props) {
         } : null
     ];
 
-    function click() {
-        console.log("postcard");
-    };
-
-    function onShare() {
+    function onShare(event) {
+        event.stopPropagation();
         console.log("share");
     }
 
-    function onBlur() {
+    function onBlur(event) {
+        event.stopPropagation();
         console.log("blur");
     }
 
-    function onReport() {
+    function onReport(event) {
+        event.stopPropagation();
         console.log("report");
     }
 
-    function onDelete() {
+    function onDelete(event) {
+        event.stopPropagation();
         console.log("delete");
     }
 
     return (
         <Wrapper>
-            <Container borderColor={props.emotion?.color} onClick={click}>
+            <Container borderColor={props.emotion?.color} onClick={props.onClick}>
                 <Info>
                     {!props.hideEmotion && <EmotionTag emotion={props.emotion}/>}
                     <Nickname hideEmotion={props.hideEmotion}>{props.nickname || "공릉동 공룡"}</Nickname>
@@ -60,10 +60,10 @@ function PostCard(props) {
                 </Info>
                 <Content>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
                 <Icons>
-                    {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E"/>}
-                    {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E"/>}
-                    {props.report && <IconButton icon={RiAlarmWarningLine} size="1.2rem" color="#7E7E7E"/>}
-                    {props.delete && <IconButton icon={RiDeleteBinLine} size="1.2rem" color="#7E7E7E"/>}
+                    {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>}
+                    {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E" onClick={onBlur}/>}
+                    {props.report && <IconButton icon={RiAlarmWarningLine} size="1.2rem" color="#7E7E7E" onClick={onReport}/>}
+                    {props.delete && <IconButton icon={RiDeleteBinLine} size="1.2rem" color="#7E7E7E" onClick={onDelete}/>}
                 </Icons>
             </Container>
             {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.id}/></DropDownContainer>}
