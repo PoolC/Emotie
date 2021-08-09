@@ -10,6 +10,7 @@ const emotions = [{color:"#FFF27D", tag:"기쁨"}, {color:"#FF855E", tag:"화남
 
 function RecommendPage(props) {
     const goProfilePage = (index) => props.history.push(`/profile/:${index}`);
+    const goWritePage = () => props.history.push('/profile/:1/write');
 
     const profiles =  emotions.map((emotion, index) => 
         <ProfileCard key={index} emotion={emotion} onClick={() => goProfilePage(index)}/>
@@ -21,7 +22,7 @@ function RecommendPage(props) {
             <ProfileList>
                 {profiles}
             </ProfileList>
-            <FloatingButton icon={GiPencil}/>
+            <FloatingButton icon={GiPencil} onClick={goWritePage}/>
         </Container>
     );
 }
