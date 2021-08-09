@@ -10,7 +10,8 @@ const emotions = [{color:"#FFF27D", tag:"기쁨", key:"happy"}, {color:"#FF855E"
 
 function WritePage(props) {
     const { id } = useParams();
-    const [ isprivate, setPrivate ] = useState(false);
+    const [ isPrivate, setPrivate ] = useState(false);
+    const [ content, setContent ] = useState("");
     const [ tagState, setTagState ] = useState({
         happy: false,
         angry: false,
@@ -21,7 +22,9 @@ function WritePage(props) {
         normal: false,
         tired: false
     });
-    const tagClick = (key) => {
+    const [ tagId, setTagId ] = useState(null);
+
+    const tagClick = (id, key) => {
         const defaultState = ({
             happy: false,
             angry: false,
@@ -33,32 +36,46 @@ function WritePage(props) {
             tired: false
         });
         setTagState({ ...defaultState, [key]: true});
+        setTagId(id);
     };
+    const uploadPost = () => {
+        // 등록
+        if(tagId === null) {
+            console.log("등록실패");
+        }
+        else {
+            console.log("등록성공");
+            console.log(tagId);
+            console.log(content);
+            console.log(isPrivate);
+        }
+    };
+
     const tags = emotions.map((emotion, index) => (
-        <Tag key={emotion.key} tagState={tagState[emotion.key]} onClick={() => tagClick(emotion.key)}>
+        <Tag key={index} tagState={tagState[emotion.key]} onClick={() => tagClick(index, emotion.key)}>
             <EmotionTag write emotion={emotion}/>
         </Tag>
     ));
     
     return (
         <Container>
-            <Header/>
+            <Header recommend feed/>
             <Body>
                 <TagContainer>
                     {tags}
                 </TagContainer>
                 <TextSection>
-                    <TextArea/>
-                    <CheckSection onClick={() => setPrivate(!isprivate)}>
+                    <TextArea onChange={(event) => setContent(event.target.value)}/>
+                    <CheckSection onClick={() => setPrivate(!isPrivate)}>
                         <CheckLabel>비공개 처리</CheckLabel>
                         <CheckBox>
-                            <CheckIcon visibility={isprivate ? "visible" : "hidden"}/>
+                            <CheckIcon visibility={isPrivate ? "visible" : "hidden"}/>
                         </CheckBox>
                     </CheckSection>
                 </TextSection>
                 <ButtonSection>
-                    <PillButton children="등록" onClick={() => console.log(tagState)}/>
-                    <PillButton negative children="취소"/>
+                    <PillButton children="등록" onClick={uploadPost}/>
+                    <PillButton negative children="취소" onClick={() => props.history.goBack()}/>
                 </ButtonSection>
             </Body>
         </Container>
