@@ -15,7 +15,7 @@ function PostCard(props) {
     }
 
     return (
-        <Container borderColor={props.emotion?.color}>
+        <Container borderColor={props.emotion?.color} onClick={props.onClick}>
             <Info>
                 {!props.hideEmotion && <EmotionTag emotion={props.emotion}/>}
                 <Nickname hideEmotion={props.hideEmotion}>{props.nickname || "공릉동 공룡"}</Nickname>
