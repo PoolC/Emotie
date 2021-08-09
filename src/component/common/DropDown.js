@@ -12,14 +12,14 @@ function DropDown(props){
 
     const options = props.options.map((option, index) => (
         option && 
-        (option.text == "seperator" ? <SeperatorContainer key={index}><Seperator key={index} width={props.width}/></SeperatorContainer>
-        : <DropDownContent key={index} onClick={() => {toggle(); option.eventHandler();}}>{option.text}</DropDownContent>)
+        (option.text === "seperator" ? <SeperatorContainer key={index}><Seperator key={index} width={props.width}/></SeperatorContainer>
+        : <DropDownContent key={index} onClick={(event) => {toggle(); option.eventHandler(event);}}>{option.text}</DropDownContent>)
     ));
 
     return (
         <DropDownContainer>
             {
-                (props.id == "profile") ?
+                (props.id === "profile") ?
                 <Profile onClick={toggle}/>
                 : <IconButton icon={props.icon} size="1.2rem" color="#7E7E7E" onClick={toggle}/>
             }
@@ -61,13 +61,13 @@ const DropDownBox = styled.div`
     flex-flow: column nowrap;
     align-items: center;
     position: absolute;
-    top: ${props => (props.id == "profile") ? `50px` : `0`};
+    top: ${props => (props.id === "profile") ? `50px` : `0`};
     right: 0;
     z-index: 1;
     background-color: #3c3c3c;
-    box-shadow: ${props => (props.id == "profile") ? `unset` : `0 0 10px lightgray`};
+    box-shadow: ${props => (props.id === "profile") ? `unset` : `0 0 10px lightgray`};
     width: ${props => props.width ?  props.width + `px` : `80px`};
-    border-radius: ${props => (props.id == "profile") ? `5px` : `unset`}
+    border-radius: ${props => (props.id === "profile") ? `5px` : `unset`}
 `
 
 const DropDownContent = styled.div`
