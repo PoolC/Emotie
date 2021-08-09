@@ -1,48 +1,81 @@
 import styled from 'styled-components';
-import { useState } from "react";
 
 import IconButton from './IconButton';
 import EmotionTag from './EmotionTag';
+import DropDown from './DropDown';
 import { AiOutlineShareAlt, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RiAlarmWarningLine, RiDeleteBinLine } from "react-icons/ri";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 function PostCard(props) {
-    const [drop, setDrop] = useState(false);
+    const options = [
+        props.share ? {
+            text: "공유하기",
+            eventHandler: onShare
+        } : null,
+        props.blur ? {
+            text: "보지않기",
+            eventHandler: onBlur
+        } : null,
+        props.report ? {
+            text: "신고하기",
+            eventHandler: onReport
+        } : null,
+        {
+            text: "seperator"
+        },
+        props.delete ? {
+            text: "삭제하기",
+            eventHandler: onDelete
+        } : null
+    ];
 
-    const dropdown = () => {
-        setDrop(true);
+    function click() {
+        console.log("postcard");
+    };
+
+    function onShare() {
+        console.log("share");
+    }
+
+    function onBlur() {
+        console.log("blur");
+    }
+
+    function onReport() {
+        console.log("report");
+    }
+
+    function onDelete() {
+        console.log("delete");
     }
 
     return (
-        <Container borderColor={props.emotion?.color}>
-            <Info>
-                {!props.hideEmotion && <EmotionTag emotion={props.emotion}/>}
-                <Nickname hideEmotion={props.hideEmotion}>{props.nickname || "공릉동 공룡"}</Nickname>
-                <Date>{props.date || "2021.07.20"}</Date>
-            </Info>
-            <Content>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
-            <Icons>
-                {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E"/>}
-                {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E"/>}
-                {props.report && <IconButton icon={RiAlarmWarningLine} size="1.2rem" color="#7E7E7E"/>}
-                {props.delete && <IconButton icon={RiDeleteBinLine} size="1.2rem" color="#7E7E7E"/>}
-            </Icons>
-            {(props.share || props.blur || props.report || props.delete) &&
-            <DropDown>
-                <IconButton icon={BiDotsHorizontalRounded} size="1.2rem" color="#7E7E7E" onClick={dropdown}/>
-                <DropDownBox drop={drop}>
-                    {props.share && <DropDownContent>공유하기</DropDownContent>}
-                    {props.blur && <DropDownContent>보지않기</DropDownContent>}
-                    {props.report && <DropDownContent>신고하기</DropDownContent>}
-                    {props.delete && <DropDownContent>삭제하기</DropDownContent>}
-                </DropDownBox>
-            </DropDown>}
-        </Container>
+        <Wrapper>
+            <Container borderColor={props.emotion?.color} onClick={click}>
+                <Info>
+                    {!props.hideEmotion && <EmotionTag emotion={props.emotion}/>}
+                    <Nickname hideEmotion={props.hideEmotion}>{props.nickname || "공릉동 공룡"}</Nickname>
+                    <Date>{props.date || "2021.07.20"}</Date>
+                </Info>
+                <Content>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
+                <Icons>
+                    {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E"/>}
+                    {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E"/>}
+                    {props.report && <IconButton icon={RiAlarmWarningLine} size="1.2rem" color="#7E7E7E"/>}
+                    {props.delete && <IconButton icon={RiDeleteBinLine} size="1.2rem" color="#7E7E7E"/>}
+                </Icons>
+            </Container>
+            {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.id}/></DropDownContainer>}
+        </Wrapper>
     );
 }
 
 export default PostCard;
+
+const Wrapper = styled.div`
+    position: relative;
+`
 
 const Container = styled.div`
     position: relative;
@@ -58,7 +91,6 @@ const Container = styled.div`
     border: 1px solid #3C3C3C;
     border-radius: 5px;
     transition: border 300ms, opacity 300ms;
-    // min-width: 300px;
 
     &:hover {
         border: 1px solid ${props => props.borderColor || "#ffffff"};
@@ -117,7 +149,7 @@ const Icons = styled.div`
     }
 `
 
-const DropDown = styled.div`
+const DropDownContainer = styled.div`
     position: absolute;
     bottom: 20px;
     right: 40px;
@@ -125,30 +157,5 @@ const DropDown = styled.div`
 
     @media only screen and (max-width: 1100px) {
         display: flex;
-    }
-`
-
-const DropDownBox = styled.div`
-    display: ${props => props.drop ? `flex` : `none`};
-    flex-flow: column nowrap;
-    align-items: center;
-    position: absolute;
-    right: 0;
-    min-width: 80px;
-    z-index: 1;
-    background-color: #3c3c3c;
-    box-shadow: 0 0 10px lightgray;
-`
-
-const DropDownContent = styled.div`
-    color: #ffffff;
-    font-size: 0.8rem;
-    width: 100%;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
-
-    &:hover {
-        outline: 1px solid white;
     }
 `
