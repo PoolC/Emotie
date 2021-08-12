@@ -144,12 +144,12 @@ function SettingPage(props) {
                     <FrameLayout>
                         <Group>
                             <Description>기존 비밀번호</Description>
-                            <PillInput width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
+                            <PillInput type="password" width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
                         </Group>
                         <Group>
                             <Description>새 비밀번호</Description>
-                            <PillInput width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
-                            <PillInput width="300px" placeholder="비밀번호 확인" value={password} onChange={onPasswordChanged}/>
+                            <PillInput type="password" width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
+                            <PillInput type="password" width="300px" placeholder="비밀번호 확인" value={password} onChange={onPasswordChanged}/>
                         </Group>
                         <Group>
                             <PillButton width="150px">비밀번호 변경</PillButton>
@@ -182,7 +182,7 @@ function SettingPage(props) {
                         </Group>
                         <Group>
                             <Description>비밀번호 확인</Description>
-                            <PillInput width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
+                            <PillInput type="password" width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
                         </Group>
                         <Group>
                             <Description>정말로 삭제하시겠습니까?</Description>
