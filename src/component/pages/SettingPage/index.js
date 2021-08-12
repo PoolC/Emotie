@@ -70,7 +70,18 @@ function SettingPage(props) {
             case 1:
                 return (
                     <FrameLayout>
-
+                        <Group>
+                            <Description>기존 비밀번호</Description>
+                            <PillInput width="300px" placeholder="비밀번호"/>
+                        </Group>
+                        <Group>
+                            <Description>새 비밀번호</Description>
+                            <PillInput width="300px" placeholder="비밀번호"/>
+                            <PillInput width="300px" placeholder="비밀번호 확인"/>
+                        </Group>
+                        <Group>
+                            <PillButton width="150px">비밀번호 변경</PillButton>
+                        </Group>
                     </FrameLayout>
                 );
             case 2:

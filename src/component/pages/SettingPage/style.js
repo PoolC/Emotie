@@ -6,10 +6,6 @@ export const Container = styled.div`
     align-items: center;
     padding: 90px 30px 30px 30px;
     box-sizing: border-box;
-
-    @media only screen and (max-width: 768px) {
-        padding: 90px 30px 30px 30px;
-    }
 `
 
 export const ContentLayout = styled.div`
