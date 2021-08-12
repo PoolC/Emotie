@@ -35,6 +35,7 @@ export const Category = styled.button`
         color: white;
     }
 `
+
 export const FrameLayout = styled.div`
     display: flex;
     flex-flow: column nowrap;
@@ -50,4 +51,10 @@ export const Description = styled.p`
     color: white;
     font-size: 0.9rem;
     word-break: keep-all;
+`
+export const SemiGroup = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
 `
