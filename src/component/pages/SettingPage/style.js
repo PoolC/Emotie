@@ -8,7 +8,7 @@ export const Container = styled.div`
     box-sizing: border-box;
 
     @media only screen and (max-width: 768px) {
-        padding: 75px 15px 15px 15px;
+        padding: 90px 30px 30px 30px;
     }
 `
 
@@ -42,7 +42,12 @@ export const Category = styled.button`
 export const FrameLayout = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    gap: 20px;
+    gap: 30px;
+`
+export const Group = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
 `
 export const Description = styled.p`
     margin: 0;
