@@ -21,9 +21,6 @@ function PostCard(props) {
             text: "신고하기",
             eventHandler: onReport
         } : null,
-        {
-            text: "seperator"
-        },
         props.delete ? {
             text: "삭제하기",
             eventHandler: onDelete
