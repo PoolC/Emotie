@@ -66,7 +66,8 @@ const Container = styled.div`
     height: 60px;
     box-sizing: border-box;
     background-color: ${props => props.transparent ? "transparent" : "#3C3C3C"};
-    z-index: 1;
+    z-index: 2;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
 `
 const Icon = styled.img`
     position: absolute;
