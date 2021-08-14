@@ -11,16 +11,15 @@ import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, GenderButton, BirthInput, ButtonText, Border, Link, CheckSection, CheckLabel, CheckBox, CheckIcon
 } from "./style";
 
-const inputprops = [{ value: "이메일 인증 번호", alert: "인증번호가 틀립니다" }, { value: "비밀번호", alert: "12자 이하 영문+숫자 조합이여야 합니다" }, { value: "비밀번호 재입력", alert: "비밀번호가 일치하지 않습니다" }, { value: "비밀번호", alert: "12자 이하 영문+숫자 조합이여야 합니다" }, { value: "별명", alert: "중복되는 별명입니다" }];
-const gender = ['남성', '여성', '비공개'];
-const birth = [{value: "년", min: "1900", max:"2020", width:"70px", placeholder:"출생년도"}, {value: "월", min: "1", max:"12", width:"30px", placeholder:"월"}, {value: "일", min: "1", max:"31", width:"30px", placeholder:"일"}];
-
 function RegisterPage(props) {
-    const cert = "인증번호 받기";
-    const [ isChecked, setChecked ] = useState(false);
+    const inputprops = [{ value: "이메일 인증 번호", alert: "인증번호가 틀립니다" }, { value: "비밀번호 재입력", alert: "비밀번호가 일치하지 않습니다", type:"password" }, { value: "비밀번호", alert: "12자 이하 영문+숫자 조합이여야 합니다", type:"password"}, { value: "별명", alert: "중복되는 별명입니다" }];
+    const gender = ['남성', '여성', '비공개'];
+    const birth = [{value: "년", min: "1900", max:"2020", width:"70px", placeholder:"출생년도"}, {value: "월", min: "1", max:"12", width:"30px", placeholder:"월"}, {value: "일", min: "1", max:"31", width:"30px", placeholder:"일"}];
+    const [isFirstCert,  setFirstCert] = useState(true);
+    const [isChecked, setChecked ] = useState(false);
     const inputs = inputprops.map((props, index) =>
         <InputGroup>
-            <PillInput key={index} width='200px' placeholder={props.value}></PillInput>
+            <PillInput key={index} width='200px' placeholder={props.value} type={props.type}></PillInput>
             <InputAlert>{props.alert}</InputAlert>
         </InputGroup>
     );
@@ -42,7 +41,7 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput width='140px' placeholder='이메일'></PillInput><CertButton children={cert}></CertButton>
+                        <PillInput width='140px' placeholder='이메일'></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => setFirstCert(false)}></CertButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
