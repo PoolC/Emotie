@@ -65,7 +65,7 @@ const DropDownBox = styled.div`
     right: 0;
     z-index: 1;
     background-color: #3c3c3c;
-    box-shadow: ${props => (props.id === "profile") ? `unset` : `0 0 10px rgba(0, 0, 0, 0.4)`};
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     width: ${props => props.width ?  props.width + `px` : `80px`};
     border-radius: ${props => (props.id === "profile") ? `5px` : `unset`};
     overflow: hidden;
