@@ -20,13 +20,13 @@ const Wrapper = styled.div`
     position: relative;
 
     &::after {
-        content: "^";
+        content: ">";
         position: absolute;
         top: 20px;
         right: 10px;
         font-size: 0.8rem;
         color: white;
-        transform: translateY(-50%) rotate(180deg);
+        transform: translateY(-50%) rotate(90deg) scaleX(0.7);
         pointer-events: none;
     }
 `
