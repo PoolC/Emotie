@@ -45,6 +45,7 @@ export const Text = styled.div`
     font-size: 18pt;
     text-align:center;
     color:#FFFFFF;
+    word-break:keep-all;
 
     @media only screen and (max-width: 768px) {
     }
