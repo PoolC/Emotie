@@ -4,22 +4,39 @@ function SelectGroup(props) {
     const onOptionChanged = (event) => props.handleState(event.target.value);
 
     return (
-        <SelectWrapper onChange={onOptionChanged} value={props.state}>
-            {props.options.map((option, index) => <option key={index} value={option}>{option}</option>)}
-        </SelectWrapper>
+        <Wrapper>
+            <SelectWrapper onChange={onOptionChanged} value={props.state}>
+                {props.options.map((option, index) => <option key={index} value={option}>{option}</option>)}
+            </SelectWrapper>
+        </Wrapper>
     );
 }
 
 export default SelectGroup;
 
+const Wrapper = styled.div`
+    position: relative;
+
+    &::after {
+        content: "⌄";
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        font-size: 1rem;
+        color: white;
+        pointer-events: none;
+    }
+`
 const SelectWrapper = styled.select`
     width: 80px;
     height: 40px;
     border: 1px solid #808080;
     border-radius: 20px;
     padding: 0 10px;
+    appearance: none;
     background-color: #1E1E1E;
     color: white;
+    cursor: pointer;
     transition: border-color 300ms;
 
     &:focus {
