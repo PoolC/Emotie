@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GiCheckMark } from "react-icons/gi"
 
 export const Container = styled.div`
+    word-break:keep-all;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -99,6 +100,7 @@ export const FlexBox = styled.div`
 `
 
 export const CertButton = styled.button`
+    word-break:keep-all;
     margin-left:10px;  
     width: 50px;
     height: 40px;
@@ -117,6 +119,22 @@ export const CertButton = styled.button`
 `
 
 export const GenderButton = styled.button`
+    margin-left:10px;  
+    width: 75px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #707070;
+    border: none;
+    color: #ffffff;
+    transition: border 300ms, opacity 300ms;
+    &:hover {
+        background-color: #A7A7A7;
+    }
+    &:active {
+        opacity: 0.6;
+    }
+`
+export const GenderLabel = styled.button`
     margin-left:10px;  
     width: 75px;
     height: 40px;
