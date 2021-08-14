@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive';
 
 import Emotions from "../../../utils/Emotions";
 
 import { 
     Container, 
-    HeaderLayout, MotieLayout, ContentLayout, 
-    InfoLayout, Nickname, Description,
+    MotieLayout, ContentLayout, 
+    InfoLayout, Nickname, Description, DescriptionCount,
+    MenuLayout,
     FollowerLayout, State,
     PostLayout, CategoryLayout, Category, PostList,
     InputLayout, PillInputWrapper
 } from "./style";
+import Header from "../../common/Header";
 import MotieFrame from "../../common/MotieFrame";
 import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
 import PillInput from "../../common/PillInput";
 import IconButton from "../../common/IconButton";
-import { IoSettingsSharp, IoHeart, IoPencil } from "react-icons/io5";
-import { RiFileListFill } from "react-icons/ri";
+import { IoPencil } from "react-icons/io5";
 
 function ProfilePage(props) {
     const { id } = useParams();
@@ -25,8 +27,6 @@ function ProfilePage(props) {
     const [isMyProfile, setMyProfile] = useState(true);
     const [isEditMode, setEditMode] = useState(false);
 
-    const [nickname, setNickname] = useState('');
-    const [previousNickname, setPreviousNickname] = useState('');
     const [description, setDescription] = useState('');
     const [previousDescription, setPreviousDescription] = useState('');
 
@@ -36,7 +36,6 @@ function ProfilePage(props) {
 
     useEffect(() => {
         // 임시 정보
-        setNickname(id);
         setDescription('자기소개는 언제나 어려워\n두 줄만 들어가려면 몇 글자 정도여야하는지 모르겠네요 스크롤 생기는 거 싫은데');
         setMyProfile(true);
         // 임시 글 & 방명록
@@ -52,13 +51,15 @@ function ProfilePage(props) {
             {nickname: '닉네임3', content: '테스트'}]);
     }, [id]);
 
+    // 미디어 쿼리
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
     // 클릭 이벤트
     const follow = () => {
         // 서버 작업
     };
-    const write = () => {};
+    const write = () => props.history.push(`/profile/${id}/write`);
     const startEditMode = () => {
-        setPreviousNickname(nickname);
         setPreviousDescription(description);
         setEditMode(true);
     };
@@ -67,24 +68,18 @@ function ProfilePage(props) {
             // 서버 작업
         }
         else {
-            setNickname(previousNickname);
             setDescription(previousDescription);
         }
         setEditMode(false);
     };
-    const onNicknameChange = (event) => setNickname(event.target.value);
+
+    // 이벤트 감지
     const onDescriptionChange = (event) => setDescription(event.target.value);
 
     return (
         <Container emotion={Emotions.SURPRISED}>
             {/* 헤더 */}
-            <HeaderLayout left="0">
-                <IconButton icon={IoHeart} color="black"/>
-                <IconButton icon={RiFileListFill} color="black"/>
-            </HeaderLayout>
-            <HeaderLayout right="0">
-                <IconButton icon={IoSettingsSharp} color="black"/>
-            </HeaderLayout>
+            <Header transparent recommend feed/>
             {/* 모티 */}
             <MotieLayout>
                 <MotieFrame emotion={Emotions.SURPRISED}/>
@@ -92,7 +87,11 @@ function ProfilePage(props) {
             {/* 내용 */}
             <ContentLayout>
                 <InfoLayout>
-                    <Nickname value={nickname} size={nickname.length} onChange={onNicknameChange} disabled={!isEditMode}/>
+                    <Nickname isEditMode={isEditMode}>{id}</Nickname>
+                    <Description value={description} maxLength="100" onChange={onDescriptionChange} disabled={!isEditMode}/>
+                    <DescriptionCount isEditMode={isEditMode}>{description.length} / 100</DescriptionCount>
+                </InfoLayout>
+                <MenuLayout>
                     {isMyProfile 
                         ? <>{isEditMode 
                             ? <>
@@ -106,12 +105,13 @@ function ProfilePage(props) {
                         }</>
                         : <PillShadowButton width="100px" onClick={follow}>팔로우</PillShadowButton>
                     }
-                </InfoLayout>
-                <Description value={description} onChange={onDescriptionChange} disabled={!isEditMode}/>
-                <FollowerLayout isEditMode={isEditMode}>
-                    <State>팔로워 12</State>
-                    <State>팔로잉 15</State>
-                </FollowerLayout>
+                </MenuLayout>
+                {isMyProfile && 
+                    <FollowerLayout isEditMode={isEditMode}>
+                        <State>팔로워 12</State>
+                        <State>팔로잉 15</State>
+                    </FollowerLayout>
+                }
                 <PostLayout isEditMode={isEditMode}>
                     <CategoryLayout>
                         <Category onClick={() => setCategory(0)} selected={category === 0}>마음글</Category>
@@ -131,7 +131,7 @@ function ProfilePage(props) {
                     {category === 1 && 
                         <InputLayout>
                             <PillInputWrapper><PillInput width="100%" placeholder="방명록을 남기세요"/></PillInputWrapper>
-                            <IconButton icon={IoPencil} color="black" size="1.5rem"/>
+                            <IconButton icon={IoPencil} color={isMobile ? "white" : "black"} size="1.5rem"/>
                         </InputLayout>
                     }
                 </PostLayout>

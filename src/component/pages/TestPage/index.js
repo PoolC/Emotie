@@ -15,16 +15,20 @@ function LandingPage(props) {
     return (
         <Container>
             {/* 헤더 */}
-            <Header search/>
+            <Header search recommend feed/>
             {/* 내용 */}
             <FloatingButton icon={IoPersonOutline}/>
             <IconButton icon={IoPersonOutline}/>
             <PillButton>테스트</PillButton>
             <PillButton negative>테스트</PillButton>
             <PostList>
-                <PostCard hideEmotion share blur report delete/>
-                <PostCard hideEmotion share blur report/>
-                <PostCard emotion={Emotions.SAD}/>
+                <PostCard hideEmotion share blur report delete id={1}/>
+                <PostCard hideEmotion share blur report id={2}/>
+                <PostCard hideEmotion share blur id={3}/>
+                <PostCard hideEmotion share blur report delete id={4}/>
+                <PostCard hideEmotion share blur report id={5}/>
+                <PostCard hideEmotion share blur report delete id={6}/>
+                <PostCard emotion={Emotions.SAD} share blur report delete id={7}/>
             </PostList>
             <ProfileList>
                 <ProfileCard/>
