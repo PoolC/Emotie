@@ -77,6 +77,7 @@ export const Border = styled.a`
 `
 export const Link = styled.a`
     text-decoration:none;
+    cursor: pointer;
     :hover{
         text-decoration:underline;
     }
@@ -181,27 +182,6 @@ export const BirthInput = styled.input`
         border-color: #ffffff;
     }
 `
-
-export const CheckSection = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    gap:5px;
-`
-export const CheckLabel = styled.label`
-    color: #ffffff;
-    margin-left:16px;
-`
-
-export const CheckBox = styled.div`
-    width: 15px;
-    height: 15px;
-    border: 1px solid #ffffff;
-`
-
-export const CheckIcon = styled(GiCheckMark)`
-    color: white;
-`;
 
 
 

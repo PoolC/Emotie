@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-import { useParams } from "react-router-dom";
-
 import Header from "../../common/Header";
 import logo from "../../../image/logo_img.svg";
 import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
+import CheckBox from "../../common/CheckBox";
 
 import {
-    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, GenderButton, BirthInput, ButtonText, Border, Link, CheckSection, CheckLabel, CheckBox, CheckIcon
+    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, GenderButton, BirthInput, ButtonText, Border, Link
 } from "./style";
 
 function RegisterPage(props) {
@@ -60,14 +59,7 @@ function RegisterPage(props) {
                 </InputGroup>
             </Gap>
             <ButtonText>
-                <CheckSection>
-                        <CheckLabel>
-                            <Link>개인정보처리방침 및 이용약관에 동의합니다</Link>
-                        </CheckLabel>
-                        <CheckBox onClick={() => setChecked(!isChecked)}>
-                            <CheckIcon visibility={isChecked ? "visible" : "hidden"}/>
-                        </CheckBox>
-                    </CheckSection>
+                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)}/>
             </ButtonText>
             <PillButton width='260px' children='다음'></PillButton>
             <Border>
