@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { GiCheckMark } from "react-icons/gi"
-
 export const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
@@ -75,29 +73,6 @@ export const TextArea = styled.textarea`
         height: 110px;
     }
 `
-export const CheckSection = styled.div`
-    position: absolute;
-    bottom: -30px;
-    right: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    gap: 10px;
-`
-export const CheckLabel = styled.label`
-    color: #ffffff;
-`
-
-export const CheckBox = styled.div`
-    width: 15px;
-    height: 15px;
-    border: 1px solid #ffffff;
-`
-
-export const CheckIcon = styled(GiCheckMark)`
-    color: white;
-    margin-bottom: 3px;
-`;
 
 export const ButtonSection = styled.div`
     display: flex;

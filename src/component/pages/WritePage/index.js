@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Container, Body, TagContainer, Tag, TextSection, TextArea, CheckSection, CheckLabel, CheckBox, CheckIcon, ButtonSection } from "./style";
+import { Container, Body, TagContainer, Tag, TextSection, TextArea, ButtonSection } from "./style";
 import EmotionTag from "../../common/EmotionTag";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
+import CheckBox from "../../common/CheckBox";
 
 const emotions = [{color:"#FFF27D", tag:"기쁨", key:"happy"}, {color:"#FF855E", tag:"화남", key:"angry"}, {color:"#9FA7EF", tag:"슬픔", key:"sad"}, {color:"#AEE477", tag:"놀람", key:"surprised"}, {color:"#9431A4", tag:"질투", key:"jealous"}, {color:"#F29CB6", tag:"설렘", key:"flutter"}, {color:"#FFFFFF", tag:"무난", key:"normal"}, {color:"#ADADAD", tag:"지침", key:"tired"}];
 
@@ -66,12 +67,7 @@ function WritePage(props) {
                 </TagContainer>
                 <TextSection>
                     <TextArea onChange={(event) => setContent(event.target.value)}/>
-                    <CheckSection onClick={() => setPrivate(!isPrivate)}>
-                        <CheckLabel>비공개 처리</CheckLabel>
-                        <CheckBox>
-                            <CheckIcon visibility={isPrivate ? "visible" : "hidden"}/>
-                        </CheckBox>
-                    </CheckSection>
+                    <CheckBox label="비공개" checked={isPrivate} onClick={() => setPrivate(!isPrivate)}/>
                 </TextSection>
                 <ButtonSection>
                     <PillButton children="등록" onClick={uploadPost}/>
