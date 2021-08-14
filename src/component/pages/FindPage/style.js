@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    word-break:keep-all;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -63,6 +64,7 @@ export const FlexBox = styled.div`
 `
 
 export const CertButton = styled.button`
+    word-break:keep-all;
     margin-left:10px;  
     width: 50px;
     height: 40px;
@@ -77,5 +79,23 @@ export const CertButton = styled.button`
     }
     &:active {
         opacity: 0.6;
+    }
+`
+
+export const InputGroup = styled.div`
+    text-align:center;
+    @media only screen and (max-width: 768px) {
+    }
+`
+
+export const InputAlert = styled.div`
+    width:200px;
+    height:20px;
+    padding: 4px 20px;
+    font-size: 8pt;
+    text-align:left;
+    color:#EF9797;
+
+    @media only screen and (max-width: 768px) {
     }
 `
