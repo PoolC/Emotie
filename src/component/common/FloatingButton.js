@@ -23,6 +23,7 @@ const Button = styled.button`
     color: #ffffff;
     box-shadow: 0 0 20px black;
     transition: opacity 300ms;
+    z-index: 2;
 
     &:hover {
         opacity: 0.8;
