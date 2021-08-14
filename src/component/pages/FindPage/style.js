@@ -54,6 +54,7 @@ export const Text = styled.div`
 `
 
 export const FlexBox = styled.div`
+    width:260px;
     display:flex;
     justify-content:space-between;
     align-items:center;

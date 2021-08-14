@@ -14,6 +14,7 @@ import {
 function FindPage(props) {
     const [step, setStep] = useState(0);
     const [isFirstCert,  setFirstCert] = useState(true);
+    const goLoginPage = () => props.history.push('/login');
     let Page = null;
     if (step === 0) {
         Page = <>
@@ -65,8 +66,8 @@ function FindPage(props) {
         Page = 
         <>
         <Title>비밀번호 변경 완료</Title>
-        <Text>비밀번호 변경이 완료되었습니다</Text>;
-        <PillButton width="260px">로그인 페이지로</PillButton>
+        <Text>비밀번호 변경이 완료되었습니다</Text>
+        <PillButton width="220px" onClick={goLoginPage}>로그인 페이지로</PillButton>
         </>;
     } else {
         Page = <Text>잘못된 접근입니다.</Text>;
