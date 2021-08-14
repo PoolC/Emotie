@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { RiArrowDownSLine } from "react-icons/ri";
+
 function SelectGroup(props) {
     const onOptionChanged = (event) => props.handleState(event.target.value);
 
@@ -18,12 +20,13 @@ const Wrapper = styled.div`
     position: relative;
 
     &::after {
-        content: "⌄";
+        content: "^";
         position: absolute;
-        top: 6px;
+        top: 20px;
         right: 10px;
-        font-size: 1rem;
+        font-size: 0.8rem;
         color: white;
+        transform: translateY(-50%) rotate(180deg);
         pointer-events: none;
     }
 `
