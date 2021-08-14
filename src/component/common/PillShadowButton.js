@@ -20,6 +20,7 @@ const Button = styled.button`
     color: #ffffff;
     font-weight: 700;
     transition: box-shadow 300ms, opacity 300ms;
+    cursor: pointer;
 
     &:hover {
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);

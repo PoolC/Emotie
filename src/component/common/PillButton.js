@@ -18,6 +18,7 @@ const Button = styled.button`
     background-color: ${props => props.negative ? "#707070" : "#3C3C3C"};
     color: #ffffff;
     transition: border 300ms, opacity 300ms;
+    cursor: pointer;
 
     &:hover {
         border: 1px solid white;

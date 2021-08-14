@@ -18,6 +18,7 @@ export default RadioGroup;
 const RadioWrapper = styled.label`
     font-size: 0.9rem;
     color: white;
+    cursor: pointer;
 `
 const Radio = styled.input`
     margin-right: 10px;

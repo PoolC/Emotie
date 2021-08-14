@@ -24,6 +24,7 @@ const Button = styled.button`
     box-shadow: 0 0 20px black;
     transition: opacity 300ms;
     z-index: 2;
+    cursor: pointer;
 
     &:hover {
         opacity: 0.8;

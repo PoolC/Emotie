@@ -49,6 +49,7 @@ export const Title = styled.h2`
 export const Group = styled.div`
     display: flex;
     flex-flow: column nowrap;
+    align-items: flex-start;
     gap: 10px;
 `
 export const Description = styled.p`
