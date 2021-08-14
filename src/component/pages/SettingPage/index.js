@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { 
     Container, ContentLayout, 
     CategoryLayout, Category,
-    FrameLayout, Group, Description, SemiGroup
+    FrameLayout, Title, Group, Description, SemiGroup
 } from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
@@ -105,6 +105,7 @@ function SettingPage(props) {
             case 0: // 개인정보 관리
                 return (
                     <FrameLayout>
+                        <Title>기본 정보</Title>
                         <Group>
                             <Description>별명</Description>
                             <PillInput width="300px" placeholder="별명" value={nickname} onChange={onNicknameChanged}/>
@@ -142,6 +143,7 @@ function SettingPage(props) {
             case 1: // 비밀번호 변경
                 return (
                     <FrameLayout>
+                        <Title>비밀번호 변경</Title>
                         <Group>
                             <Description>기존 비밀번호</Description>
                             <PillInput type="password" width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
@@ -159,6 +161,7 @@ function SettingPage(props) {
             case 2: // 계정 삭제
                 return (
                     <FrameLayout>
+                        <Title>계정 삭제</Title>
                         <Group>
                             <Description>
                                 <strong>{nickname} (hy0903@yonsei.ac.kr)</strong> 계정을 삭제합니다. 

@@ -41,6 +41,11 @@ export const FrameLayout = styled.div`
     flex-flow: column nowrap;
     gap: 30px;
 `
+export const Title = styled.h2`
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+`
 export const Group = styled.div`
     display: flex;
     flex-flow: column nowrap;
