@@ -74,6 +74,12 @@ export const TextArea = styled.textarea`
     }
 `
 
+export const CheckBoxContainer = styled.div`
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+`
+
 export const ButtonSection = styled.div`
     display: flex;
     flex-flow: row nowrap;

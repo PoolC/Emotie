@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Container, Body, TagContainer, Tag, TextSection, TextArea, ButtonSection } from "./style";
+import { Container, Body, TagContainer, Tag, TextSection, TextArea, CheckBoxContainer, ButtonSection } from "./style";
 import EmotionTag from "../../common/EmotionTag";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
@@ -67,7 +67,9 @@ function WritePage(props) {
                 </TagContainer>
                 <TextSection>
                     <TextArea onChange={(event) => setContent(event.target.value)}/>
-                    <CheckBox label="비공개" checked={isPrivate} onClick={() => setPrivate(!isPrivate)}/>
+                    <CheckBoxContainer>
+                        <CheckBox label="비공개" checked={isPrivate} onClick={() => setPrivate(!isPrivate)}/>
+                    </CheckBoxContainer>
                 </TextSection>
                 <ButtonSection>
                     <PillButton children="등록" onClick={uploadPost}/>

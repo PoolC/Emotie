@@ -16,16 +16,15 @@ function CheckBox(props) {
 export default CheckBox;
 
 const CheckSection = styled.div`
-    position: absolute;
-    bottom: -30px;
-    right: 0;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 `
 const CheckLabel = styled.label`
     color: #ffffff;
+    cursor: pointer;
 `
 
 const CheckBoxContainer = styled.div`
