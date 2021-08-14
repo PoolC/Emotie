@@ -91,6 +91,7 @@ const Container = styled.div`
     border: 1px solid #3C3C3C;
     border-radius: 5px;
     transition: border 300ms, opacity 300ms;
+    cursor: context-menu;
 
     &:hover {
         border: 1px solid ${props => props.borderColor || "#ffffff"};

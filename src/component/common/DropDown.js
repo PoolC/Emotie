@@ -13,7 +13,7 @@ function DropDown(props){
     const options = props.options.map((option, index) => (
         option && 
         (option.text === "seperator" ? <SeperatorContainer key={index}><Seperator key={index} width={props.width}/></SeperatorContainer>
-        : <DropDownContent key={index} onClick={(event) => {toggle(); option.eventHandler(event);}}>{option.text}</DropDownContent>)
+        : <DropDownContent key={index} id={props.id} onClick={(event) => {toggle(); option.eventHandler(event);}}>{option.text}</DropDownContent>)
     ));
 
     return (
@@ -42,7 +42,7 @@ export default onClickOutside(DropDown, clickOutsideConfig);
 
 const SeperatorContainer = styled.div`
     width: 100%;
-    height: 20px;
+    height: 1px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,21 +65,27 @@ const DropDownBox = styled.div`
     right: 0;
     z-index: 1;
     background-color: #3c3c3c;
-    box-shadow: ${props => (props.id === "profile") ? `unset` : `0 0 10px lightgray`};
+    box-shadow: ${props => (props.id === "profile") ? `unset` : `0 0 10px rgba(0, 0, 0, 0.4)`};
     width: ${props => props.width ?  props.width + `px` : `80px`};
-    border-radius: ${props => (props.id === "profile") ? `5px` : `unset`}
+    border-radius: ${props => (props.id === "profile") ? `5px` : `unset`};
+    overflow: hidden;
 `
 
-const DropDownContent = styled.div`
+const DropDownContent = styled.button`
     color: #ffffff;
     font-size: 0.8rem;
     width: 100%;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
+    height: ${props => (props.id === "profile") ? `40px` : `30px`};
+    cursor: pointer;
+    background: none;
+    border: none;
 
     &:hover {
-        outline: 1px solid white;
+        background-color: #707070;
+    }
+
+    &:active {
+        opacity: 0.6;
     }
 `
 
@@ -88,4 +94,5 @@ const Profile = styled.div`
     height: 1.5rem;
     background-color: white;
     border-radius: 50%;
+    cursor: pointer;
 `

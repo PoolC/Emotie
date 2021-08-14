@@ -18,9 +18,10 @@ const Button = styled.button`
     background-color: transparent;
     color: ${props => props.color || "#ffffff"};
     transition: opacity 300ms;
+    cursor: pointer;
 
     &:hover {
-        opacity: 0.8;
+        opacity: 0.6;
     }
     &:active {
         opacity: 0.6;
