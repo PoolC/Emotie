@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    word-break:keep-all;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
