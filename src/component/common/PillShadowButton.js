@@ -16,13 +16,13 @@ const Button = styled.button`
     border: none;
     border-radius: 18px;
     background-color: ${props => props.negative ? "#707070" : "#3C3C3C"};
-    box-shadow: 0 1px 2px black;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     color: #ffffff;
     font-weight: 700;
     transition: box-shadow 300ms, opacity 300ms;
 
     &:hover {
-        box-shadow: 0 2px 2px black;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
     }
     &:active {
         opacity: 0.6;
