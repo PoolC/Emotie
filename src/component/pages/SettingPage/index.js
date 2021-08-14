@@ -8,71 +8,8 @@ import {
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
-
-
-
-// 임시
-import styled from "styled-components";
-
-function RadioGroup(props) {
-    const onOptionChanged = (event) => props.handleState(event.target.value * 1);
-
-    return (
-        <>{props.options.map((option, index) => (
-            <RadioWrapper key={index}>
-                <Radio type="radio" value={index} onChange={onOptionChanged} checked={props.state === index}/>
-                {option}
-            </RadioWrapper>
-        ))}</>
-    );
-}
-const RadioWrapper = styled.label`
-    font-size: 0.9rem;
-    color: white;
-`
-const Radio = styled.input`
-    margin-right: 10px;
-    appearance: none;
-    width: 10px;
-    height: 10px;
-    border: 1px solid white;
-    border-radius: 50%;
-
-    &:checked {
-        background-color: lightgray;
-    }
-    &:hover {
-        background-color: white;
-    }
-`
-
-function SelectGroup(props) {
-    const onOptionChanged = (event) => props.handleState(event.target.value);
-
-    return (
-        <SelectWrapper onChange={onOptionChanged} value={props.state}>
-            {props.options.map((option, index) => <option key={index} value={option}>{option}</option>)}
-        </SelectWrapper>
-    );
-}
-const SelectWrapper = styled.select`
-    width: 80px;
-    height: 40px;
-    border: 1px solid #808080;
-    border-radius: 20px;
-    padding: 0 10px;
-    background-color: #1E1E1E;
-    color: white;
-    transition: border-color 300ms;
-
-    &:focus {
-        outline: none;
-        border-color: #ffffff;
-    }
-`
-// 임시
-
-
+import RadioGroup from "../../common/RadioGroup";
+import SelectGroup from "../../common/SelectGroup";
 
 function SettingPage(props) {
     const [category, setCategory] = useState(0);
