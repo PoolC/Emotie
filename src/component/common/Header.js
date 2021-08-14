@@ -8,6 +8,7 @@ import IconButton from "./IconButton";
 import LogoText from "../../image/logo_text.svg";
 import LogoImage from "../../image/logo_img.svg";
 import { IoSearch, IoPeople, IoLayers } from "react-icons/io5";
+import DropDown from "./DropDown";
 
 function Header(props) {
     // 미디어 쿼리
@@ -16,9 +17,27 @@ function Header(props) {
     // 클릭 이벤트
     const goRecommendPage = () => props.history.push('/recommend');
     const goFeedPage = () => props.history.push('/feed');
-    const showMenu = () => {
-        // 팝업 메뉴
-    };
+	const goProfilePage = () => console.log("my profile page");
+    const goSettingPage = () => props.history.push('/setting');
+    const logout = () => console.log("logout");
+    
+    const options = [
+        {
+            text: "내 프로필",
+            eventHandler: goProfilePage
+        },
+        {
+            text: "설정",
+            eventHandler: goSettingPage
+        },
+        {
+            text: "seperator"
+        },
+        {
+            text: "로그아웃",
+            eventHandler: logout
+        }
+    ]
 
     return (
         <Container transparent={props.transparent}>
@@ -28,7 +47,7 @@ function Header(props) {
                 {props.search && isMobile && <IconButton icon={IoSearch} color={props.transparent ? "black" : "white"}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage} color={props.transparent ? "black" : "white"}/>}
                 {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage} color={props.transparent ? "black" : "white"}/>}
-                <Circle onClick={showMenu}/>
+                <DropDown id="profile" width="188" options={options}/>
             </MenuLayout>
         </Container>
     );
@@ -66,10 +85,4 @@ const MenuLayout = styled.div`
     display: flex;
     flex-flow: row nowrap;
     gap: 30px;
-`
-const Circle = styled.div`
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: white;
-    border-radius: 50%;
 `
