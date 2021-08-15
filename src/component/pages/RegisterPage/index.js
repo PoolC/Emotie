@@ -12,12 +12,12 @@ import {
 } from "./style";
 
 function RegisterPage(props) {
-    const inputprops = [{ value: "이메일 인증 번호", alert: "인증번호가 틀립니다", type:"text"}, { value: "비밀번호 재입력", alert: "비밀번호가 일치하지 않습니다", type:"password" }, { value: "비밀번호", alert: "12자 이하 영문+숫자 조합이여야 합니다", type:"password"}, { value: "별명", alert: "중복되는 별명입니다", type:"text"}];
+    const inputprops = [{ value: "비밀번호 재입력", alert: "비밀번호가 일치하지 않습니다", type:"password" }, { value: "비밀번호", alert: "12자 이하 영문+숫자 조합이여야 합니다", type:"password"}, { value: "별명", alert: "중복되는 별명입니다", type:"text"}];
     const [isFirstCert,  setFirstCert] = useState(true);
     const [isChecked, setChecked ] = useState(false);
     const inputs = inputprops.map((props, index) =>
         <InputGroup>
-            <PillInput key={index} width='200px' placeholder={props.value} type={props.type}></PillInput>
+            <PillInput key={index} width="200px" placeholder={props.value} type={props.type}></PillInput>
             <InputAlert>{props.alert}</InputAlert>
         </InputGroup>
     );
@@ -28,6 +28,8 @@ function RegisterPage(props) {
     const [year, setYear] = useState("2000");
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
+    const emailAuth = ()=>console.log('인증 확인');
+    const emailAuthSend = ()=>console.log('인증 번호 전송');
 
     return (
         <Container>
@@ -38,7 +40,13 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput width='140px' placeholder='이메일' type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => setFirstCert(false)}></CertButton>
+                        <PillInput width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => {setFirstCert(false); emailAuthSend();}}></CertButton>
+                    </FlexBox>
+                    <InputAlert></InputAlert>
+                </InputGroup>
+                <InputGroup>
+                    <FlexBox>
+                        <PillInput width="140px" placeholder="이메일 인증번호" type="text"></PillInput><CertButton children={"확인"} onClick={() => emailAuth()}></CertButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
@@ -72,7 +80,7 @@ function RegisterPage(props) {
             <ButtonText>
                 <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)}/>
             </ButtonText>
-            <PillButton width='260px' children='다음'></PillButton>
+            <PillButton width="260px" children="다음"></PillButton>
             <Border>
                 <Link>
                     이미 계정이 있나요? 로그인하기
