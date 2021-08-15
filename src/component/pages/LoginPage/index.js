@@ -15,16 +15,14 @@ import {
 const inputprops = ["이메일", "비밀번호"];
 
 function LoginPage(props) {
-    const input = inputprops.map((value, index)=>
-        <PillInput width="200px" key={index} placeholder={value}></PillInput>
-    );
     return (
         <Container>
             <Header/>
             <Logo src={logo}></Logo>
             <Title>Emotie 로그인</Title>
             <Text>Emotie에 오신 걸 환영합니다</Text>
-            {input}
+            <PillInput width="200px" placeholder="이메일" type="text"></PillInput>
+            <PillInput width="200px" placeholder="비밀번호" type="password"></PillInput>
             <PillButton width="260px">로그인</PillButton>
             <ButtonText>비밀번호를 잊으셨나요?</ButtonText>
             <Switch href="">계정이 없으신가요? 가입하기</Switch>
