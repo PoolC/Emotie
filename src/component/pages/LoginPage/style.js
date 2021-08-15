@@ -10,8 +10,8 @@ export const Container = styled.div`
     gap:20px;
 
     @media only screen and (max-width: 768px) {
-        padding: 90px 15px 15px 15px;
-        gap:10px;
+        padding: 90px 0px 0px 0px;
+        gap:20px;
     }
 `
 export const Gap = styled.div`
@@ -32,6 +32,7 @@ export const ButtonText = styled.a`
         text-decoration:underline;
     }
     @media only screen and (max-width: 768px) {
+        width:70%;
     }
 `
 
@@ -44,6 +45,7 @@ export const Title = styled.div`
     color:#FFFFFF;
 
     @media only screen and (max-width: 768px) {
+        width:70%;
     }
 `
 
@@ -55,6 +57,7 @@ export const Text = styled.div`
     color:#FFFFFF;
 
     @media only screen and (max-width: 768px) {
+        width:70%;
     }
 `
 
@@ -73,6 +76,7 @@ export const Switch = styled.a`
         text-decoration:underline;
     }
     @media only screen and (max-width: 768px) {
+        width:70%;
     }
     
 `
