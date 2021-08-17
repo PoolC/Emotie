@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { GiCheckMark } from "react-icons/gi"
 
 export const Container = styled.div`
     word-break:keep-all;
@@ -123,38 +122,6 @@ export const CertButton = styled.button`
     }
 `
 
-export const GenderButton = styled.button`
-    margin-left:10px;  
-    width: 75px;
-    height: 40px;
-    border-radius: 20px;
-    background-color: #707070;
-    border: none;
-    color: #ffffff;
-    transition: border 300ms, opacity 300ms;
-    &:hover {
-        background-color: #A7A7A7;
-    }
-    &:active {
-        opacity: 0.6;
-    }
-`
-export const GenderLabel = styled.button`
-    margin-left:10px;  
-    width: 75px;
-    height: 40px;
-    border-radius: 20px;
-    background-color: #707070;
-    border: none;
-    color: #ffffff;
-    transition: border 300ms, opacity 300ms;
-    &:hover {
-        background-color: #A7A7A7;
-    }
-    &:active {
-        opacity: 0.6;
-    }
-`
 export const ButtonText = styled.a`
     width:300px;
     height:20px;
@@ -169,23 +136,6 @@ export const ButtonText = styled.a`
         text-decoration:underline;
     }
     @media only screen and (max-width: 768px) {
-    }
-`
-
-export const BirthInput = styled.input`
-    height: 40px;
-    width : ${props => props.width || "150px"};
-    padding: 0 10px;
-    border: 1px solid #808080;
-    border-radius: 15px;
-    background-color: #1E1E1E;
-    color: #ffffff;
-    transition: border-color 300ms;
-    margin-left:10px;
-
-    &:focus {
-        outline: none;
-        border-color: #ffffff;
     }
 `
 

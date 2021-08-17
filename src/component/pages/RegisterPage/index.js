@@ -8,28 +8,45 @@ import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 
 import {
-    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, GenderButton, BirthInput, ButtonText, Border, Link
+    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, ButtonText, Border, Link
 } from "./style";
 
 function RegisterPage(props) {
-    const inputprops = [{ value: "비밀번호 재입력", alert: "비밀번호가 일치하지 않습니다", type:"password" }, { value: "비밀번호", alert: "12자 이하 영문+숫자 조합이여야 합니다", type:"password"}, { value: "별명", alert: "중복되는 별명입니다", type:"text"}];
     const [isFirstCert,  setFirstCert] = useState(true);
     const [isChecked, setChecked ] = useState(false);
-    const inputs = inputprops.map((props, index) =>
-        <InputGroup>
-            <PillInput key={index} width="200px" placeholder={props.value} type={props.type}></PillInput>
-            <InputAlert>{props.alert}</InputAlert>
-        </InputGroup>
-    );
-    
 
     const [gender, setGender] = useState(0);
 
     const [year, setYear] = useState("2000");
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
-    const emailAuth = ()=>console.log('인증 확인');
-    const emailAuthSend = ()=>console.log('인증 번호 전송');
+
+    const emailAuth = ()=>console.log("인증 확인");
+    const emailAuthSend = ()=>console.log("인증 번호 전송");
+    const registIn= () => console.log("가입");
+
+    const [inputs, setInputs]=useState({
+        email:'',
+        password:'',
+        rePassword:'',
+        nickname:''
+    });
+    const {email, password, rePassword, nickname}=inputs;
+    const onChange=(e)=>{
+        const{value,name}=e.target;
+        setInputs({
+            ...inputs,
+            [name]:value
+        });
+    };
+    const onReset = ()=>{
+        setInputs({
+            email:'',
+            password:'',
+            rePassword:'',
+            nickname:''
+        })
+    };
 
     return (
         <Container>
@@ -40,9 +57,9 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => {setFirstCert(false); emailAuthSend();}}></CertButton>
+                        <PillInput name="email" value={email} onChange={onChange} width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => {setFirstCert(false); emailAuthSend();}}></CertButton>
                     </FlexBox>
-                    <InputAlert></InputAlert>
+                    <InputAlert>{email}이메일 양식이 아닙니다</InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
@@ -50,14 +67,28 @@ function RegisterPage(props) {
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
-                {inputs}
+                <InputGroup>
+                    <PillInput name="password" value={password} onChange={onChange} width="200px" placeholder="비밀번호" type="password">
+                    </PillInput>
+                    <InputAlert>{password}12자 이하 영문+숫자 조합이여야 합니다</InputAlert>
+                </InputGroup>
+                <InputGroup>
+                    <PillInput name="rePassword" value={rePassword} onChange={onChange} width="200px" placeholder="비밀번호 재입력" type="password">
+                    </PillInput>
+                    <InputAlert>{rePassword}비밀번호가 일치하지 않습니다</InputAlert>
+                </InputGroup>
+                <InputGroup>
+                    <PillInput name="nickname" value={nickname} onChange={onChange} width="200px" placeholder="별명" type="text">
+                    </PillInput>
+                    <InputAlert>{nickname}중복되는 별명입니다</InputAlert>
+                </InputGroup>
                 <InputGroup>
                     <FlexBox>
                         <PillButton width="80px" onClick={() => setGender(0)} negative={gender === 0}>남성</PillButton>
                         <PillButton width="80px" onClick={() => setGender(1)} negative={gender === 1}>여성</PillButton>
                         <PillButton width="80px" onClick={() => setGender(2)} negative={gender === 2}>비공개</PillButton>
                     </FlexBox>
-                    <InputAlert>성별을 입력해주세요</InputAlert>
+                    <InputAlert></InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
@@ -80,7 +111,7 @@ function RegisterPage(props) {
             <ButtonText>
                 <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)}/>
             </ButtonText>
-            <PillButton width="260px" children="다음"></PillButton>
+            <PillButton width="260px" children="다음" onClick={()=>registIn()}></PillButton>
             <Border>
                 <Link>
                     이미 계정이 있나요? 로그인하기
