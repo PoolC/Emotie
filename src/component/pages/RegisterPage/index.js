@@ -23,39 +23,69 @@ function RegisterPage(props) {
 
     const emailAuth = ()=>console.log("인증 확인");
     const emailAuthSend = ()=>console.log("인증 번호 전송");
-    const registIn= () => console.log("가입");
+    const registIn= () => console.log('가입');
+
+    const detectInput= () =>{
+        if(email.length===0){
+            alert('이메일을 입력하세요');
+            return;
+        }else if(emailAlert!=''){
+            alert(emailAlert);
+            return;
+        }
+
+        if(password.length===0){
+            alert('비밀번호를 입력하세요');
+            return;
+        }else if(passwordAlert!=''){
+            alert(passwordAlert);
+            return;
+        }
+        
+        if(rePassword.length===0){
+            alert('비밀번호를 재입력하세요');
+            return;
+        }else if (rePasswordAlert!=''){
+            alert(rePasswordAlert);
+            return;
+        }
+
+        if(nickname.length===0){
+            alert('별명을 입력하세요');
+            return;
+        }else if(nicknameAlert!=''){
+            alert(nicknameAlert);
+            return;
+        }
+        registIn();
+    }
 
     const [inputs, setInputs]=useState({
         email:'',
+        emailCert:'',
         password:'',
         rePassword:'',
         nickname:''
     });
     const {email, password, rePassword, nickname}=inputs;
-    const [alerts, setAlerts]=useState({
-        emailAlert:'',
-        passwordAlert:'',
-        rePasswordAlert:'',
-        nicknameAlert:''
-    });
-    const {emailAlert, passwordAlert, rePasswordAlert, nicknameAlert}=alerts;
     const onChange=(e)=>{
         const{value,name}=e.target;
         setInputs({
             ...inputs,
             [name]:value
         });
-        alert(name);
+        inputAlert(name);
     };
-    const onReset = ()=>{
-        setInputs({
-            email:'',
-            password:'',
-            rePassword:'',
-            nickname:''
-        })
-    };
-    const alert=(name)=>{
+
+    const [alerts, setAlerts]=useState({
+        emailAlert:'',
+        passwordAlert:'',
+        rePasswordAlert:'',
+        nicknameAlert:''
+    });
+
+    const {emailAlert, passwordAlert, rePasswordAlert, nicknameAlert}=alerts;
+    const inputAlert=(name)=>{
         switch(name){
             case 'email':
                 setAlerts({...alerts, emailAlert:'이메일 양식이 아닙니다'});
@@ -145,7 +175,7 @@ function RegisterPage(props) {
             <ButtonText>
                 <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)}/>
             </ButtonText>
-            <PillButton width="260px" children="다음" onClick={()=>registIn()}></PillButton>
+            <PillButton width="260px" children="다음" onClick={()=>detectInput()}></PillButton>
             <Border>
                 <Link>
                     이미 계정이 있나요? 로그인하기
