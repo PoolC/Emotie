@@ -32,12 +32,20 @@ function RegisterPage(props) {
         nickname:''
     });
     const {email, password, rePassword, nickname}=inputs;
+    const [alerts, setAlerts]=useState({
+        emailAlert:'',
+        passwordAlert:'',
+        rePasswordAlert:'',
+        nicknameAlert:''
+    });
+    const {emailAlert, passwordAlert, rePasswordAlert, nicknameAlert}=alerts;
     const onChange=(e)=>{
         const{value,name}=e.target;
         setInputs({
             ...inputs,
             [name]:value
         });
+        alert(name);
     };
     const onReset = ()=>{
         setInputs({
@@ -47,6 +55,32 @@ function RegisterPage(props) {
             nickname:''
         })
     };
+    const alert=(name)=>{
+        switch(name){
+            case 'email':
+                setAlerts({...alerts, emailAlert:'이메일 양식이 아닙니다'});
+                if (email!=''){
+                }
+                break;
+            case 'password':
+                setAlerts({...alerts, passwordAlert:'12자 이하 영문+숫자 조합이여야 합니다'});
+                if (String(password)!=''){
+                }
+                break;
+            case 'rePassword':
+                setAlerts({...alerts, rePasswordAlert:'비밀번호가 일치하지 않습니다'});
+                console.log('repassword 들어옴');
+                if (rePassword==''){
+                }
+                break;
+            case 'nickname':
+                setAlerts({...alerts, nicknameAlert:'중복되는 별명입니다'});
+                console.log('nick 들어옴');
+                if (nickname==''){
+                }
+                break;
+        }
+    }
 
     return (
         <Container>
@@ -59,7 +93,7 @@ function RegisterPage(props) {
                     <FlexBox>
                         <PillInput name="email" value={email} onChange={onChange} width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => {setFirstCert(false); emailAuthSend();}}></CertButton>
                     </FlexBox>
-                    <InputAlert>{email}이메일 양식이 아닙니다</InputAlert>
+                    <InputAlert>{emailAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
@@ -70,17 +104,17 @@ function RegisterPage(props) {
                 <InputGroup>
                     <PillInput name="password" value={password} onChange={onChange} width="200px" placeholder="비밀번호" type="password">
                     </PillInput>
-                    <InputAlert>{password}12자 이하 영문+숫자 조합이여야 합니다</InputAlert>
+                    <InputAlert>{passwordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <PillInput name="rePassword" value={rePassword} onChange={onChange} width="200px" placeholder="비밀번호 재입력" type="password">
                     </PillInput>
-                    <InputAlert>{rePassword}비밀번호가 일치하지 않습니다</InputAlert>
+                    <InputAlert>{rePasswordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <PillInput name="nickname" value={nickname} onChange={onChange} width="200px" placeholder="별명" type="text">
                     </PillInput>
-                    <InputAlert>{nickname}중복되는 별명입니다</InputAlert>
+                    <InputAlert>{nicknameAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
@@ -101,7 +135,7 @@ function RegisterPage(props) {
                                     handleState={setMonth}
                                     options={Array.from({length: 12}, (_, k) => k + 1)}/>
                                 <SelectGroup 
-                                    state={day} 
+                                    state={day}
                                     handleState={setDay}
                                     options={Array.from({length: 31}, (_, k) => k + 1)}/>
                     </FlexBox>
