@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 
+import server from "../../../utils/server";
 import Emotions from "../../../utils/Emotions";
 
 import { Container, Group, Element } from "./component";
@@ -31,9 +32,6 @@ function ProfilePage(props) {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     // 클릭 이벤트
-    const follow = () => {
-        // 서버 작업
-    };
     const write = () => props.history.push(`/profile/${id}/write`);
     const startEditMode = () => {
         setPreviousDescription(description);
@@ -41,10 +39,32 @@ function ProfilePage(props) {
     };
     const stopEditMode = (save) => {
         if (save) {
-            // 서버 작업
+            server
+            .put('/profiles', {
+                nickname: '공릉동 공룡', //TODO
+                introduction: description
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
         else setDescription(previousDescription);
         setEditMode(false);
+    };
+    const follow = () => {
+        server
+        .post(`/members/follow/${id}`, {
+            isFollowing: true
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
     };
 
     // 이벤트 감지
