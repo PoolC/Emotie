@@ -84,8 +84,8 @@ export const Group = {
         };
         return (
             <PostList>{props.category === 0 
-                ? props.postList.map((post, index) => <PostCard key={index} emotion={post.emotion} {...options}/>)
-                : props.guestbookList.map((post, index) => <PostCard key={index} nickname={post.nickname} content={post.content} {...options}/>)}
+                ? props.postList.map((post, index) => <PostCard id={index} key={index} emotion={post.emotion} {...options}/>)
+                : props.guestbookList.map((post, index) => <PostCard id={index} key={index} nickname={post.nickname} content={post.content} {...options}/>)}
             </PostList>
         );
     },
