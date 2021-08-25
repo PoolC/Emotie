@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const BaseLayout = styled.div`
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -46,7 +46,7 @@ export const Title = styled.h2`
     color: white;
     font-size: 1.5rem;
 `
-export const Group = styled.div`
+export const Section = styled.div`
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
@@ -58,7 +58,7 @@ export const Description = styled.p`
     font-size: 0.9rem;
     word-break: keep-all;
 `
-export const SemiGroup = styled.div`
+export const SemiSection = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
