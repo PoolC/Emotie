@@ -11,7 +11,6 @@ export const BaseLayout = styled.div`
 export const ContentLayout = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    align-items: flex-start;
     width: 100%;
     max-width: 700px;
     gap: 30px;
@@ -52,15 +51,27 @@ export const Section = styled.div`
     align-items: flex-start;
     gap: 10px;
 `
+export const SemiSection = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
+
+    @media only screen and (max-width: 320px) {
+        flex-flow: column nowrap;
+    }
+`
 export const Description = styled.p`
     margin: 0;
     color: white;
     font-size: 0.9rem;
     word-break: keep-all;
 `
-export const SemiSection = styled.div`
+export const PillInputWrapper = styled.div`
     display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    gap: 10px;
+    width: 300px;
+
+    @media only screen and (max-width: 360px) {
+        width: 100%;
+    }
 `

@@ -1,7 +1,7 @@
 import { 
     BaseLayout, ContentLayout, 
     CategoryLayout, Category,
-    FrameLayout, Title, Section, Description, SemiSection
+    FrameLayout, Title, Section, SemiSection, Description, PillInputWrapper
 } from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
@@ -69,8 +69,8 @@ export const Group = {
     PasswordCheck: function(props) {
         return (
             <Section>
-                <Description>기존 비밀번호</Description>
-                <PillInput type="password" width="300px" placeholder="비밀번호" value={props.password.old} onChange={props.handlePassword.onOldChanged}/>
+                <Description>비밀번호 확인</Description>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={props.handlePassword.onOldChanged}/></PillInputWrapper>
             </Section>
         );
     },
@@ -78,8 +78,8 @@ export const Group = {
         return (
             <Section>
                 <Description>새 비밀번호</Description>
-                <PillInput type="password" width="300px" placeholder="비밀번호" value={props.password.new1} onChange={props.handlePassword.onNew1Changed}/>
-                <PillInput type="password" width="300px" placeholder="비밀번호 확인" value={props.password.new2} onChange={props.handlePassword.onNew2Changed}/>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.new1} onChange={props.handlePassword.onNew1Changed}/></PillInputWrapper>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호 확인" value={props.password.new2} onChange={props.handlePassword.onNew2Changed}/></PillInputWrapper>
             </Section>
         );
     },
