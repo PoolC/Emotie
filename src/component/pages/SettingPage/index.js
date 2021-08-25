@@ -15,6 +15,10 @@ function SettingPage(props) {
     }, []);
 
     // 클릭 이벤트
+    const changeCategory = (id) => {
+        setPassword({old: "", new1: "", new2: ""});
+        setCategory(id);
+    }
     const changeInfo = () => {
         console.log('개인정보 수정');
     };
@@ -41,7 +45,7 @@ function SettingPage(props) {
         <Container.Base>
             <Element.Header recommend feed/>
             <Container.Content>
-                <Group.Category category={category} setCategory={setCategory}/>
+                <Group.Category category={category} changeCategory={changeCategory}/>
                 {category === 0 && // 개인정보 수정
                     <Container.Frame>
                         <Element.Title>기본 정보</Element.Title>

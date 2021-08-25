@@ -25,9 +25,9 @@ export const Group = {
     Category: function(props) {
         return (
             <CategoryLayout>
-                <Category onClick={() => props.setCategory(0)} selected={props.category === 0}>개인정보 관리</Category>
-                <Category onClick={() => props.setCategory(1)} selected={props.category === 1}>비밀번호 변경</Category>
-                <Category onClick={() => props.setCategory(2)} selected={props.category === 2}>계정 삭제</Category>
+                <Category onClick={() => props.changeCategory(0)} selected={props.category === 0}>개인정보 관리</Category>
+                <Category onClick={() => props.changeCategory(1)} selected={props.category === 1}>비밀번호 변경</Category>
+                <Category onClick={() => props.changeCategory(2)} selected={props.category === 2}>계정 삭제</Category>
             </CategoryLayout>
         );
     },
