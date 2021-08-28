@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const BaseLayout = styled.div`
     display: flex;
     flex-flow: row nowrap;
     height: 100vh;
@@ -15,6 +15,10 @@ export const Container = styled.div`
 `
 
 export const MotieLayout = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     width: 40%;
 
     @media only screen and (max-width: 768px) {
@@ -79,7 +83,7 @@ export const MenuLayout = styled.div`
     flex-flow: row nowrap;
     gap: 20px;
 `
-export const FollowerLayout = styled.div`
+export const StateLayout = styled.div`
     display: flex;
     flex-flow: row nowrap;
     gap: 40px;
@@ -126,6 +130,19 @@ export const PostList = styled.div`
     flex-flow: column nowrap;
     gap: 10px;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: gray;
+        background-clip: padding-box;
+        border: 2px solid transparent;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 
     @media only screen and (max-width: 768px) {
         padding-bottom: 30px;
