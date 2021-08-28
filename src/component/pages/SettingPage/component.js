@@ -35,9 +35,9 @@ export const Group = {
     Nickname: function(props) {
         return (
             <Section>
-                <Description>닉네임</Description>
-                <PillInputWrapper><PillInput width="100%" placeholder="닉네임" value={props.nickname} onChange={props.onNicknameChanged}/></PillInputWrapper>
-                <Alert>이미 존재하는 이메일입니다.</Alert>
+                <Description>별명</Description>
+                <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={props.onNicknameChanged}/></PillInputWrapper>
+                <Alert>이미 존재하는 별명입니다.</Alert>
             </Section>
         );
     },
