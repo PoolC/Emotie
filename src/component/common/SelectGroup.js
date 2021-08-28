@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { RiArrowDownSLine } from "react-icons/ri";
-
 function SelectGroup(props) {
     const onOptionChanged = (event) => props.handleState(event.target.value);
 
