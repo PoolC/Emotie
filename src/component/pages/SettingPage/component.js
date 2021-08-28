@@ -1,7 +1,7 @@
 import { 
     BaseLayout, ContentLayout, 
     CategoryLayout, Category,
-    FrameLayout, Title, Section, SemiSection, Description, PillInputWrapper
+    FrameLayout, Title, Section, SemiSection, Description, Alert, PillInputWrapper
 } from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
@@ -32,6 +32,15 @@ export const Group = {
         );
     },
     // 개인정보 수정
+    Nickname: function(props) {
+        return (
+            <Section>
+                <Description>닉네임</Description>
+                <PillInputWrapper><PillInput width="100%" placeholder="닉네임" value={props.nickname} onChange={props.onNicknameChanged}/></PillInputWrapper>
+                <Alert>이미 존재하는 이메일입니다.</Alert>
+            </Section>
+        );
+    },
     Birth: function(props) {
         return (
             <Section>
@@ -58,9 +67,9 @@ export const Group = {
             <Section>
                 <Description>성별</Description>
                 <SemiSection>
-                    <PillButton width="80px" onClick={() => props.setGender(0)} negative={props.gender === 0}>남성</PillButton>
-                    <PillButton width="80px" onClick={() => props.setGender(1)} negative={props.gender === 1}>여성</PillButton>
-                    <PillButton width="80px" onClick={() => props.setGender(2)} negative={props.gender === 2}>비공개</PillButton>
+                    <PillButton width="80px" onClick={() => props.setGender('MALE')} negative={props.gender === 'MALE'}>남성</PillButton>
+                    <PillButton width="80px" onClick={() => props.setGender('FEMALE')} negative={props.gender === 'FEMALE'}>여성</PillButton>
+                    <PillButton width="80px" onClick={() => props.setGender('HIDDEN')} negative={props.gender === 'HIDDEN'}>비공개</PillButton>
                 </SemiSection>
             </Section>
         );
@@ -71,6 +80,7 @@ export const Group = {
             <Section>
                 <Description>비밀번호 확인</Description>
                 <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={props.handlePassword.onOldChanged}/></PillInputWrapper>
+                <Alert>기존 비밀번호와 일치하지 않습니다.</Alert>
             </Section>
         );
     },
@@ -80,6 +90,7 @@ export const Group = {
                 <Description>새 비밀번호</Description>
                 <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.new1} onChange={props.handlePassword.onNew1Changed}/></PillInputWrapper>
                 <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호 확인" value={props.password.new2} onChange={props.handlePassword.onNew2Changed}/></PillInputWrapper>
+                <Alert>비밀번호는 12자 이하 영문+숫자의 조합이어야 합니다.</Alert>
             </Section>
         );
     },

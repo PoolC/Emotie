@@ -67,6 +67,11 @@ export const Description = styled.p`
     font-size: 0.9rem;
     word-break: keep-all;
 `
+export const Alert = styled.span`
+    color: #EF9797;
+    font-size: 0.7rem;
+    margin-left: 30px;
+`
 export const PillInputWrapper = styled.div`
     display: flex;
     width: 300px;
