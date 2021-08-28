@@ -7,111 +7,123 @@ import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 
+import server from "../../../utils/server";
+
 import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, ButtonText, Border, Link
 } from "./style";
 
 function RegisterPage(props) {
-    const [isFirstCert,  setFirstCert] = useState(true);
-    const [isChecked, setChecked ] = useState(false);
+    const [isFirstCert, setFirstCert] = useState(true);
+    const [isChecked, setChecked] = useState(false);
 
-    const [gender, setGender] = useState(0);
+    const [gender, setGender] = useState("MALE");
 
     const [year, setYear] = useState("2000");
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
+    const dateOfBirth=year+"-"+month+"-"+day;
+    
 
-    const emailAuth = ()=>console.log("인증 확인");
-    const emailAuthSend = ()=>console.log("인증 번호 전송");
-    const registIn= () => console.log('가입');
-
-    const detectInput= () =>{
-        if(email.length===0){
+    const detectInput = () => {
+        if (email.length === 0) {
             alert('이메일을 입력하세요');
             return;
-        }else if(emailAlert!=''){
+        } else if (emailAlert != '') {
             alert(emailAlert);
             return;
         }
 
-        if(password.length===0){
+        if (password.length === 0) {
             alert('비밀번호를 입력하세요');
             return;
-        }else if(passwordAlert!=''){
+        } else if (passwordAlert != '') {
             alert(passwordAlert);
             return;
         }
-        
-        if(rePassword.length===0){
+
+        if (rePassword.length === 0) {
             alert('비밀번호를 재입력하세요');
             return;
-        }else if (rePasswordAlert!=''){
+        } else if (rePasswordAlert != '') {
             alert(rePasswordAlert);
             return;
         }
 
-        if(nickname.length===0){
+        if (nickname.length === 0) {
             alert('별명을 입력하세요');
-            return;
-        }else if(nicknameAlert!=''){
-            alert(nicknameAlert);
             return;
         }
         registIn();
     }
 
-    const [inputs, setInputs]=useState({
-        email:'',
-        emailCert:'',
-        password:'',
-        rePassword:'',
-        nickname:''
+    const [inputs, setInputs] = useState({
+        email: '',
+        emailCert: '',
+        password: '',
+        rePassword: '',
+        nickname: ''
     });
-    const {email, password, rePassword, nickname}=inputs;
-    const onChange=(e)=>{
-        const{value,name}=e.target;
+    const { email, emailCert, password, rePassword, nickname } = inputs;
+
+    const [alerts, setAlerts] = useState({
+        emailAlert: '',
+        passwordAlert: '',
+        rePasswordAlert: '',
+    });
+    const { emailAlert, passwordAlert, rePasswordAlert } = alerts;
+
+    const inputChange = (e) => {
+        const { value, name } = e.target;
         setInputs({
             ...inputs,
-            [name]:value
+            [name]: value
         });
-        inputAlert(name);
     };
 
-    const [alerts, setAlerts]=useState({
-        emailAlert:'',
-        passwordAlert:'',
-        rePasswordAlert:'',
-        nicknameAlert:''
-    });
-
-    const {emailAlert, passwordAlert, rePasswordAlert, nicknameAlert}=alerts;
-    const inputAlert=(name)=>{
-        switch(name){
+    const isEmailValid = (email) => {
+        var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        return (email != '' && email != 'undefined' && regExp.test(email));
+    };
+    const isPasswordValid = (password) => {
+        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/;
+        return (password != '' && password != 'undefined' && regExp.test(password));
+    };
+    const inputCheck = (e) => {
+        const { value, name } = e.target;
+        switch (name) {
             case 'email':
-                setAlerts({...alerts, emailAlert:'이메일 양식이 아닙니다'});
-                if (email!=''){
-                }
+                isEmailValid(value) ? setAlerts({ ...alerts, emailAlert: '' }) : setAlerts({ ...alerts, emailAlert: '이메일 형식이 아닙니다' });
                 break;
             case 'password':
-                setAlerts({...alerts, passwordAlert:'12자 이하 영문+숫자 조합이여야 합니다'});
-                if (String(password)!=''){
-                }
+                isPasswordValid(value) ? setAlerts({ ...alerts, passwordAlert: '' }) : setAlerts({ ...alerts, passwordAlert: '8자 이상 20자 이하 영문+숫자 조합입니다' });
                 break;
             case 'rePassword':
-                setAlerts({...alerts, rePasswordAlert:'비밀번호가 일치하지 않습니다'});
-                console.log('repassword 들어옴');
-                if (rePassword==''){
-                }
-                break;
-            case 'nickname':
-                setAlerts({...alerts, nicknameAlert:'중복되는 별명입니다'});
-                console.log('nick 들어옴');
-                if (nickname==''){
-                }
+                (password === value) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호가 일치하지 않습니다' });
                 break;
         }
     }
 
+    const registIn = () => {
+        server
+        .post('/members', {
+            "nickname" : nickname, 
+	        "password" : password,
+	        "passwordCheck": rePassword,
+	        "gender" : gender, 
+	        "dateOfBirth" : dateOfBirth,
+	        "email": email, 
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+    const emailAuth = () => console.log("인증 확인");
+    const isNicknameUnique = () => console.log("중복 확인");
+    const emailAuthSend = () => console.log("인증 번호 전송");
     return (
         <Container>
             <Header />
@@ -121,7 +133,7 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="email" value={email} onChange={onChange} width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => {setFirstCert(false); emailAuthSend();}}></CertButton>
+                        <PillInput name="email" value={email} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => { setFirstCert(false); emailAuthSend(); }}></CertButton>
                     </FlexBox>
                     <InputAlert>{emailAlert}</InputAlert>
                 </InputGroup>
@@ -132,50 +144,52 @@ function RegisterPage(props) {
                     <InputAlert></InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="password" value={password} onChange={onChange} width="200px" placeholder="비밀번호" type="password">
+                    <PillInput name="password" value={password} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="비밀번호" type="password">
                     </PillInput>
                     <InputAlert>{passwordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="rePassword" value={rePassword} onChange={onChange} width="200px" placeholder="비밀번호 재입력" type="password">
+                    <PillInput name="rePassword" value={rePassword} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="비밀번호 재입력" type="password">
                     </PillInput>
                     <InputAlert>{rePasswordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="nickname" value={nickname} onChange={onChange} width="200px" placeholder="별명" type="text">
-                    </PillInput>
-                    <InputAlert>{nicknameAlert}</InputAlert>
-                </InputGroup>
-                <InputGroup>
                     <FlexBox>
-                        <PillButton width="80px" onClick={() => setGender(0)} negative={gender === 0}>남성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender(1)} negative={gender === 1}>여성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender(2)} negative={gender === 2}>비공개</PillButton>
+                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="별명" type="text"></PillInput>
+                        <CertButton children={"중복 확인"} onClick={() => isNicknameUnique()}></CertButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                    <SelectGroup 
-                                    state={year} 
-                                    handleState={setYear}
-                                    options={Array.from({length: 122}, (_, k) => k + 1900)}/>
-                                <SelectGroup 
-                                    state={month} 
-                                    handleState={setMonth}
-                                    options={Array.from({length: 12}, (_, k) => k + 1)}/>
-                                <SelectGroup 
-                                    state={day}
-                                    handleState={setDay}
-                                    options={Array.from({length: 31}, (_, k) => k + 1)}/>
+                        <PillButton width="80px" onClick={() => setGender('MALE')} negative={gender === 0}>남성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('FEMALE')} negative={gender === 1}>여성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('HIDDEN')} negative={gender === 2}>비공개</PillButton>
+                    </FlexBox>
+                    <InputAlert></InputAlert>
+                </InputGroup>
+                <InputGroup>
+                    <FlexBox>
+                        <SelectGroup
+                            state={year}
+                            handleState={setYear}
+                            options={Array.from({ length: 122 }, (_, k) => k + 1900)} />
+                        <SelectGroup
+                            state={month}
+                            handleState={setMonth}
+                            options={Array.from({ length: 12 }, (_, k) => k + 1)} />
+                        <SelectGroup
+                            state={day}
+                            handleState={setDay}
+                            options={Array.from({ length: 31 }, (_, k) => k + 1)} />
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
             </Gap>
             <ButtonText>
-                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)}/>
+                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)} />
             </ButtonText>
-            <PillButton width="260px" children="다음" onClick={()=>detectInput()}></PillButton>
+            <PillButton width="260px" children="다음" onClick={() => detectInput()}></PillButton>
             <Border>
                 <Link>
                     이미 계정이 있나요? 로그인하기
