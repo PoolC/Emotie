@@ -7,6 +7,8 @@ import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 
+import server from "../../../utils/server";
+
 import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, ButtonText, Border, Link
 } from "./style";
@@ -15,18 +17,13 @@ function RegisterPage(props) {
     const [isFirstCert, setFirstCert] = useState(true);
     const [isChecked, setChecked] = useState(false);
 
-    const [gender, setGender] = useState(0);
+    const [gender, setGender] = useState("MALE");
 
     const [year, setYear] = useState("2000");
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
-
-    const emailAuth = () => console.log("인증 확인");
-    const isNicknameUnique = () => console.log("중복 확인");
-    const emailAuthSend = () => console.log("인증 번호 전송");
-    const registIn = () => console.log('가입');
-
-    // const emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+    const dateOfBirth=year+"-"+month+"-"+day;
+    
 
     const detectInput = () => {
         if (email.length === 0) {
@@ -106,6 +103,27 @@ function RegisterPage(props) {
                 break;
         }
     }
+
+    const registIn = () => {
+        server
+        .post('/members', {
+            "nickname" : nickname, 
+	        "password" : password,
+	        "passwordCheck": rePassword,
+	        "gender" : gender, 
+	        "dateOfBirth" : dateOfBirth,
+	        "email": email, 
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+    const emailAuth = () => console.log("인증 확인");
+    const isNicknameUnique = () => console.log("중복 확인");
+    const emailAuthSend = () => console.log("인증 번호 전송");
     return (
         <Container>
             <Header />
@@ -144,9 +162,9 @@ function RegisterPage(props) {
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillButton width="80px" onClick={() => setGender(0)} negative={gender === 0}>남성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender(1)} negative={gender === 1}>여성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender(2)} negative={gender === 2}>비공개</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('MALE')} negative={gender === 0}>남성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('FEMALE')} negative={gender === 1}>여성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('HIDDEN')} negative={gender === 2}>비공개</PillButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
