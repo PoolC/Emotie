@@ -131,6 +131,19 @@ export const PostList = styled.div`
     gap: 10px;
     overflow-y: scroll;
 
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: gray;
+        background-clip: padding-box;
+        border: 2px solid transparent;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
     @media only screen and (max-width: 768px) {
         padding-bottom: 30px;
     }
