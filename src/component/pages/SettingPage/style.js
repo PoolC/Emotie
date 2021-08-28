@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const BaseLayout = styled.div`
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -11,7 +11,6 @@ export const Container = styled.div`
 export const ContentLayout = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    align-items: flex-start;
     width: 100%;
     max-width: 700px;
     gap: 30px;
@@ -46,11 +45,21 @@ export const Title = styled.h2`
     color: white;
     font-size: 1.5rem;
 `
-export const Group = styled.div`
+export const Section = styled.div`
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
     gap: 10px;
+`
+export const SemiSection = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
+
+    @media only screen and (max-width: 320px) {
+        flex-flow: column nowrap;
+    }
 `
 export const Description = styled.p`
     margin: 0;
@@ -58,9 +67,16 @@ export const Description = styled.p`
     font-size: 0.9rem;
     word-break: keep-all;
 `
-export const SemiGroup = styled.div`
+export const Alert = styled.span`
+    color: #EF9797;
+    font-size: 0.7rem;
+    margin-left: 30px;
+`
+export const PillInputWrapper = styled.div`
     display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    gap: 10px;
+    width: 300px;
+
+    @media only screen and (max-width: 360px) {
+        width: 100%;
+    }
 `

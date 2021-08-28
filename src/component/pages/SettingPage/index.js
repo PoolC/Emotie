@@ -1,152 +1,94 @@
 import React, { useEffect, useState } from "react";
 
-import { 
-    Container, ContentLayout, 
-    CategoryLayout, Category,
-    FrameLayout, Title, Group, Description, SemiGroup
-} from "./style";
-import Header from "../../common/Header";
-import PillButton from "../../common/PillButton";
-import PillInput from "../../common/PillInput";
-import RadioGroup from "../../common/RadioGroup";
-import SelectGroup from "../../common/SelectGroup";
+import server from "../../../utils/server";
+
+import { Container, Group, Element } from "./component";
 
 function SettingPage(props) {
     const [category, setCategory] = useState(0);
 
     const [nickname, setNickname] = useState("");
-    const [gender, setGender] = useState(0);
-    const [year, setYear] = useState("2000");
-    const [month, setMonth] = useState("1");
-    const [day, setDay] = useState("1");
-
-    const [password, setPassword] = useState("");
-
+    const [email, setEmail] = useState("");
+    const [birth, setBirth] = useState({year: "2000", month: "1", day: "1"});
+    const [gender, setGender] = useState("");
+    const [password, setPassword] = useState({old: "", new1: "", new2: ""});
     const [deletingReason, setDeletingReason] = useState(0);
 
     useEffect(() => {
         setCategory(0);
 
-        // 임시 정보
-        setNickname("공릉동 공룡");
-        setGender(0);
+        // 회원정보 설정
+        setNickname('공릉동 공룡');
+        setEmail('dinosaur@gmail.com');
+        setGender('MALE');
     }, []);
 
-    // 이벤트 감지
+    // 이벤트
     const onNicknameChanged = (event) => setNickname(event.target.value);
-    const onPasswordChanged = (event) => setPassword(event.target.value);
+    const handleBirth = {
+        setYear: (year) => setBirth({...birth, year: year}),
+        setMonth: (month) => setBirth({...birth, month: month}),
+        setDay: (day) => setBirth({...birth, day: day})
+    };
+    const handlePassword = {
+        onOldChanged: (event) => setPassword({...password, old: event.target.value}),
+        onNew1Changed: (event) => setPassword({...password, new1: event.target.value}),
+        onNew2Changed: (event) => setPassword({...password, new2: event.target.value})
+    };
 
-    // Fragment
-    const settings = () => {
-        switch(category) {
-            case 0: // 개인정보 관리
-                return (
-                    <FrameLayout>
-                        <Title>기본 정보</Title>
-                        <Group>
-                            <Description>별명</Description>
-                            <PillInput width="300px" placeholder="별명" value={nickname} onChange={onNicknameChanged}/>
-                        </Group>
-                        <Group>
-                            <Description>생년월일</Description>
-                            <SemiGroup>
-                                <SelectGroup 
-                                    state={year} 
-                                    handleState={setYear}
-                                    options={Array.from({length: 122}, (_, k) => k + 1900)}/>
-                                <SelectGroup 
-                                    state={month} 
-                                    handleState={setMonth}
-                                    options={Array.from({length: 12}, (_, k) => k + 1)}/>
-                                <SelectGroup 
-                                    state={day} 
-                                    handleState={setDay}
-                                    options={Array.from({length: 31}, (_, k) => k + 1)}/>
-                            </SemiGroup>
-                        </Group>
-                        <Group>
-                            <Description>성별</Description>
-                            <SemiGroup>
-                                <PillButton width="80px" onClick={() => setGender(0)} negative={gender === 0}>남성</PillButton>
-                                <PillButton width="80px" onClick={() => setGender(1)} negative={gender === 1}>여성</PillButton>
-                                <PillButton width="80px" onClick={() => setGender(2)} negative={gender === 2}>비공개</PillButton>
-                            </SemiGroup>
-                        </Group>
-                        <Group>
-                            <PillButton width="150px">수정 완료</PillButton>
-                        </Group>
-                    </FrameLayout>
-                );
-            case 1: // 비밀번호 변경
-                return (
-                    <FrameLayout>
-                        <Title>비밀번호 변경</Title>
-                        <Group>
-                            <Description>기존 비밀번호</Description>
-                            <PillInput type="password" width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
-                        </Group>
-                        <Group>
-                            <Description>새 비밀번호</Description>
-                            <PillInput type="password" width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
-                            <PillInput type="password" width="300px" placeholder="비밀번호 확인" value={password} onChange={onPasswordChanged}/>
-                        </Group>
-                        <Group>
-                            <PillButton width="150px">비밀번호 변경</PillButton>
-                        </Group>
-                    </FrameLayout>
-                );
-            case 2: // 계정 삭제
-                return (
-                    <FrameLayout>
-                        <Title>계정 삭제</Title>
-                        <Group>
-                            <Description>
-                                <strong>{nickname} (hy0903@yonsei.ac.kr)</strong> 계정을 삭제합니다. 
-                                삭제 즉시 계정 사용이 제한되며 마음글을 비롯한 모든 정보가 모두 비공개 처리됩니다. 
-                                데이터는 한 달 간 보관 후 자동으로 삭제 됩니다.
-                                한 달 내 재로그인시 계정이 활성화되며 계정 삭제 요청이 취소됩니다.
-                            </Description>
-                        </Group>
-                        <Group>
-                            <Description>아래의 사유로 계정을 삭제합니다.</Description>
-                            <RadioGroup 
-                                state={deletingReason} 
-                                handleState={setDeletingReason}
-                                options={[
-                                    "더 이상 해당 서비스를 이용할 필요를 느끼지 않습니다.",
-                                    "부적절한 서비스 이용자가 많습니다.",
-                                    "서비스 이용 중 문제가 다수 발생하였습니다.",
-                                    "새로운 계정을 생성합니다.",
-                                    "기타"
-                                ]}/>
-                        </Group>
-                        <Group>
-                            <Description>비밀번호 확인</Description>
-                            <PillInput type="password" width="300px" placeholder="비밀번호" value={password} onChange={onPasswordChanged}/>
-                        </Group>
-                        <Group>
-                            <Description>정말로 삭제하시겠습니까?</Description>
-                            <PillButton width="150px">계정 삭제</PillButton>
-                        </Group>
-                    </FrameLayout>
-                );
-            default:
-                return null;
-        }
+    // 클릭 이벤트
+    const changeCategory = (id) => {
+        setNickname('공릉동 공룡');
+        setPassword({old: "", new1: "", new2: ""});
+        setCategory(id);
     }
+    const changeInfo = () => {
+        console.log(`개인정보 수정 => 닉네임 : ${nickname} / 생년월일 : ${birth.year}년 ${birth.month}월 ${birth.day}일 / 성별 : ${gender}`);
+    };
+    const changePassword = () => {
+        console.log(`비밀번호 변경 => 기존 : ${password.old} / 새 : ${password.new1} / 확인 : ${password.new2}`);
+    };
+    const deleteAccount = () => {
+        server
+        .delete(`/members/${nickname}`)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    };
 
     return (
-        <Container>
-            <Header recommend feed/>
-            <ContentLayout>
-                <CategoryLayout>
-                    <Category onClick={() => setCategory(0)} selected={category === 0}>개인정보 관리</Category>
-                    <Category onClick={() => setCategory(1)} selected={category === 1}>비밀번호 변경</Category>
-                    <Category onClick={() => setCategory(2)} selected={category === 2}>계정 삭제</Category>
-                </CategoryLayout>
-                {settings()}
-            </ContentLayout>
-        </Container>
+        <Container.Base>
+            <Element.Header recommend feed/>
+            <Container.Content>
+                <Group.Category category={category} changeCategory={changeCategory}/>
+                {category === 0 && // 개인정보 수정
+                    <Container.Frame>
+                        <Element.Title>기본 정보</Element.Title>
+                        <Group.Nickname nickname={nickname} onNicknameChanged={onNicknameChanged}/>
+                        <Group.Birth birth={birth} handleBirth={handleBirth}/>
+                        <Group.Gender gender={gender} setGender={setGender}/>
+                        <Element.Button onClick={changeInfo}>수정 완료</Element.Button>
+                    </Container.Frame>}
+                {category === 1 && // 비밀번호 변경
+                    <Container.Frame>
+                        <Element.Title>비밀번호 변경</Element.Title>
+                        <Group.PasswordCheck password={password} handlePassword={handlePassword}/>
+                        <Group.NewPassword password={password} handlePassword={handlePassword}/>
+                        <Element.Button onClick={changePassword}>비밀번호 변경</Element.Button>
+                    </Container.Frame>}
+                {category === 2 && // 계정 삭제
+                    <Container.Frame>
+                        <Element.Title>계정 삭제</Element.Title>
+                        <Group.Warning nickname={nickname} email={email}/>
+                        <Group.Reason deletingReason={deletingReason} setDeletingReason={setDeletingReason}/>
+                        <Group.PasswordCheck password={password} handlePassword={handlePassword}/>
+                        <Element.Button onClick={deleteAccount}>계정 삭제</Element.Button>
+                    </Container.Frame>}
+            </Container.Content>
+        </Container.Base>
     );
 }
 
