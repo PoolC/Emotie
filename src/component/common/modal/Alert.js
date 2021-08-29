@@ -17,7 +17,7 @@ function Alert(props) {
 export default Alert;
 
 const Container = styled.div`
-    position: ${props => props.isOpen ? "fixed" : "none"};
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
@@ -30,7 +30,8 @@ const Container = styled.div`
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(7px);
     opacity: ${props => props.isOpen ? "1" : "0"};
-    transition: 100ms opacity;
+    visibility: ${props => props.isOpen ? "visible" : "hidden"};
+    transition: 200ms all;
 `
 const Dialog = styled.div`
     display: flex;
@@ -43,7 +44,7 @@ const Dialog = styled.div`
     background-color: #3C3C3C;
     border-radius: 28px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: 100ms ease margin-top;
+    transition: 200ms margin-top;
 `
 const Title = styled.h1`
     margin: 0;
