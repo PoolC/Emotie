@@ -27,7 +27,7 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     z-index: 20;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(7px);
     opacity: ${props => props.isOpen ? "1" : "0"};
     transition: 100ms opacity;
