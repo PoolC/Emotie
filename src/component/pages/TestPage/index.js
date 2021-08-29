@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Emotions from "../../../utils/Emotions";
 
@@ -11,7 +11,11 @@ import PostCard from "../../common/PostCard";
 import ProfileCard from "../../common/ProfileCard";
 import { IoPersonOutline } from "react-icons/io5";
 
-function LandingPage(props) {
+import Alert from "../../common/modal/Alert";
+
+function TestPage(props) {
+    const [isAlertOpen, setAlertOpen] = useState(false);
+
     return (
         <Container>
             {/* 헤더 */}
@@ -19,7 +23,7 @@ function LandingPage(props) {
             {/* 내용 */}
             <FloatingButton icon={IoPersonOutline}/>
             <IconButton icon={IoPersonOutline}/>
-            <PillButton>테스트</PillButton>
+            <PillButton onClick={() => setAlertOpen(true)}>테스트</PillButton>
             <PillButton negative>테스트</PillButton>
             <PostList>
                 <PostCard hideEmotion share blur report delete id={1}/>
@@ -40,8 +44,10 @@ function LandingPage(props) {
                 <ProfileCard emotion={Emotions.TIRED}/>
                 <ProfileCard emotion={Emotions.ANGRY}/>
             </ProfileList>
+            {/* 모달 */}
+            <Alert title="테스트 제목" message="테스트 Alert입니다." isOpen={isAlertOpen} setOpen={setAlertOpen}/>
         </Container>
     );
 }
 
-export default LandingPage;
+export default TestPage;
