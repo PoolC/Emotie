@@ -20,6 +20,7 @@ export const MotieLayout = styled.div`
     justify-content: center;
     align-items: center;
     width: 35%;
+    z-index: 15;
 
     @media only screen and (max-width: 768px) {
         width: unset;
