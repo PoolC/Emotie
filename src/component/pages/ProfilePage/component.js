@@ -1,17 +1,14 @@
 import { 
     BaseLayout,
     MotieLayout, ContentLayout, 
-    InfoLayout, Nickname, Description, DescriptionCount,
-    MenuLayout,
-    StateLayout, State,
-    PostLayout, CategoryLayout, Category, PostList,
-    InputLayout, PillInputWrapper
+    ProfileLayout, InfoLayout, Nickname, Description, DescriptionCount, MenuLayout, StateLayout, State, CategoryLayout, Category, InputLayout, Input,
+    PostList,
+    Boundary
 } from "./style";
 import Header from "../../common/Header";
 import MotieFrame from "../../common/MotieFrame";
 import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
-import PillInput from "../../common/PillInput";
 import IconButton from "../../common/IconButton";
 import { IoPencil } from "react-icons/io5";
 
@@ -25,8 +22,8 @@ export const Container = {
     Content: function(props) {
         return <ContentLayout>{props.children}</ContentLayout>
     },
-    Post: function(props) {
-        return <PostLayout isEditMode={props.isEditMode}>{props.children}</PostLayout>
+    Profile: function(props) {
+        return <ProfileLayout backgroundColor={props.backgroundColor}>{props.children}</ProfileLayout>
     },
 };
 
@@ -68,10 +65,18 @@ export const Group = {
     },
     Category: function(props) {
         return (
-            <CategoryLayout>
+            <CategoryLayout isEditMode={props.isEditMode}>
                 <Category onClick={() => props.setCategory(0)} selected={props.category === 0}>마음글</Category>
                 <Category onClick={() => props.setCategory(1)} selected={props.category === 1}>방명록</Category>
             </CategoryLayout>
+        );
+    },
+    GuestbookInput: function(props) {
+        return (props.category === 1 && 
+            <InputLayout isEditMode={props.isEditMode}>
+                <Input width="100%" placeholder="방명록을 남기세요"/>
+                <IconButton icon={IoPencil} color="white" size="1rem"/>
+            </InputLayout>
         );
     },
     Post: function(props) {
@@ -83,18 +88,11 @@ export const Group = {
             delete: props.isMyProfile
         };
         return (
-            <PostList>{props.category === 0 
+            <PostList category={props.category} isEditMode={props.isEditMode}>
+                {props.category === 0 
                 ? props.postList.map((post, index) => <PostCard id={index} key={index} emotion={post.emotion} {...options}/>)
                 : props.guestbookList.map((post, index) => <PostCard id={index} key={index} nickname={post.nickname} content={post.content} {...options}/>)}
             </PostList>
-        );
-    },
-    Input: function(props) {
-        return (props.category === 1 && 
-            <InputLayout>
-                <PillInputWrapper><PillInput width="100%" placeholder="방명록을 남기세요"/></PillInputWrapper>
-                <IconButton icon={IoPencil} color={props.isMobile ? "white" : "black"} size="1.5rem"/>
-            </InputLayout>
         );
     },
 };
@@ -104,7 +102,10 @@ export const Element = {
         return <Header transparent recommend feed/>;
     },
     Motie: function(props) {
-        return <div style={{width: "100px", height: "150px", backgroundColor: "white", borderRadius: "20px", boxShadow: "0 0 20px lightgray"}}/>
+        return <div style={{width: "150px", height: "150px", backgroundColor: "white", borderRadius: "50%", boxShadow: "0 0 30px #ffffff80"}}/>
         // return <MotieFrame emotion={props.emotion}/>;
-    }, 
+    },
+    Boundary: function(props) {
+        return <Boundary backgroundColor={props.backgroundColor} top={props.top} bottom={props.bottom}/>
+    },
 };
