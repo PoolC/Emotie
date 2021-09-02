@@ -49,13 +49,13 @@ function PostCard(props) {
 
     return (
         <Wrapper>
-            <Container borderColor={props.emotion?.color} onClick={props.onClick}>
-                <Info>
+            <Container detail={props.detail} borderColor={props.emotion?.color} onClick={props.onClick}>
+                <Info detail={props.detail}>
                     {!props.hideEmotion && <EmotionTag emotion={props.emotion}/>}
-                    <Nickname hideEmotion={props.hideEmotion}>{props.nickname || "공릉동 공룡"}</Nickname>
-                    <Date>{props.date || "2021.07.20"}</Date>
+                    <Nickname hideEmotion={props.hideEmotion} detail={props.detail}>{props.nickname || "공릉동 공룡"}</Nickname>
+                    <Date detail={props.detail}>{props.date || "2021.07.20"}</Date>
                 </Info>
-                <Content>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
+                <Content detail={props.detail}>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
                 <Icons>
                     {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>}
                     {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E" onClick={onBlur}/>}
@@ -84,18 +84,22 @@ const Container = styled.div`
     padding: 20px 40px;
     gap: 10px;
     box-sizing: border-box;
-    background-color: #3C3C3C;
-    border: 1px solid #3C3C3C;
+    background-color: ${props => props.detail ? `#1e1e1e` : `#3C3C3C`};
+    border: ${props => props.detail ? `unset` : `1px solid #3C3C3C`};
     border-radius: 5px;
     transition: border 300ms, opacity 300ms;
     cursor: default;
 
-    &:hover {
-        border: 1px solid ${props => props.borderColor || "#ffffff"};
-    }
+    ${props => !props.detail &&
+        `
+        &:hover {
+            border: 1px solid ${props.borderColor || "#ffffff"};
+        }
 
-    &:active {
-        opacity: 0.7;
+        &:active {
+            opacity: 0.7;
+        }
+        `
     }
 `
 
@@ -104,6 +108,15 @@ const Info = styled.div`
     flex-flow: row nowrap;
     align-items: center;
     width: 100%;
+    ${props => props.detail &&
+        `
+        @media only screen and (max-width: 768px) {
+            flex-flow: column nowrap;
+            align-items: flex-start;
+            gap: 2px;
+        }
+        `
+    }
 `
 
 const Nickname = styled.span`
@@ -112,26 +125,60 @@ const Nickname = styled.span`
     font-size: 0.9rem;
     font-weight: bold;
     color: #ffffff;
+
+    ${props => props.detail &&
+        `
+        @media only screen and (max-width: 768px) {
+            margin-left: 0;
+        }
+        `
+    }
 `
 
 const Date = styled.span`
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     color: #ffffff;
 `
 
 const Content = styled.p`
     display: -webkit-box;
     margin: 0;
-    width: 70%;
-    font-size: 0.6rem;
     color: #ffffff;
+    
+    ${props => props.detail ? 
+    `
+    width: 100%;
+    height: 15em;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: gray;
+        background-clip: padding-box;
+        border: 2px solid transparent;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+    font-size: 1rem;
     line-height: 2;
+    letter-spacing: 1.5px;
+    ` 
+    : 
+    `
+    width: 70%;
     height: 6em;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical; 
     word-wrap: break-word;
     -webkit-line-clamp: 3;
+    font-size: 0.8rem;
+    line-height: 2;
+    `
+    }
 `
 
 const Icons = styled.div`
