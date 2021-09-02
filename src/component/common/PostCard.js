@@ -53,7 +53,7 @@ function PostCard(props) {
                 <Info detail={props.detail}>
                     {!props.hideEmotion && <EmotionTag emotion={props.emotion}/>}
                     <Nickname hideEmotion={props.hideEmotion} detail={props.detail}>{props.nickname || "공릉동 공룡"}</Nickname>
-                    <Date detail={props.detail}>{props.date || "2021.07.20"}</Date>
+                    <Date>{props.date || "2021.07.20"}</Date>
                 </Info>
                 <Content detail={props.detail}>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
                 <Icons>
