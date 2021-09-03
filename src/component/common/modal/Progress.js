@@ -2,7 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 
 function Progress(props) {
     return (
-        <Container isInProgress={props.isInProgress}>
+        <Container isInProgress={props.isInProgress} fullscreen={props.fullscreen}>
             <Bar isInProgress={props.isInProgress} color="#FF855D" delay="0s"/>
             <Bar isInProgress={props.isInProgress} color="#FFF27D" delay="100ms"/>
             <Bar isInProgress={props.isInProgress} color="#AEE477" delay="200ms"/>
@@ -24,18 +24,17 @@ const stretch = keyframes`
 `
 
 const Container = styled.div`
-    position: fixed;
+    position: ${props => props.fullscreen ? "fixed" : "static"};
     top: 0;
     left: 0;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100vh;
+    width: ${props => props.fullscreen ? "100%" : "unset"};
+    height: ${props => props.fullscreen ? "100vh" : "unset"};
     gap: 7px;
-    z-index: 10;
-    backdrop-filter: blur(3px);
+    z-index: 30;
     opacity: ${props => props.isInProgress ? "1" : "0"};
     visibility: ${props => props.isInProgress ? "visible" : "hidden"};
     transition: 200ms all;
