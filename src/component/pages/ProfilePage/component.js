@@ -1,7 +1,7 @@
 import { 
     BaseLayout,
     MotieLayout, ContentLayout, 
-    ProfileLayout, InfoLayout, Nickname, Description, DescriptionCount, MenuLayout, StateLayout, State, CategoryLayout, Category, InputLayout, Input,
+    ProfileLayout, InfoLayout, Nickname, DescriptionWrapper, Description, DescriptionCount, MenuLayout, StateLayout, State, CategoryLayout, Category, InputLayout, Input,
     PostList,
     Boundary
 } from "./style";
@@ -33,7 +33,7 @@ export const Group = {
         return (
             <InfoLayout>
                 <Nickname isEditMode={props.isEditMode}>{props.nickname}</Nickname>
-                <Description value={props.description} maxLength={DESCRIPTION_MAX_LENGTH} onChange={props.onDescriptionChange} disabled={!props.isEditMode}/>
+                <DescriptionWrapper isEditMode={props.isEditMode}><Description value={props.description} maxLength={DESCRIPTION_MAX_LENGTH} onChange={props.onDescriptionChange} disabled={!props.isEditMode}/></DescriptionWrapper>
                 <DescriptionCount isEditMode={props.isEditMode}>{props.description.length} / {DESCRIPTION_MAX_LENGTH}</DescriptionCount>
             </InfoLayout>
         );

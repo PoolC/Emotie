@@ -26,7 +26,7 @@ function ProfilePage(props) {
         setEmotion(Emotions.SAD);
         setDescription('자기소개는 언제나 어려워\n두 줄만 들어가려면 몇 글자 정도여야하는지 모르겠네요 스크롤 생기는 거 싫은데');
         setPostList([{emotion: Emotions.HAPPY}, {emotion: Emotions.SAD}, {emotion: Emotions.FLUTTER}, {emotion: Emotions.NORMAL}]);
-        setGuestbookList([{nickname: '노원구 오함마', content: '요즘 힘들어 보이던데 힘내세요'}, {nickname: '닉네임', content: '내용'}, {nickname: '닉네임2', content: '구독하고 갑니다'}, {nickname: '닉네임3', content: '테스트'}, , {nickname: '닉네임3', content: '테스트'}, , {nickname: '닉네임3', content: '테스트'}]);
+        setGuestbookList([{nickname: '노원구 오함마', content: '요즘 힘들어 보이던데 힘내세요'}, {nickname: '닉네임', content: '내용'}, {nickname: '닉네임2', content: '구독하고 갑니다'}, {nickname: '닉네임3', content: '테스트'}, {nickname: '닉네임3', content: '테스트'}, {nickname: '닉네임3', content: '테스트'}]);
     }, [id]);
 
     // 클릭 이벤트
@@ -66,7 +66,11 @@ function ProfilePage(props) {
     };
 
     // 이벤트 감지
-    const onDescriptionChange = (event) => setDescription(event.target.value);
+    const onDescriptionChange = (event) => {
+        setDescription(event.target.value);
+        event.target.style.height = 'inherit';
+        event.target.style.height = `${event.target.scrollHeight}px`;
+    }
 
     return (
         <Container.Base emotion={emotion}>

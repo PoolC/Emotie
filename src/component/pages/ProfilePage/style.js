@@ -76,22 +76,27 @@ export const Nickname = styled.h1`
     opacity: ${props => props.isEditMode ? 0.2 : 1};
     transition: opacity 300ms;
 `
-export const Description = styled.textarea`
-    background-color: black;
-    padding: 20px;
+export const DescriptionWrapper = styled.div`
+    margin: 0 ${props => props.isEditMode ? "-15px" : "0"};
+    padding: ${props => props.isEditMode ? "15px" : "0"};
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
+    background-color: ${props => props.isEditMode ? "black" : "transparent"};
+    transition: all ease 300ms;
+`
+export const Description = styled.textarea`
+    width: 100%;
+    padding: 0;
+    border: none;
     outline: none;
     resize: none;
+    background-color: transparent;
     color: white;
     font-size: 0.8rem;
     font-family: sans-serif;
     transition: all ease 300ms;
 
     &:disabled {
-        padding: 0;
-        background-color: transparent;
-        border-radius: 0;
         color: black;
     }
 `
