@@ -26,9 +26,8 @@ const Container = styled.div`
     align-items: center;
     width: 100%;
     height: 100vh;
-    z-index: 20;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(7px);
+    z-index: 30;
+    background-color: rgba(255, 255, 255, 0.3);
     opacity: ${props => props.isOpen ? "1" : "0"};
     visibility: ${props => props.isOpen ? "visible" : "hidden"};
     transition: 200ms all;
