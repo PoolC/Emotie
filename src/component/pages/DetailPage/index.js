@@ -17,15 +17,15 @@ function DetailPage(props) {
             </Profile>
             <Wrapper>
                 <Post>
-                <Info>
-                    <EmotionTag emotion={props.emotion}/>
-                    <Nickname>{id}</Nickname>
-                    <Date>2021.07.20</Date>
-                </Info>
-                <Content>그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다.</Content>
-                <Icons>
-                    <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>
-                </Icons>
+                    <Info>
+                        <EmotionTag emotion={props.emotion}/>
+                        <Nickname>{id}</Nickname>
+                        <Date>2021.07.20</Date>
+                    </Info>
+                    <Content>그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다.</Content>
+                    <Icons>
+                        <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>
+                    </Icons>
                 </Post>
             </Wrapper>
         </Container>

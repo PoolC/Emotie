@@ -31,7 +31,7 @@ export const Profile = styled.div`
 `
 export const ProfileButton = styled.a`
     padding:10px;
-    font-size:0.8em;
+    font-size:1em;
     font-weight:bold;
     width:60%;
     text-align:right;
@@ -73,13 +73,13 @@ export const Info = styled.div`
 export const Nickname = styled.span`
     flex: 1 0 0;
     margin-left: 20px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
 `
 
 export const Date = styled.span`
-    font-size: 0.6rem;
+    font-size: 1rem;
     color: #ffffff;
 `
 
@@ -87,7 +87,7 @@ export const Content = styled.p`
     display: -webkit-box;
     margin: 0;
     width: 70%;
-    font-size: 0.6rem;
+    font-size: 1rem;
     color: #ffffff;
     line-height: 2;
     height: 6em;
