@@ -23,7 +23,7 @@ function LandingPage(props) {
     },
     {
         id: 2,
-        emotion: "none",
+        emotion: null,
         nickname: "김씨",
         content: "잘가시게",
         date: "2021.09.02"
@@ -37,7 +37,7 @@ function LandingPage(props) {
     },
     {
         id: 4,
-        emotion: "none",
+        emotion: null,
         nickname: "헤씨",
         content: "헤이유",
         date: "2021.09.02"
@@ -51,7 +51,7 @@ function LandingPage(props) {
     },
     {
         id: 6,
-        emotion: "none",
+        emotion: null,
         nickname: "김씨",
         content: "잘가시게",
         date: "2021.09.02"
@@ -68,7 +68,7 @@ function LandingPage(props) {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [detailPopup, setDetailPopup] = useState({
         index: 0,
-        emotion: "none",
+        emotion: null,
         nickname: "",
         content: "",
         date: "",
@@ -127,7 +127,7 @@ function LandingPage(props) {
                 <ProfileCard emotion={Emotions.TIRED}/>
                 <ProfileCard emotion={Emotions.ANGRY}/>
             </ProfileList>
-            <DetailPopup isOpen={isPopupOpen} detail={detailPopup} setOpen={setPopupOpen} slidePost={slidePost}/>
+            <DetailPopup isOpen={isPopupOpen} detail={detailPopup} setOpen={setPopupOpen} slidePost={slidePost} history={props.history}/>
         </Container>
     );
 }
