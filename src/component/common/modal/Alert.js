@@ -38,7 +38,7 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     z-index: 30;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #b6b6b635;
     opacity: ${props => props.isOpen ? "1" : "0"};
     visibility: ${props => props.isOpen ? "visible" : "hidden"};
     transition: 200ms all;
