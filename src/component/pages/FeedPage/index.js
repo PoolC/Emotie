@@ -45,6 +45,7 @@ function FeedPage(props) {
             </PostList>
             <FloatingButton icon={MdKeyboardArrowUp} onClick={goToTop} bottom="90"/>
             <FloatingButton icon={GiPencil} onClick={goWritePage}/>
+            {/* 모달 */}
             <Progress isInProgress={loading} fullscreen={fullscreen}/>
         </Container>
     );
