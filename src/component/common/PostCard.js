@@ -89,11 +89,9 @@ const Container = styled.div`
     border-radius: 5px;
     transition: border 300ms, opacity 300ms;
     cursor: default;
-
     &:hover {
         border: 1px solid ${props => props.borderColor || "#ffffff"};
     }
-
     &:active {
         opacity: 0.7;
     }
@@ -130,7 +128,7 @@ const Content = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical; 
-    word-wrap: break-word;
+    word-break: keep-all;
     -webkit-line-clamp: 3;
 `
 
@@ -141,7 +139,6 @@ const Icons = styled.div`
     display: flex;
     flex-flow: row nowrap;
     gap: 10px;
-
     @media only screen and (max-width: 1100px) {
         display: none;
     }
@@ -152,7 +149,6 @@ const DropDownContainer = styled.div`
     bottom: 20px;
     right: 40px;
     display: none;
-
     @media only screen and (max-width: 1100px) {
         display: flex;
     }

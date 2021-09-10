@@ -19,14 +19,14 @@ const Container = styled.div`
 `
 
 const Circle = styled.div`
-    width: ${props => props.write ? `20px` : `10px`};
-    height: ${props => props.write ? `20px` : `10px`};
+    width: ${props => props.write ? `20px` : `15px`};
+    height: ${props => props.write ? `20px` : `15px`};
     border: ${props => props.write ? `5px` : `3px`} solid ${props => props.color || "#FFFFFF"};
     border-radius: 50%;
 
     @media only screen and (max-width: 768px) {
-        width: ${props => props.write ? `15px` : `10px`};
-        height: ${props => props.write ? `15px` : `10px`};
+        width: ${props => props.write ? `15px` : `12px`};
+        height: ${props => props.write ? `15px` : `12px`};
         border: ${props => props.write ? `4px` : `3px`} solid ${props => props.color || "#FFFFFF"};
     }
 `
@@ -34,7 +34,7 @@ const Circle = styled.div`
 const Emotion = styled.span`
     margin-left: ${props => props.write ? `0` : `10px`};
     margin-top: ${props => props.write ? `10px` : `0`};
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     color: ${props => props.color || "#FFFFFF"};
 `
