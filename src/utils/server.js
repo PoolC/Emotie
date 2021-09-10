@@ -2,6 +2,6 @@ import axios from "axios";
 
 const server = axios.create();
 // server.defaults.headers.common[''] = '';
-server.defaults.baseURL = "http://3.35.248.237:8081/";
+server.defaults.baseURL = "localhost:8080";
 
 export default server;
