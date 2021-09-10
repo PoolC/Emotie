@@ -99,11 +99,12 @@ const DetailCard = styled.div`
     background-color: #1e1e1e;
     border-radius: 5px;
     height: 300px;
-    padding: 30px;
+    padding: 30px 60px;
     box-sizing: border-box;
 
     @media only screen and (max-width: 768px) {
         height: 400px;
+        padding: 30px;
     }
 `
 
@@ -144,7 +145,7 @@ const Content = styled.p`
     overflow-y: scroll;
     font-size: 1rem;
     line-height: 1.8;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     word-break:keep-all;
 
     &::-webkit-scrollbar {
