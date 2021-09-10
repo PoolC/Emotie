@@ -19,6 +19,7 @@ import {
 function RegisterPage(props) {
     const [isFirstCert, setFirstCert] = useState(true);
     const [privacyChecked, setPrivacyChecked] = useState(false);
+    const [emailChecked, setEmailChecked] = useState(false);
     const [nicknameChecked, setNicknameChecked] = useState(false);
 
     const [gender, setGender] = useState("MALE");
@@ -100,6 +101,7 @@ function RegisterPage(props) {
         var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         return (email != '' && email != 'undefined' && regExp.test(email));
     };
+    //이 부분 변경하기
     const isPasswordValid = (password) => {
         var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/;
         return (password != '' && password != 'undefined' && regExp.test(password));
@@ -137,7 +139,11 @@ function RegisterPage(props) {
                 console.log(error);
             });
     }
-    const emailAuth = () => console.log("인증 확인");
+
+    const emailAuth = () => {
+
+    };
+
     const isNicknameUnique = () => {
         console.log("중복 확인");
         server
@@ -153,7 +159,19 @@ function RegisterPage(props) {
             console.log(error);
         });
     }
-    const emailAuthSend = () => console.log("인증 번호 전송");
+    const emailAuthSend = () => {
+        server
+        .post('/auth/authorization', {
+        })
+        .then(response => {
+            console.log(response);
+            setEmailChecked(true);
+        })
+        .catch(error => {
+            console.log(error);
+            setEmailChecked(false);
+        });
+    };
 
     return (
         <Container>
@@ -164,7 +182,7 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="email" value={email} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => { setFirstCert(false); emailAuthSend(); }}></CertButton>
+                        <PillInput name="email" value={email} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => { setFirstCert(false); setEmailChecked(false); emailAuthSend();}}></CertButton>
                     </FlexBox>
                     <InputAlert>{emailAlert}</InputAlert>
                 </InputGroup>
@@ -201,6 +219,7 @@ function RegisterPage(props) {
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
+
                         <SelectGroup
                             state={year}
                             handleState={setYear}
