@@ -47,15 +47,8 @@ function WritePage(props) {
             console.log("감정을 선택해주세요.");
         }
         else {
-            const newDate = new Date();
-            const date = newDate.getDate();
-            const month = newDate.getMonth() + 1;
-            const year = newDate.getFullYear();
-            // 시간은??
-
             // server
             // .post('/diaries', {
-            //     "issuedDate": `${year}-${month}-${date}`,
             //     "emotion": tagId, 
             //     "content": content, 
             //     "isOpened":  isPrivate
@@ -71,7 +64,6 @@ function WritePage(props) {
             //     }
             // });
             
-            console.log(`${year}-${month}-${date}`);
             console.log(tagId);
             console.log(content);
             console.log(isPrivate);
