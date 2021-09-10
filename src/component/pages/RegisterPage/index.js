@@ -7,7 +7,10 @@ import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 
+import Alert from "../../../component/common/modal/Alert";
+
 import server from "../../../utils/server";
+
 
 import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, ButtonText, Border, Link
@@ -15,16 +18,18 @@ import {
 
 function RegisterPage(props) {
     const [isFirstCert, setFirstCert] = useState(true);
-    const [isChecked, setChecked] = useState(false);
+    const [privacyChecked, setPrivacyChecked] = useState(false);
+    const [nicknameChecked, setNicknameChecked] = useState(false);
 
     const [gender, setGender] = useState("MALE");
 
     const [year, setYear] = useState("2000");
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
-    const dateOfBirth=year+"-"+month+"-"+day;
-    
 
+    const dateOfBirth = year + "-" + month + "-" + day;
+
+    //alert처리한 거 바꾸는 중
     const detectInput = () => {
         if (email.length === 0) {
             alert('이메일을 입력하세요');
@@ -33,7 +38,6 @@ function RegisterPage(props) {
             alert(emailAlert);
             return;
         }
-
         if (password.length === 0) {
             alert('비밀번호를 입력하세요');
             return;
@@ -41,8 +45,8 @@ function RegisterPage(props) {
             alert(passwordAlert);
             return;
         }
-
         if (rePassword.length === 0) {
+            console.log('5');
             alert('비밀번호를 재입력하세요');
             return;
         } else if (rePasswordAlert != '') {
@@ -54,6 +58,17 @@ function RegisterPage(props) {
             alert('별명을 입력하세요');
             return;
         }
+        if (nicknameChecked === false) {
+            console.log('8');
+            alert('별명 중복 확인을 해주세요');
+            return;
+        }
+
+        if(privacyChecked === false){
+            alert('개인 정보 및 이용약관에 동의하세요');
+            return;
+        }
+        console.log('아나');
         registIn();
     }
 
@@ -105,25 +120,41 @@ function RegisterPage(props) {
     }
 
     const registIn = () => {
+        console.log("가입");
         server
-        .post('/members', {
-            "nickname" : nickname, 
-	        "password" : password,
-	        "passwordCheck": rePassword,
-	        "gender" : gender, 
-	        "dateOfBirth" : dateOfBirth,
-	        "email": email, 
-        })
+            .post('/members', {
+                "nickname": nickname,
+                "password": password,
+                "passwordCheck": rePassword,
+                "gender": gender,
+                "dateOfBirth": dateOfBirth,
+                "email": email,
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    const emailAuth = () => console.log("인증 확인");
+    const isNicknameUnique = () => {
+        console.log("중복 확인");
+        server
+        .get('/members/nickname', {
+            "nickname": nickname
+        }, console.log("nick 감"))
         .then(response => {
             console.log(response);
+            //200 400 처리 어떻게 되는 거지
+            setNicknameChecked(true);
         })
         .catch(error => {
             console.log(error);
         });
     }
-    const emailAuth = () => console.log("인증 확인");
-    const isNicknameUnique = () => console.log("중복 확인");
     const emailAuthSend = () => console.log("인증 번호 전송");
+
     return (
         <Container>
             <Header />
@@ -155,7 +186,7 @@ function RegisterPage(props) {
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="별명" type="text"></PillInput>
+                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="별명" type="text" readOnly={nicknameChecked}></PillInput>
                         <CertButton children={"중복 확인"} onClick={() => isNicknameUnique()}></CertButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
@@ -187,7 +218,7 @@ function RegisterPage(props) {
                 </InputGroup>
             </Gap>
             <ButtonText>
-                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)} />
+                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={privacyChecked} onClick={() => setPrivacyChecked(!privacyChecked)} />
             </ButtonText>
             <PillButton width="260px" children="다음" onClick={() => detectInput()}></PillButton>
             <Border>
