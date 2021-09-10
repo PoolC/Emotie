@@ -3,12 +3,23 @@ import styled from "styled-components";
 import PillShadowButton from "../PillShadowButton";
 
 function Alert(props) {
+    const onFirstClick = () => {
+        props.setOpen(false);
+        if (props.firstButtonFunc) props.firstButtonFunc();
+    };
+    const onSecondClick = () => {
+        props.setOpen(false);
+        if (props.secondButtonFunc) props.secondButtonFunc();
+    };
     return (
         <Container isOpen={props.isOpen}>
             <Dialog isOpen={props.isOpen}>
                 {props.title && <Title>{props.title}</Title>}
                 <Message>{props.message}</Message>
-                <PillShadowButton width="100%" onClick={() => props.setOpen(false)} negative>확인</PillShadowButton>
+                <ButtonContainer>
+                    <PillShadowButton width="100%" onClick={onFirstClick} negative>{props.firstButton || '확인'}</PillShadowButton>
+                    {props.secondButton && <PillShadowButton width="100%" onClick={onSecondClick} negative>{props.secondButton}</PillShadowButton>}
+                </ButtonContainer>
             </Dialog>
         </Container>
     );
@@ -27,7 +38,7 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     z-index: 30;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #b6b6b635;
     opacity: ${props => props.isOpen ? "1" : "0"};
     visibility: ${props => props.isOpen ? "visible" : "hidden"};
     transition: 200ms all;
@@ -35,7 +46,6 @@ const Container = styled.div`
 const Dialog = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    align-items: center;
     width: 300px;
     padding: 20px;
     margin-top: ${props => props.isOpen ? "0" : "30px"};
@@ -56,4 +66,10 @@ const Message = styled.p`
     font-size: 0.8rem;
     text-align: center;
     color: white;
+`
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+    box-sizing: border-box;
 `
