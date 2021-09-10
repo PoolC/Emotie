@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 
 import Emotions from "../../../utils/Emotions";
 
@@ -12,7 +12,20 @@ import ProfileCard from "../../common/ProfileCard";
 import DetailPopup from "../../common/DetailPopup";
 import { IoPersonOutline } from "react-icons/io5";
 
-function LandingPage(props) {
+import Alert from "../../common/modal/Alert";
+
+function TestPage(props) {
+    const [isAlertOpen, setAlertOpen] = useState(false);
+    const [isPopupOpen, setPopupOpen] = useState(false);
+    const [detailPopup, setDetailPopup] = useState({
+        index: 0,
+        emotion: null,
+        nickname: "",
+        content: "",
+        date: "",
+        end: false
+    });
+  
     const details = [{
         id: 1,
         emotion: Emotions.HAPPY,
@@ -62,18 +75,7 @@ function LandingPage(props) {
         nickname: "질투씨",
         content: "질투나 증말...!!",
         date: "2021.09.02"
-    },
-    ];
-
-    const [isPopupOpen, setPopupOpen] = useState(false);
-    const [detailPopup, setDetailPopup] = useState({
-        index: 0,
-        emotion: null,
-        nickname: "",
-        content: "",
-        date: "",
-        end: false
-    });
+    }];
 
     const openPopup = (idx, detail) => {
         setPopupOpen(true);
@@ -106,7 +108,7 @@ function LandingPage(props) {
             {/* 내용 */}
             <FloatingButton icon={IoPersonOutline}/>
             <IconButton icon={IoPersonOutline}/>
-            <PillButton>테스트</PillButton>
+            <PillButton onClick={() => setAlertOpen(true)}>테스트</PillButton>
             <PillButton negative>테스트</PillButton>
             <PostList>
                 <PostCard hideEmotion share blur report delete id={details[0].id} onClick={() => {openPopup(0, details[0])}}/>
@@ -127,9 +129,11 @@ function LandingPage(props) {
                 <ProfileCard emotion={Emotions.TIRED}/>
                 <ProfileCard emotion={Emotions.ANGRY}/>
             </ProfileList>
+            {/* 모달 */}
+            <Alert title="테스트 제목" message="테스트 Alert입니다." isOpen={isAlertOpen} setOpen={setAlertOpen}/>
             <DetailPopup isOpen={isPopupOpen} detail={detailPopup} setOpen={setPopupOpen} slidePost={slidePost} history={props.history}/>
         </Container>
     );
 }
 
-export default LandingPage;
+export default TestPage;
