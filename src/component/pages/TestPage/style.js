@@ -12,6 +12,21 @@ export const Container = styled.div`
         padding: 75px 15px 15px 15px;
     }
 `
+
+export const LoginContainer = styled.div`
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+`
+export const LoginToken = styled.span`
+    font-size: 1rem;
+    color: white;
+`
+
 export const PostList = styled.div`
     display: flex;
     flex-flow: column nowrap;

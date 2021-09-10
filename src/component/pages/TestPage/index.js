@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { updateToken, deleteToken } from "../../../utils/store/actions/auth";
 
 import Emotions from "../../../utils/Emotions";
 
-import { Container, PostList, ProfileList } from "./style";
+import { Container, LoginContainer, LoginToken, PostList, ProfileList } from "./style";
 import FloatingButton from "../../common/FloatingButton";
 import Header from "../../common/Header";
 import IconButton from "../../common/IconButton";
@@ -110,6 +112,12 @@ function TestPage(props) {
             <IconButton icon={IoPersonOutline}/>
             <PillButton onClick={() => setAlertOpen(true)}>테스트</PillButton>
             <PillButton negative>테스트</PillButton>
+            <LoginContainer>
+                <LoginToken>현재 토큰 : {props.token}</LoginToken>
+                <PillButton width="200px" negative onClick={() => { props.updateToken('user-1-token') }}>사용자 1으로 로그인</PillButton>
+                <PillButton width="200px" negative onClick={() => { props.updateToken('user-2-token') }}>사용자 2으로 로그인</PillButton>
+                <PillButton width="200px" negative onClick={props.deleteToken}>로그아웃</PillButton>
+            </LoginContainer>
             <PostList>
                 <PostCard hideEmotion share blur report delete id={details[0].id} onClick={() => {openPopup(0, details[0])}}/>
                 <PostCard hideEmotion share blur report id={details[1].id} onClick={() => {openPopup(1, details[1])}}/>
@@ -136,4 +144,12 @@ function TestPage(props) {
     );
 }
 
-export default TestPage;
+const mapStateToProps = (state) => ({
+    token: state.auth.token,
+});
+const mapDispatchToProps = (dispatch) => ({
+    updateToken: (token) => dispatch(updateToken(token)),
+    deleteToken: () => dispatch(deleteToken()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TestPage);
