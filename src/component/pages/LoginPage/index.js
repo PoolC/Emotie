@@ -6,43 +6,105 @@ import Header from "../../common/Header";
 import logo from "../../../image/logo_img.svg";
 import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
+import Alert from "../../common/modal/Alert"
+
+import server from "../../../utils/server";
 
 
-import { 
+import {
     Container, Title, Text, Logo, Switch, ButtonText
 } from "./style";
 
 function LoginPage(props) {
     const goFindPage = () => props.history.push('/find');
     const goRegisterPage = () => props.history.push('/register');
-    const login = () => console.log('로그인');
-    const detectInput=()=>{
-        if(id.length===0){
-            alert('이메일을 입력하세요');
+
+    const [inputs, setInputs] = useState({
+        id: '',
+        password: '',
+    });
+    const { id, password } = inputs;
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+    };
+
+    const [isOpen, setOpen] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
+    const [alertTitle, setAlertTitle] = useState('경고');
+    const isEmailValid = (email) => {
+        var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        return (email != '' && email != 'undefined' && regExp.test(email));
+    };
+
+    const detectInput = () => {
+        if (id.length === 0) {
+            setAlertMsg('이메일을 입력하세요');
+            setOpen(true);
             return;
-        }if(password.length===0){
-            alert('패스워드를 입력하세요');
+        }
+        if(!isEmailValid(id)){
+            setAlertMsg('이메일 양식이 아닙니다');
+            setOpen(true);
+            return;
+        }
+        if (password.length === 0) {
+            setAlertMsg('패스워드를 입력하세요');
+            setOpen(true);
             return;
         }
         login();
     }
+    const login = () => {
+        console.log('로그인');
+        server
+            .post('/auth/login', {
+                "email": "anfro2520@gmail.com",
+                "password": "password",
+            })
+            .then(response => {
+                props.history.push('/profile');
+                console.log(response);
+            })
+            .catch(error => {
+                if (error.response) {
+                    // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
+                    if (error.response && error.response.status === 401) { 
+                        setAlertTitle(error.response.status);       
+                        setAlertMsg('비밀번호가 틀렸습니다.');
+                        setOpen(true);
+                    }else if(error.response && error.response.status === 404){
+                        setAlertTitle(error.response.status);
+                        setAlertMsg('가입되지 않은 이메일입니다.');
+                        setOpen(true);
+                    }else{
+                        setAlertTitle(error.response.status);
+                        setAlertMsg('알 수 없는 에러가 발생했습니다.');
+                        setOpen(true);
+                    }
+                }
+                else if (error.request) {
+                    // 요청이 이루어 졌으나 응답을 받지 못함
+                    setAlertTitle('에러');
+                    setAlertMsg('서버에서 응답이 오지 않습니다.')
+                    setOpen(true);
+                }
+                else {
+                    setAlertTitle('에러');
+                    setAlertMsg('로그인 요청에 문제가 발생했습니다')
+                    setOpen(true);
+                }
+            });
+    }
 
-    const [inputs, setInputs]=useState({
-        id:'',
-        password:'',
-    });
-    const {id, password}=inputs;
-    const onChange=(e)=>{
-        const{value,name}=e.target;
-        setInputs({
-            ...inputs,
-            [name]:value
-        });
-    };
+
 
     return (
         <Container>
-            <Header/>
+            <Header />
             <Logo src={logo}></Logo>
             <Title>Emotie 로그인</Title>
             <Text>Emotie에 오신 걸 환영합니다</Text>
@@ -51,6 +113,7 @@ function LoginPage(props) {
             <PillButton width="260px" onClick={detectInput}>로그인</PillButton>
             <ButtonText onClick={goFindPage}>비밀번호를 잊으셨나요?</ButtonText>
             <Switch onClick={goRegisterPage}>계정이 없으신가요? 가입하기</Switch>
+            <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
         </Container>
     );
 }
