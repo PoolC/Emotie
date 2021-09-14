@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { updateToken, deleteToken } from "../../../utils/store/actions/auth";
 
 import Emotions from "../../../utils/Emotions";
@@ -17,6 +17,9 @@ import { IoPersonOutline } from "react-icons/io5";
 import Alert from "../../common/modal/Alert";
 
 function TestPage(props) {
+    const { token } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
     const [isAlertOpen, setAlertOpen] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [detailPopup, setDetailPopup] = useState({
@@ -103,6 +106,9 @@ function TestPage(props) {
         });
     };
 
+    const login = (newToken) => dispatch(updateToken(newToken));
+    const logout = () => dispatch(deleteToken());
+
     return (
         <Container>
             {/* 헤더 */}
@@ -113,10 +119,10 @@ function TestPage(props) {
             <PillButton onClick={() => setAlertOpen(true)}>테스트</PillButton>
             <PillButton negative>테스트</PillButton>
             <LoginContainer>
-                <LoginToken>현재 토큰 : {props.token}</LoginToken>
-                <PillButton width="200px" negative onClick={() => { props.updateToken('user-1-token') }}>사용자 1으로 로그인</PillButton>
-                <PillButton width="200px" negative onClick={() => { props.updateToken('user-2-token') }}>사용자 2으로 로그인</PillButton>
-                <PillButton width="200px" negative onClick={props.deleteToken}>로그아웃</PillButton>
+                <LoginToken>현재 토큰 : {token}</LoginToken>
+                <PillButton width="200px" negative onClick={() => { login('user-1-token') }}>사용자 1으로 로그인</PillButton>
+                <PillButton width="200px" negative onClick={() => { login('user-2-token') }}>사용자 2으로 로그인</PillButton>
+                <PillButton width="200px" negative onClick={logout}>로그아웃</PillButton>
             </LoginContainer>
             <PostList>
                 <PostCard hideEmotion share blur report delete id={details[0].id} onClick={() => {openPopup(0, details[0])}}/>
@@ -144,12 +150,4 @@ function TestPage(props) {
     );
 }
 
-const mapStateToProps = (state) => ({
-    token: state.auth.token,
-});
-const mapDispatchToProps = (dispatch) => ({
-    updateToken: (token) => dispatch(updateToken(token)),
-    deleteToken: () => dispatch(deleteToken()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TestPage);
+export default TestPage;
