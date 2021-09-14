@@ -113,7 +113,7 @@ function TestPage(props) {
             </ProfileList>
             {/* 모달 */}
             <Alert title="테스트 제목" message="테스트 Alert입니다." isOpen={isAlertOpen} setOpen={setAlertOpen}/>
-            <DetailPopup isOpen={isPopupOpen} idx={idx} details={details} setOpen={setPopupOpen} setIdx={setIdx} history={props.history}/>
+            <DetailPopup isOpen={isPopupOpen} idx={idx} details={details} setOpen={setPopupOpen} history={props.history}/>
         </Container>
     );
 }
