@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import * as saga from "./store/actions/_saga";
+import * as user from "./store/actions/user";
+
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from "react-router-dom";
 
 import LandingPage from "./component/pages/LandingPage/index";
@@ -16,6 +20,25 @@ import ErrorPage from "./component/pages/ErrorPage/index";
 import TestPage from "./component/pages/TestPage/index";
 
 function App() {
+  const authStatus = useSelector(store => store.auth.status);
+  const dispatch = useDispatch();
+
+  // 로그인 상태 반영
+  useEffect(() => {
+    switch (authStatus) {
+      case 'AUTHORIZED':
+        dispatch(saga.initUser());
+        break;
+      case 'UNAUTHORIZED':
+      case 'FAILED':
+      case 'EXPIRED':
+        dispatch(user.resetInfo());
+        break;
+      default:
+        break;
+    }
+  }, [authStatus, dispatch]);
+
   return (
     <Router>
       <Switch>
