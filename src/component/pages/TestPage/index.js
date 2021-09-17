@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { updateToken, deleteToken } from "../../../utils/store/actions/auth";
+import { useSelector, useDispatch } from "react-redux";
+import * as saga from "../../../store/actions/_saga";
 
 import Emotions from "../../../utils/Emotions";
 
@@ -17,16 +17,12 @@ import { IoPersonOutline } from "react-icons/io5";
 import Alert from "../../common/modal/Alert";
 
 function TestPage(props) {
+    const authStatus = useSelector(store => store.auth.status);
+    const dispatch = useDispatch();
+
     const [isAlertOpen, setAlertOpen] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    const [detailPopup, setDetailPopup] = useState({
-        index: 0,
-        emotion: null,
-        nickname: "",
-        content: "",
-        date: "",
-        end: false
-    });
+    const [idx, setIdx] = useState(0);
   
     const details = [{
         id: 1,
@@ -79,29 +75,19 @@ function TestPage(props) {
         date: "2021.09.02"
     }];
 
-    const openPopup = (idx, detail) => {
+    const openPopup = (idx) => {
         setPopupOpen(true);
-        // detail의 emotion, title, content 등 설정 필요
-        setDetailPopup({
-            index: idx,
-            emotion: detail.emotion,
-            nickname: detail.nickname,
-            content: detail.content,
-            date: detail.date,
-            end: idx === (details.length-1)
-        });
-    };
+        setIdx(idx);
+    }
 
-    const slidePost = (idx) => {
-        setDetailPopup({
-            index: idx,
-            emotion: details[idx].emotion,
-            nickname: details[idx].nickname,
-            content: details[idx].content,
-            date: details[idx].date,
-            end: idx === (details.length-1)
-        });
-    };
+    const login = () => {
+        const payload = {
+            email: 'test@gmail.com',
+            password: 'testpassword'
+        }
+        dispatch(saga.login(payload));
+    }
+    const logout = () => dispatch(saga.logout());
 
     return (
         <Container>
@@ -113,19 +99,18 @@ function TestPage(props) {
             <PillButton onClick={() => setAlertOpen(true)}>테스트</PillButton>
             <PillButton negative>테스트</PillButton>
             <LoginContainer>
-                <LoginToken>현재 토큰 : {props.token}</LoginToken>
-                <PillButton width="200px" negative onClick={() => { props.updateToken('user-1-token') }}>사용자 1으로 로그인</PillButton>
-                <PillButton width="200px" negative onClick={() => { props.updateToken('user-2-token') }}>사용자 2으로 로그인</PillButton>
-                <PillButton width="200px" negative onClick={props.deleteToken}>로그아웃</PillButton>
+                <LoginToken>현재 상태 : {authStatus}</LoginToken>
+                <PillButton width="200px" negative onClick={login}>로그인</PillButton>
+                <PillButton width="200px" negative onClick={logout}>로그아웃</PillButton>
             </LoginContainer>
             <PostList>
-                <PostCard hideEmotion share blur report delete id={details[0].id} onClick={() => {openPopup(0, details[0])}}/>
-                <PostCard hideEmotion share blur report id={details[1].id} onClick={() => {openPopup(1, details[1])}}/>
-                <PostCard hideEmotion share blur id={details[2].id} onClick={() => {openPopup(2, details[2])}}/>
-                <PostCard hideEmotion share blur report delete id={details[3].id} onClick={() => {openPopup(3, details[3])}}/>
-                <PostCard hideEmotion share blur report id={details[4].id} onClick={() => {openPopup(4, details[4])}}/>
-                <PostCard hideEmotion share blur report delete id={details[5].id} onClick={() => {openPopup(5, details[5])}}/>
-                <PostCard emotion={Emotions.SAD} share blur report delete id={details[6].id} onClick={() => {openPopup(6, details[6])}}/>
+                <PostCard hideEmotion share blur report delete id={details[0].id} onClick={() => {openPopup(0)}}/>
+                <PostCard hideEmotion share blur report id={details[1].id} onClick={() => {openPopup(1)}}/>
+                <PostCard hideEmotion share blur id={details[2].id} onClick={() => {openPopup(2)}}/>
+                <PostCard hideEmotion share blur report delete id={details[3].id} onClick={() => {openPopup(3)}}/>
+                <PostCard hideEmotion share blur report id={details[4].id} onClick={() => {openPopup(4)}}/>
+                <PostCard hideEmotion share blur report delete id={details[5].id} onClick={() => {openPopup(5)}}/>
+                <PostCard emotion={Emotions.SAD} share blur report delete id={details[6].id} onClick={() => {openPopup(6)}}/>
             </PostList>
             <ProfileList>
                 <ProfileCard/>
@@ -139,17 +124,9 @@ function TestPage(props) {
             </ProfileList>
             {/* 모달 */}
             <Alert title="테스트 제목" message="테스트 Alert입니다." isOpen={isAlertOpen} setOpen={setAlertOpen}/>
-            <DetailPopup isOpen={isPopupOpen} detail={detailPopup} setOpen={setPopupOpen} slidePost={slidePost} history={props.history}/>
+            <DetailPopup isOpen={isPopupOpen} idx={idx} details={details} setOpen={setPopupOpen} history={props.history}/>
         </Container>
     );
 }
 
-const mapStateToProps = (state) => ({
-    token: state.auth.token,
-});
-const mapDispatchToProps = (dispatch) => ({
-    updateToken: (token) => dispatch(updateToken(token)),
-    deleteToken: () => dispatch(deleteToken()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TestPage);
+export default TestPage;
