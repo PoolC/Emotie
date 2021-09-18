@@ -1,15 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
-import reducers from './utils/store/reducers/index';
+
+import rootSaga from './store/middleware/saga';
+import reducers from './store/reducers/_all';
+import * as auth from './store/actions/auth';
 
 import App from './App';
 import './index.css';
 
+// Store 옵션
+const sagaMiddleWare = createSagaMiddleware();
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const store = createStore(reducers, devTools);
 
+// Store 생성
+export const store = createStore(reducers, compose(applyMiddleware(sagaMiddleWare), devTools));
+
+// rootSaga 적용
+sagaMiddleWare.run(rootSaga);
+
+// 리로드 시 로그인 유지
+if (localStorage.getItem('accessToken')) 
+    store.dispatch(auth.updateStatus('AUTHORIZED'));
+else 
+    store.dispatch(auth.updateStatus('UNAUTHORIZED'));
+
+// 렌더
 ReactDOM.render(
     <Provider store={store}>
         <App/>

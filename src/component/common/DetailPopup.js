@@ -1,29 +1,36 @@
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 
 import EmotionTag from './EmotionTag';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 
 function DetailPopup(props) {
+    const [idx, setIdx] = useState(props.idx);
+    useEffect(() => {
+        setIdx(props.idx);
+    }, [props.idx]);
+
     const goProfilePage = (nickname) => props.history.push(`/profile/${nickname}`);
+    const slidePost = (neigh) => setIdx(idx + neigh);
 
     return (
         <Container isOpen={props.isOpen} onClick={() => props.setOpen(false)}>
             <PostContainer>
-                <LeftContainer start={props.detail.index === 0}>
-                    <BsChevronCompactLeft fontSize="5rem" onClick={(e) => {e.stopPropagation(); props.slidePost(props.detail.index-1)}}/>
+                <LeftContainer start={idx === 0}>
+                    <BsChevronCompactLeft fontSize="5rem" onClick={(e) => {e.stopPropagation(); slidePost(-1);}}/>
                 </LeftContainer>
                 <DetailContainer onClick={(e) => e.stopPropagation()}>
                     <DetailCard>
                         <Info>
-                            {props.detail.emotion && <EmotionTag emotion={props.detail.emotion}/>}
-                            <Nickname emotion={props.detail.emotion} onClick={() => goProfilePage(props.detail.nickname)}>{props.detail.nickname}</Nickname>
-                            <Date>{props.detail.date}</Date>
+                            {props.details[idx].emotion && <EmotionTag emotion={props.details[idx].emotion}/>}
+                            <Nickname emotion={props.details[idx].emotion} onClick={() => goProfilePage(props.details[idx].nickname)}>{props.details[idx].nickname}</Nickname>
+                            <Date>{props.details[idx].date}</Date>
                         </Info>
-                        <Content>{props.detail.content}</Content>
+                        <Content>{props.details[idx].content}</Content>
                     </DetailCard>
                 </DetailContainer>
-                <RightContainer end={props.detail.end}>
-                    <BsChevronCompactRight fontSize="5rem" onClick={(e) => {e.stopPropagation(); props.slidePost(props.detail.index+1)}}/>
+                <RightContainer end={idx === (props.details.length - 1)}>
+                    <BsChevronCompactRight fontSize="5rem" onClick={(e) => {e.stopPropagation(); slidePost(1);}}/>
                 </RightContainer>
             </PostContainer>
         </Container>
