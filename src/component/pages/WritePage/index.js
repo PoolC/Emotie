@@ -6,6 +6,7 @@ import EmotionTag from "../../common/EmotionTag";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import CheckBox from "../../common/CheckBox";
+import Alert from "../../common/modal/Alert";
 
 import server from "../../../utils/server";
 
@@ -26,6 +27,9 @@ function WritePage(props) {
         tired: false
     });
     const [ tagId, setTagId ] = useState(null);
+    const [ selectEmotionOpen, setSelectEmotionOpen ] = useState(false);
+    const [ submitOpen, setSubmitOpen ] = useState(false);
+    const [ loginOpen, setLoginOpen ] = useState(false);
 
     const tagClick = (id, key) => {
         const defaultState = ({
@@ -41,10 +45,11 @@ function WritePage(props) {
         setTagState({ ...defaultState, [key]: true});
         setTagId(id);
     };
+
     const uploadPost = () => {
         // 마음글 등록
         if(tagId === null) {
-            console.log("감정을 선택해주세요.");
+            setSelectEmotionOpen(true);
         }
         else {
             // server
@@ -55,12 +60,12 @@ function WritePage(props) {
             // })
             // .then(response => {
             //     console.log(response.data);
-            //     console.log("마음글이 성공적으로 작성되었습니다.");
+            //     setSubmitOpen(true);
             // })
             // .catch(error => {
             //     console.log(error.response);
             //     if(response === 401) {
-            //         console.log("로그인을 먼저 해주세요."); // 근데 왜 로그인 안했다고 미리 말 안해줌??
+                    // setLoginOpen(true);
             //     }
             // });
             
@@ -94,6 +99,10 @@ function WritePage(props) {
                     <PillButton negative children="취소" onClick={() => props.history.goBack()}/>
                 </ButtonSection>
             </Body>
+            {/* 모달 */}
+            <Alert title="감정 미선택" message="감정을 선택해주세요." isOpen={selectEmotionOpen} setOpen={setSelectEmotionOpen}/>
+            <Alert title="마음글 작성 성공" message="마음글이 성공적으로 작성되었습니다." isOpen={submitOpen} setOpen={setSubmitOpen}/>
+            <Alert title="로그인 필요" message="로그인을 먼저 해주세요." isOpen={loginOpen} setOpen={setLoginOpen}/>
         </Container>
     );
 }

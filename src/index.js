@@ -13,10 +13,9 @@ import './index.css';
 
 // Store 옵션
 const sagaMiddleWare = createSagaMiddleware();
-const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 // Store 생성
-export const store = createStore(reducers, compose(applyMiddleware(sagaMiddleWare), devTools));
+export const store = createStore(reducers, applyMiddleware(sagaMiddleWare));
 
 // rootSaga 적용
 sagaMiddleWare.run(rootSaga);
