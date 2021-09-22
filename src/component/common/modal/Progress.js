@@ -32,7 +32,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: ${props => props.fullscreen ? "100%" : "unset"};
-    height: ${props => props.fullscreen ? "100vh" : "unset"};
+    height: ${props => props.fullscreen ? "100vh" : "80px"};
     gap: 7px;
     z-index: 30;
     opacity: ${props => props.isInProgress ? "1" : "0"};
