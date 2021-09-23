@@ -1,5 +1,3 @@
-import { stringToNumber, numberToTwoString } from "../../../utils/converter";
-
 import { 
     BaseLayout, ContentLayout, 
     CategoryLayout, Category,
@@ -46,35 +44,24 @@ export const Group = {
         );
     },
     Birth: function(props) {
-        let year = 2000;
-        let month = 1;
-        let day = 1;
-
-        if (props.birth.includes('-')) {
-            const birthObj = props.birth.split('-');
-            year = stringToNumber(birthObj[0]);
-            month = stringToNumber(birthObj[1]);
-            day = stringToNumber(birthObj[2]);
-        }
-
-        const handleYear = (year) => props.setTempBirth('2000-01-01');
-        const handleMonth = (month) => props.setTempBirth('2000-01-01');
-        const handleDay = (year) => props.setTempBirth('2000-01-01');
+        const handleYear = (year) => props.setTempBirth({ ...props.birth, year: year });
+        const handleMonth = (month) => props.setTempBirth({ ...props.birth, month: month });
+        const handleDay = (day) => props.setTempBirth({ ...props.birth, day: day });
 
         return (
             <Section>
                 <Description>생년월일</Description>
                 <SemiSection>
                     <SelectGroup 
-                        state={year} 
+                        state={props.birth.year} 
                         handleState={handleYear}
                         options={Array.from({length: 122}, (_, k) => k + 1900)}/>
                     <SelectGroup 
-                        state={month} 
+                        state={props.birth.month} 
                         handleState={handleMonth}
                         options={Array.from({length: 12}, (_, k) => k + 1)}/>
                     <SelectGroup 
-                        state={day} 
+                        state={props.birth.day} 
                         handleState={handleDay}
                         options={Array.from({length: 31}, (_, k) => k + 1)}/>
                 </SemiSection>
@@ -95,20 +82,25 @@ export const Group = {
     },
     // 비밀번호 변경
     PasswordCheck: function(props) {
+        const onPasswordChanged = (event) => props.setPassword({ ...props.password, old: event.target.value });
+
         return (
             <Section>
                 <Description>비밀번호 확인</Description>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={props.handlePassword.onOldChanged}/></PillInputWrapper>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={onPasswordChanged}/></PillInputWrapper>
                 <Alert>기존 비밀번호와 일치하지 않습니다.</Alert>
             </Section>
         );
     },
     NewPassword: function(props) {
+        const onPasswordChanged1 = (event) => props.setPassword({ ...props.password, new1: event.target.value });
+        const onPasswordChanged2 = (event) => props.setPassword({ ...props.password, new2: event.target.value });
+
         return (
             <Section>
                 <Description>새 비밀번호</Description>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.new1} onChange={props.handlePassword.onNew1Changed}/></PillInputWrapper>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호 확인" value={props.password.new2} onChange={props.handlePassword.onNew2Changed}/></PillInputWrapper>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.new1} onChange={onPasswordChanged1}/></PillInputWrapper>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호 확인" value={props.password.new2} onChange={onPasswordChanged2}/></PillInputWrapper>
                 <Alert>비밀번호는 12자 이하 영문+숫자의 조합이어야 합니다.</Alert>
             </Section>
         );

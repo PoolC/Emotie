@@ -14,7 +14,7 @@ function SettingPage(props) {
 
     // 수정할 수 있는 데이터
     const [tempNickname, setTempNickname] = useState("");
-    const [tempBirth, setTempBirth] = useState("");
+    const [tempBirth, setTempBirth] = useState(birth);
     const [tempGender, setTempGender] = useState("");
     useEffect(() => setTempNickname(nickname), [nickname]);
     useEffect(() => setTempBirth(birth), [birth]);
@@ -25,22 +25,19 @@ function SettingPage(props) {
     const [password, setPassword] = useState({old: "", new1: "", new2: ""});
     const [deletingReason, setDeletingReason] = useState(0);
 
-    // 이벤트
-    const handlePassword = {
-        onOldChanged: (event) => setPassword({...password, old: event.target.value}),
-        onNew1Changed: (event) => setPassword({...password, new1: event.target.value}),
-        onNew2Changed: (event) => setPassword({...password, new2: event.target.value})
-    };
-
     // 클릭 이벤트
     const changeCategory = (id) => {
+        // 초기화
         setTempNickname(nickname);
         setTempBirth(birth);
         setTempGender(gender);
+        setPassword({old: "", new1: "", new2: ""});
+
+        // 카테고리 변경
         setCategory(id);
     }
     const changeInfo = () => {
-        console.log(`개인정보 수정 => 닉네임 : ${nickname} / 생년월일 : ${birth.year}년 ${birth.month}월 ${birth.day}일 / 성별 : ${gender}`);
+        console.log(`개인정보 수정 => 닉네임 : ${tempNickname} / 생년월일 : ${tempBirth.year}년 ${tempBirth.month}월 ${tempBirth.day}일 / 성별 : ${tempGender}`);
     };
     const changePassword = () => {
         console.log(`비밀번호 변경 => 기존 : ${password.old} / 새 : ${password.new1} / 확인 : ${password.new2}`);
@@ -72,8 +69,8 @@ function SettingPage(props) {
                 {category === 1 && // 비밀번호 변경
                     <Container.Frame>
                         <Element.Title>비밀번호 변경</Element.Title>
-                        <Group.PasswordCheck password={password} handlePassword={handlePassword}/>
-                        <Group.NewPassword password={password} handlePassword={handlePassword}/>
+                        <Group.PasswordCheck password={password} setPassword={setPassword}/>
+                        <Group.NewPassword password={password} setPassword={setPassword}/>
                         <Element.Button onClick={changePassword}>비밀번호 변경</Element.Button>
                     </Container.Frame>}
                 {category === 2 && // 계정 삭제
@@ -81,7 +78,7 @@ function SettingPage(props) {
                         <Element.Title>계정 삭제</Element.Title>
                         <Group.Warning nickname={nickname} email={email}/>
                         <Group.Reason deletingReason={deletingReason} setDeletingReason={setDeletingReason}/>
-                        <Group.PasswordCheck password={password} handlePassword={handlePassword}/>
+                        <Group.PasswordCheck password={password} setPassword={setPassword}/>
                         <Element.Button onClick={deleteAccount}>계정 삭제</Element.Button>
                     </Container.Frame>}
             </Container.Content>
