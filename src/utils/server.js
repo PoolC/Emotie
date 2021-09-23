@@ -20,7 +20,7 @@ server.interceptors.response.use(
         return response;
     },
     function (error) {
-        if (error.response.status === 401) // 토큰 만료
+        if (error.response && error.response.status === 401) // 토큰 만료
             store.dispatch(expire());
         
         return Promise.reject(error);
