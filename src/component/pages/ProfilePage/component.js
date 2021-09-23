@@ -26,9 +26,7 @@ export const Container = {
         return <ContentLayout>{props.children}</ContentLayout>
     },
     Profile: function(props) {
-        return (
-            <ProfileLayout backgroundColor={props.backgroundColor}>{props.children}</ProfileLayout>
-        );
+        return <ProfileLayout backgroundColor={props.backgroundColor}>{props.children}</ProfileLayout>
     },
 };
 
