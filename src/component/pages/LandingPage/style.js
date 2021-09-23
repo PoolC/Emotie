@@ -4,36 +4,64 @@ export const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    padding: 80px 30px 20px 30px;
+    padding-top: 80px;
     box-sizing: border-box;
 
     @media only screen and (max-width: 768px) {
-        padding: 75px 15px 15px 15px;
+        padding-top: 75px;
     }
 `
 export const Wrap = styled.div`
     display: flex;
+    width:100%;
+    height:600px;
+    @media only screen and (max-width: 768px) {
+    }
+`
+export const MainPart = styled.div`
+    display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    padding:40px;
-    gap:20px;
+    justify-content: center;
+    width:100%;
+    height:100%;
+    @media only screen and (max-width: 768px) {
+    }
+`
+export const ImagePart = styled.div`
+    width:45%;
+    height:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    @media only screen and (max-width: 768px) {
+    }
+`
+export const TextPart = styled.div`
+    text-align:left;
+    width:55%;
+    padding-top:5%;
+    padding-left:5%;
+    height:100%;
     @media only screen and (max-width: 768px) {
     }
 `
 
 export const Logo = styled.img`
-    width:200px;
+    width:75px;
+    padding:35px;
     @media only screen and (max-width: 768px) {
     }
 `
 
+
 export const Title = styled.div`
-    width: 400px;
-    height: 40px;
+    width: 500px;
     font-size: 24pt;
-    text-align:center;
     font-weight:bold;
     color:#FFFFFF;
+    word-break:keep-all;
+    padding-bottom:20px;
 
     @media only screen and (max-width: 768px) {
     }
@@ -41,11 +69,11 @@ export const Title = styled.div`
 
 export const Text = styled.div`
     width:400px;
-    height:60px;
     font-size: 18pt;
-    text-align:center;
     color:#FFFFFF;
     word-break:keep-all;
+    line-height:1.6;
+    padding-bottom:20px;
 
     @media only screen and (max-width: 768px) {
     }
