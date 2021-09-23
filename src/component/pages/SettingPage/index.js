@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import server from "../../../utils/server";
 
 import { Container, Group, Element } from "./component";
 
 function SettingPage(props) {
-    const [category, setCategory] = useState(0);
+    // 본인 정보
+    const email = useSelector(store => store.user.email);
+    const nickname = useSelector(store => store.user.nickname);
+    const birth = useSelector(store => store.user.birth);
+    const gender = useSelector(store => store.user.gender);
 
-    const [nickname, setNickname] = useState("");
-    const [email, setEmail] = useState("");
-    const [birth, setBirth] = useState({year: "2000", month: "1", day: "1"});
-    const [gender, setGender] = useState("");
+    // 수정할 수 있는 데이터
+    const [tempNickname, setTempNickname] = useState("");
+    const [tempBirth, setTempBirth] = useState("");
+    const [tempGender, setTempGender] = useState("");
+    useEffect(() => setTempNickname(nickname), [nickname]);
+    useEffect(() => setTempBirth(birth), [birth]);
+    useEffect(() => setTempGender(gender), [gender]);
+
+    // 인터페이스
+    const [category, setCategory] = useState(0);
     const [password, setPassword] = useState({old: "", new1: "", new2: ""});
     const [deletingReason, setDeletingReason] = useState(0);
 
-    useEffect(() => {
-        setCategory(0);
-
-        // 회원정보 설정
-        setNickname('공릉동 공룡');
-        setEmail('dinosaur@gmail.com');
-        setGender('MALE');
-    }, []);
-
     // 이벤트
-    const onNicknameChanged = (event) => setNickname(event.target.value);
-    const handleBirth = {
-        setYear: (year) => setBirth({...birth, year: year}),
-        setMonth: (month) => setBirth({...birth, month: month}),
-        setDay: (day) => setBirth({...birth, day: day})
-    };
     const handlePassword = {
         onOldChanged: (event) => setPassword({...password, old: event.target.value}),
         onNew1Changed: (event) => setPassword({...password, new1: event.target.value}),
@@ -38,8 +34,9 @@ function SettingPage(props) {
 
     // 클릭 이벤트
     const changeCategory = (id) => {
-        setNickname('공릉동 공룡');
-        setPassword({old: "", new1: "", new2: ""});
+        setTempNickname(nickname);
+        setTempBirth(birth);
+        setTempGender(gender);
         setCategory(id);
     }
     const changeInfo = () => {
@@ -67,9 +64,9 @@ function SettingPage(props) {
                 {category === 0 && // 개인정보 수정
                     <Container.Frame>
                         <Element.Title>기본 정보</Element.Title>
-                        <Group.Nickname nickname={nickname} onNicknameChanged={onNicknameChanged}/>
-                        <Group.Birth birth={birth} handleBirth={handleBirth}/>
-                        <Group.Gender gender={gender} setGender={setGender}/>
+                        <Group.Nickname nickname={tempNickname} setTempNickname={setTempNickname}/>
+                        <Group.Birth birth={tempBirth} setTempBirth={setTempBirth}/>
+                        <Group.Gender gender={tempGender} setTempGender={setTempGender}/>
                         <Element.Button onClick={changeInfo}>수정 완료</Element.Button>
                     </Container.Frame>}
                 {category === 1 && // 비밀번호 변경

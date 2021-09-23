@@ -1,3 +1,5 @@
+import { stringToNumber, numberToTwoString } from "../../../utils/converter";
+
 import { 
     BaseLayout, ContentLayout, 
     CategoryLayout, Category,
@@ -33,30 +35,47 @@ export const Group = {
     },
     // 개인정보 수정
     Nickname: function(props) {
+        const onNicknameChanged = (event) => props.setTempNickname(event.target.value);
+
         return (
             <Section>
                 <Description>별명</Description>
-                <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={props.onNicknameChanged}/></PillInputWrapper>
+                <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
                 <Alert>이미 존재하는 별명입니다.</Alert>
             </Section>
         );
     },
     Birth: function(props) {
+        let year = 2000;
+        let month = 1;
+        let day = 1;
+
+        if (props.birth.includes('-')) {
+            const birthObj = props.birth.split('-');
+            year = stringToNumber(birthObj[0]);
+            month = stringToNumber(birthObj[1]);
+            day = stringToNumber(birthObj[2]);
+        }
+
+        const handleYear = (year) => props.setTempBirth('2000-01-01');
+        const handleMonth = (month) => props.setTempBirth('2000-01-01');
+        const handleDay = (year) => props.setTempBirth('2000-01-01');
+
         return (
             <Section>
                 <Description>생년월일</Description>
                 <SemiSection>
                     <SelectGroup 
-                        state={props.birth.year} 
-                        handleState={props.handleBirth.setYear}
+                        state={year} 
+                        handleState={handleYear}
                         options={Array.from({length: 122}, (_, k) => k + 1900)}/>
                     <SelectGroup 
-                        state={props.birth.month} 
-                        handleState={props.handleBirth.setMonth}
+                        state={month} 
+                        handleState={handleMonth}
                         options={Array.from({length: 12}, (_, k) => k + 1)}/>
                     <SelectGroup 
-                        state={props.birth.day} 
-                        handleState={props.handleBirth.setDay}
+                        state={day} 
+                        handleState={handleDay}
                         options={Array.from({length: 31}, (_, k) => k + 1)}/>
                 </SemiSection>
             </Section>
@@ -67,9 +86,9 @@ export const Group = {
             <Section>
                 <Description>성별</Description>
                 <SemiSection>
-                    <PillButton width="80px" onClick={() => props.setGender('MALE')} negative={props.gender === 'MALE'}>남성</PillButton>
-                    <PillButton width="80px" onClick={() => props.setGender('FEMALE')} negative={props.gender === 'FEMALE'}>여성</PillButton>
-                    <PillButton width="80px" onClick={() => props.setGender('HIDDEN')} negative={props.gender === 'HIDDEN'}>비공개</PillButton>
+                    <PillButton width="80px" onClick={() => props.setTempGender('MALE')} negative={props.gender === 'MALE'}>남성</PillButton>
+                    <PillButton width="80px" onClick={() => props.setTempGender('FEMALE')} negative={props.gender === 'FEMALE'}>여성</PillButton>
+                    <PillButton width="80px" onClick={() => props.setTempGender('HIDDEN')} negative={props.gender === 'HIDDEN'}>비공개</PillButton>
                 </SemiSection>
             </Section>
         );
