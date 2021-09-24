@@ -8,7 +8,7 @@ export const Container = styled.div`
     box-sizing: border-box;
 
     @media only screen and (max-width: 768px) {
-        padding: 75px 15px 150px 15px;
+        padding: 75px 15px 0 15px;
     }
 `
 

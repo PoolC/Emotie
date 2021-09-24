@@ -1,99 +1,108 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import server from "../../../utils/server";
-import Emotions from "../../../utils/Emotions";
+import useProfileInfo from "../../../hooks/useProfileInfo";
+
+import * as api from "../../../utils/api";
 
 import { Container, Group, Element } from "./component";
+import Alert from "../../common/modal/Alert";
 
 function ProfilePage(props) {
+    // 프로필 정보
     const { id } = useParams();
+    const { profileInfo, isProfileMine } = useProfileInfo(id);
 
-    const [isMyProfile, setMyProfile] = useState(true);
-    const [isEditMode, setEditMode] = useState(false);
+    // 수정할 수 있는 데이터
+    const [tempIntroduction, setTempIntroduction] = useState('');
+    const [tempMotieItems, setTempMotieItems] = useState(profileInfo.motieItems);
+    useEffect(() => setTempIntroduction(profileInfo.introduction), [profileInfo.introduction]);
+    useEffect(() => setTempMotieItems(profileInfo.motieItems), [profileInfo.motieItems]);
 
-    const [emotion, setEmotion] = useState();
-    const [description, setDescription] = useState('');
-    const [previousDescription, setPreviousDescription] = useState('');
-
+    // 인터페이스
     const [category, setCategory] = useState(0);
-    const [postList, setPostList] = useState([]);
-    const [guestbookList, setGuestbookList] = useState([]);
-
-    useEffect(() => {
-        // 임시 정보
-        setMyProfile(true);
-        setEmotion(Emotions.SAD);
-        setDescription('자기소개는 언제나 어려워\n두 줄만 들어가려면 몇 글자 정도여야하는지 모르겠네요 스크롤 생기는 거 싫은데');
-        setPostList([{emotion: Emotions.HAPPY}, {emotion: Emotions.SAD}, {emotion: Emotions.FLUTTER}, {emotion: Emotions.NORMAL}]);
-        setGuestbookList([{nickname: '노원구 오함마', content: '요즘 힘들어 보이던데 힘내세요'}, {nickname: '닉네임', content: '내용'}, {nickname: '닉네임2', content: '구독하고 갑니다'}, {nickname: '닉네임3', content: '테스트'}, {nickname: '닉네임3', content: '테스트'}, {nickname: '닉네임3', content: '테스트'}]);
-    }, [id]);
+    const [isEditable, setEditable] = useState(false);
+    const [isCancelAlertOpen, setCancelAlertOpen] = useState(false);
+    const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
 
     // 클릭 이벤트
-    const write = () => props.history.push(`/profile/${id}/write`);
-    const startEditMode = () => {
-        setPreviousDescription(description);
-        setEditMode(true);
-    };
-    const stopEditMode = (save) => {
-        if (save) {
-            server
-            .put('/profiles', {
-                nickname: '공릉동 공룡', //TODO
-                introduction: description
-            })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+    const startEdit = () => setEditable(true);
+    const saveEdit = async () => {
+        try {
+            await api.editIntroduction(tempIntroduction);
+            // await api.editMotieItems(tempMotieItems);
         }
-        else setDescription(previousDescription);
-        setEditMode(false);
+        catch(error) {
+            showErrorAlert();
+            cancelEdit();
+        }
     };
+    const cancelEdit = () => {
+        setTempIntroduction(profileInfo.introduction);
+        setTempMotieItems(profileInfo.motieItems);
+        setEditable(false);
+    }
+    const write = () => props.history.push(`/profile/${id}/write`);
     const follow = () => {
-        server
-        .post(`/members/follow/${id}`, {
-            isFollowing: true
-        })
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    };
-
-    // 이벤트 감지
-    const onDescriptionChange = (event) => {
-        setDescription(event.target.value);
-        event.target.style.height = 'inherit';
-        event.target.style.height = `${event.target.scrollHeight}px`;
+        api.follow(id, true)
+        .catch(error => showErrorAlert());
     }
 
+    // 알림
+    const showErrorAlert = () => setErrorAlertOpen(true);
+    const showCancelAlert = () => setCancelAlertOpen(true);
+    
     return (
-        <Container.Base emotion={emotion}>
+        <Container.Base backgroundColor={profileInfo.bgcolor[0]}>
             {/* 헤더 */}
             <Element.Header/>
             {/* 모티 */}
-            <Container.Motie>
-                <Element.Motie emotion={emotion}/>
-            </Container.Motie>
+            <Group.Motie 
+                motie={profileInfo.motie} motieItems={tempMotieItems} 
+                setTempMotieItems={setTempMotieItems}
+                isEditable={isEditable}/>
             {/* 내용 */}
             <Container.Content>
-                <Container.Profile backgroundColor={emotion?.color}>
-                    <Group.Info nickname={id} description={description} onDescriptionChange={onDescriptionChange} isEditMode={isEditMode} />
-                    <Group.State isMyProfile={isMyProfile} isEditMode={isEditMode}/>
-                    <Group.Menu isMyProfile={isMyProfile} isEditMode={isEditMode} startEditMode={startEditMode} stopEditMode={stopEditMode} write={write} follow={follow}/>
-                    <Group.Category category={category} setCategory={setCategory} isEditMode={isEditMode}/>
-                    <Group.GuestbookInput category={category} isEditMode={isEditMode}/>
+                <Container.Profile backgroundColor={profileInfo.bgcolor[0]}>
+                    <Group.Info 
+                        nickname={profileInfo.nickname} introduction={tempIntroduction}
+                        setTempIntroduction={setTempIntroduction} 
+                        isEditable={isEditable}/>
+                    <Group.State 
+                        isProfileMine={isProfileMine} isEditable={isEditable}/>
+                    <Group.Menu 
+                        startEdit={startEdit} saveEdit={saveEdit} cancelEdit={showCancelAlert}
+                        write={write} follow={follow} 
+                        isProfileMine={isProfileMine} isEditable={isEditable}/>
+                    <Group.Category 
+                        category={category} setCategory={setCategory} 
+                        isEditable={isEditable}/>
+                    <Group.GuestbookInput 
+                        category={category} 
+                        isEditable={isEditable}/>
                 </Container.Profile>
-                <Group.Post category={category} postList={postList} guestbookList={guestbookList} isMyProfile={isMyProfile} isEditMode={isEditMode}/>
+                <Group.Post 
+                    category={category} 
+                    diaries={profileInfo.diaries} guestbooks={profileInfo.guestbooks} 
+                    isProfileMine={isProfileMine} isEditable={isEditable}/>
             </Container.Content>
             {/* 바운더리 */}
-            <Element.Boundary backgroundColor={emotion?.color} top/>
-            <Element.Boundary backgroundColor={emotion?.color} bottom/>
+            <Element.Boundary backgroundColor={profileInfo.bgcolor[0]} top/>
+            <Element.Boundary backgroundColor={profileInfo.bgcolor[0]} bottom/>
+            {/* 모달 */}
+            <Alert
+                title="프로필 수정 취소"
+                message="모티 및 소개글 수정 내역이 저장되지 않습니다."
+                firstButton="확인"
+                secondButton="취소"
+                firstButtonFunc={cancelEdit}
+                isOpen={isCancelAlertOpen}
+                setOpen={setCancelAlertOpen}/>
+            <Alert
+                title="오류"
+                message="서버와의 통신 중 오류가 발생하였습니다."
+                isOpen={isErrorAlertOpen}
+                setOpen={setErrorAlertOpen}/>
         </Container.Base>
     );
 }
