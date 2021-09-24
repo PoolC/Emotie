@@ -39,7 +39,10 @@ export const Group = {
             <Section>
                 <Description>별명</Description>
                 <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
-                <Alert>이미 존재하는 별명입니다.</Alert>
+                <SemiSection>
+                    <PillButton>중복 확인</PillButton>
+                    <Alert>이미 존재하는 별명입니다.</Alert>
+                </SemiSection>
             </Section>
         );
     },
@@ -88,7 +91,6 @@ export const Group = {
             <Section>
                 <Description>비밀번호 확인</Description>
                 <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={onPasswordChanged}/></PillInputWrapper>
-                <Alert>기존 비밀번호와 일치하지 않습니다.</Alert>
             </Section>
         );
     },
