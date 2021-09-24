@@ -42,7 +42,7 @@ function ProfilePage(props) {
         setTempMotieItems(profileInfo.motieItems);
         setEditable(false);
     }
-    const write = () => props.history.push(`/profile/${id}/write`);
+    const write = () => props.history.push(`/write`);
     const follow = () => {
         api.follow(id, true)
         .catch(error => showErrorAlert());

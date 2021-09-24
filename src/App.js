@@ -51,7 +51,7 @@ function App() {
                 <Route exact path="/profile/:id" component={withRouter(ProfilePage)}/>
                 <Route exact path="/profile/:id/motie-edit" component={withRouter(MotieEditPage)}/>
                 <Route exact path="/profile/:id/post/:postId" component={withRouter(DetailPage)}/>
-                <Route exact path="/profile/:id/write" component={withRouter(WritePage)}/>
+                <Route exact path="/write" component={withRouter(WritePage)}/>
 
                 <Route exact path="/feed" component={withRouter(FeedPage)}/>
                 <Route exact path="/recommend" component={withRouter(RecommendPage)}/>

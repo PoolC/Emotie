@@ -20,7 +20,7 @@ function FeedPage(props) {
 
     const goDetailPage = () => props.history.push('/profile/:1/post/:1');
     const goToTop = () => window.scrollTo(0, 0);
-    const goWritePage = () => props.history.push('/profile/:1/write');
+    const goWritePage = () => props.history.push('/write');
 
     const feeds =  emotions.map((emotion, index) => 
         <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} diary diaryId={index}/>

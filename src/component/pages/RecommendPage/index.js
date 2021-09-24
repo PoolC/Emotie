@@ -17,7 +17,7 @@ function RecommendPage(props) {
     // const [recommends, setRecommends] = useState(null);
 
     const goProfilePage = (index) => props.history.push(`/profile/:${index}`);
-    const goWritePage = () => props.history.push('/profile/:1/write');
+    const goWritePage = () => props.history.push('/write');
 
     const profiles =  emotions.map((emotion, index) => 
         <ProfileCard key={index} emotion={emotion} onClick={() => goProfilePage(index)}/>
