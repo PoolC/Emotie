@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Title, Text, Logo, Wrap, ImagePart, TextPart, MainPart} from "./style";
+import { Container, Title, Text, Logo, Wrap, ImagePart, TextPart, MainPart, CharacterImg, FeedImg, RecommendImg} from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import logo from "../../../image/logo_img.svg";
@@ -9,7 +9,7 @@ import feed from "../../../image/LandingPageImg/feed.png";
 import recommend from "../../../image/LandingPageImg/recommend.png";
 
 function LandingPage(props) {
-    const goWrite = () => props.history.push('/write');
+    const goWrite = () => props.history.push('/profile/허허/write');
     return (
         <Container>
             <Header />
@@ -18,12 +18,12 @@ function LandingPage(props) {
                     <Logo src={logo}></Logo>
                     <Title style={{textAlign:'center'}}>매일 당신의 감정을 기록하세요</Title>
                     <Text style={{textAlign:'center'}}>당신의 감정과 개성이 반영된 프로필로 사람들과 소통하세요</Text>
-                    <PillButton negative children="지금 쓰러가기" width="200px"></PillButton>
+                    <PillButton negative children="지금 쓰러가기" width="200px" onClick={() => goWrite()}></PillButton>
                 </MainPart>
             </Wrap>
             <Wrap style={{ backgroundColor: '#8381E8'}}>
                 <ImagePart>
-                    <img style={{width:"70%"}} src={character}></img>
+                    <CharacterImg src={character}></CharacterImg>
                 </ImagePart>
                 <TextPart>
                     <Title style={{color:'#1E1E1E'}}>당신의 마음글을 반영한 프로필</Title>
@@ -36,12 +36,12 @@ function LandingPage(props) {
                     <Text>당신과 비슷한 감정 구성을 가진 사람들이 피드에 추천됩니다.</Text>
                 </TextPart>
                 <ImagePart>
-                    <img style={{width:"90%", paddingRight:"10%"}} src={recommend}></img>
+                    <RecommendImg src={recommend}></RecommendImg>
                 </ImagePart>
             </Wrap>
             <Wrap style={{ backgroundColor: '#1E1E1E'}}>
                 <ImagePart>
-                    <img style={{height:"95%", marginTop:"5%"}} src={feed}></img>
+                    <FeedImg src={feed}></FeedImg>
                 </ImagePart>
                 <TextPart>
                     <Title>서로의 글을 구독하고 응원하세요</Title>

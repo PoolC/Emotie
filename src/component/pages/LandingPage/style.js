@@ -4,18 +4,17 @@ export const Container = styled.div`
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    padding-top: 80px;
     box-sizing: border-box;
-
-    @media only screen and (max-width: 768px) {
-        padding-top: 75px;
-    }
 `
 export const Wrap = styled.div`
     display: flex;
     width:100%;
     height:600px;
     @media only screen and (max-width: 768px) {
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        height:90vh;
     }
 `
 export const MainPart = styled.div`
@@ -35,6 +34,8 @@ export const ImagePart = styled.div`
     align-items: center;
     justify-content: center;
     @media only screen and (max-width: 768px) {
+        width:100%;
+        height:45vh;
     }
 `
 export const TextPart = styled.div`
@@ -44,6 +45,12 @@ export const TextPart = styled.div`
     padding-left:5%;
     height:100%;
     @media only screen and (max-width: 768px) {
+        width:100%;
+        height:45vh;
+        padding:0;
+        text-align:center;
+        align-items: center;
+        justify-content: center;
     }
 `
 
@@ -51,6 +58,7 @@ export const Logo = styled.img`
     width:75px;
     padding:35px;
     @media only screen and (max-width: 768px) {
+        padding:20px;
     }
 `
 
@@ -64,6 +72,9 @@ export const Title = styled.div`
     padding-bottom:20px;
 
     @media only screen and (max-width: 768px) {
+        width:90%;
+        margin:5vh 5% 0 5%;
+        font-size: 1.6em;
     }
 `
 
@@ -76,5 +87,26 @@ export const Text = styled.div`
     padding-bottom:20px;
 
     @media only screen and (max-width: 768px) {
+        width:90%;
+        margin:0 5%;
+        font-size: 1.4em;
+    }
+`
+export const CharacterImg = styled.img`
+    width:70%;
+    @media only screen and (max-width: 768px) {
+    }
+`
+export const FeedImg = styled.img`
+    height:90%;
+    margin-top:5%;
+    @media only screen and (max-width: 768px) {
+    }
+`
+export const RecommendImg = styled.img`
+    width:90%;
+    padding-right:10%;
+    @media only screen and (max-width: 768px) {
+        padding:0;
     }
 `
