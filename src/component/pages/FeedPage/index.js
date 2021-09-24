@@ -22,7 +22,7 @@ function FeedPage(props) {
     const goWritePage = () => props.history.push('/profile/:1/write');
 
     const feeds =  emotions.map((emotion, index) => 
-        <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} id={index}/>
+        <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} diary diaryId={index}/>
     );
 
     useEffect(() => {
