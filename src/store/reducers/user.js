@@ -1,11 +1,22 @@
 import { UPDATE_INFO, RESET_INFO } from '../actions/user';
 
+import { stringToNumber } from "../../utils/converter";
+
 const initialState = {
     email: "",
     nickname: "",
     introduction: "",
     gender: "",
-    birth: "",
+    birth: { year: 1900, month: 1, day: 1 },
+};
+
+const divideBirth = (birthRaw) => {
+    const birthArr = birthRaw.split('-');
+    const year = stringToNumber(birthArr[0]);
+    const month = stringToNumber(birthArr[1]);
+    const day = stringToNumber(birthArr[2]);
+
+    return { year, month, day };
 };
 
 const user = (state = initialState, action) => {
@@ -17,7 +28,7 @@ const user = (state = initialState, action) => {
                 nickname: action.nickname,
                 introduction: action.introduction,
                 gender: action.gender,
-                birth: action.birth,
+                birth: divideBirth(action.birth),
             };
         case RESET_INFO:
             return { 
@@ -26,7 +37,7 @@ const user = (state = initialState, action) => {
                 nickname: "",
                 introduction: "",
                 gender: "",
-                birth: "",
+                birth: { year: 1900, month: 1, day: 1 },
             };
         default:
             return state;

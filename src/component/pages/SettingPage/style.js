@@ -70,7 +70,6 @@ export const Description = styled.p`
 export const Alert = styled.span`
     color: #EF9797;
     font-size: 0.7rem;
-    margin-left: 30px;
 `
 export const PillInputWrapper = styled.div`
     display: flex;
