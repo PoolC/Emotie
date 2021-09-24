@@ -1,7 +1,13 @@
+import React, { useCallback } from "react";
+
 import { 
     BaseLayout,
-    MotieLayout, ContentLayout, 
-    ProfileLayout, InfoLayout, Nickname, DescriptionWrapper, Description, DescriptionCount, MenuLayout, StateLayout, State, CategoryLayout, Category, InputLayout, Input,
+    MotieLayout, MotieEditWrapper, 
+    ContentLayout, ProfileLayout, 
+    InfoLayout, Nickname, DescriptionWrapper, Description, DescriptionCount, 
+    MenuLayout, StateLayout, State,
+    CategoryLayout, Category, 
+    InputLayout, Input,
     PostList,
     Boundary
 } from "./style";
@@ -14,10 +20,7 @@ import { IoPencil } from "react-icons/io5";
 
 export const Container = {
     Base: function(props) {
-        return <BaseLayout emotion={props.emotion}>{props.children}</BaseLayout>
-    },
-    Motie: function(props) {
-        return <MotieLayout>{props.children}</MotieLayout>
+        return <BaseLayout backgroundColor={props.backgroundColor}>{props.children}</BaseLayout>
     },
     Content: function(props) {
         return <ContentLayout>{props.children}</ContentLayout>
@@ -28,35 +31,51 @@ export const Container = {
 };
 
 export const Group = {
+    Motie: function(props) {
+        return (
+            <MotieLayout>
+                {props.isEditable && <MotieEditWrapper><PillShadowButton>모티 꾸미기</PillShadowButton></MotieEditWrapper>}
+                <MotieFrame motie={props.motie} motieItems={props.motieItems}/>
+            </MotieLayout>
+        );
+    },
     Info: function(props) {
-        const DESCRIPTION_MAX_LENGTH = 100;
+        const INTRODUCTION_MAX_LENGTH = 100;
+
+        const onIntroductionChange = useCallback((event) => {
+            props.setTempIntroduction(event.target.value);
+            event.target.style.height = 'inherit';
+            event.target.style.height = `${event.target.scrollHeight}px`;
+            // eslint-disable-next-line
+        }, []);
+
         return (
             <InfoLayout>
-                <Nickname isEditMode={props.isEditMode}>{props.nickname}</Nickname>
-                <DescriptionWrapper isEditMode={props.isEditMode}><Description value={props.description} maxLength={DESCRIPTION_MAX_LENGTH} onChange={props.onDescriptionChange} disabled={!props.isEditMode}/></DescriptionWrapper>
-                <DescriptionCount isEditMode={props.isEditMode}>{props.description.length} / {DESCRIPTION_MAX_LENGTH}</DescriptionCount>
+                <Nickname isEditable={props.isEditable}>{props.nickname}</Nickname>
+                <DescriptionWrapper isEditable={props.isEditable}><Description value={props.introduction} maxLength={INTRODUCTION_MAX_LENGTH} onChange={onIntroductionChange} disabled={!props.isEditable}/></DescriptionWrapper>
+                <DescriptionCount isEditable={props.isEditable}>{props.introduction.length} / {INTRODUCTION_MAX_LENGTH}</DescriptionCount>
             </InfoLayout>
         );
     },
     State: function(props) {
-        return (props.isMyProfile && 
-            <StateLayout isEditMode={props.isEditMode}>
-                <State>팔로워 12</State>
-                <State>팔로잉 15</State>
+        return (props.isProfileMine && 
+            <StateLayout isEditable={props.isEditable}>
+                <State>팔로워 null</State>
+                <State>팔로잉 null</State>
             </StateLayout>
         );
     },
     Menu: function(props) {
         return (
-            <MenuLayout>{props.isMyProfile 
-                ? <>{props.isEditMode 
+            <MenuLayout>{props.isProfileMine 
+                ? <>{props.isEditable 
                     ? <>
-                        <PillShadowButton width="100px" onClick={() => props.stopEditMode(false)} negative>취소</PillShadowButton>
-                        <PillShadowButton width="100px" onClick={() => props.stopEditMode(true)}>완료</PillShadowButton>
+                        <PillShadowButton width="100px" onClick={props.cancelEdit} negative>취소</PillShadowButton>
+                        <PillShadowButton width="100px" onClick={props.saveEdit}>완료</PillShadowButton>
                     </>
                     : <>
-                        <PillShadowButton width="100px" onClick={props.write} negative>마음글 쓰기</PillShadowButton>
-                        <PillShadowButton width="100px" onClick={props.startEditMode}>프로필 수정</PillShadowButton>
+                        <PillShadowButton width="100px" onClick={props.write} negative>마음글 작성</PillShadowButton>
+                        <PillShadowButton width="100px" onClick={props.startEdit}>프로필 수정</PillShadowButton>
                     </>
                 }</>
                 : <PillShadowButton width="100px" onClick={props.follow}>팔로우</PillShadowButton>}
@@ -65,7 +84,7 @@ export const Group = {
     },
     Category: function(props) {
         return (
-            <CategoryLayout isEditMode={props.isEditMode}>
+            <CategoryLayout isEditable={props.isEditable}>
                 <Category onClick={() => props.setCategory(0)} selected={props.category === 0}>마음글</Category>
                 <Category onClick={() => props.setCategory(1)} selected={props.category === 1}>방명록</Category>
             </CategoryLayout>
@@ -73,25 +92,24 @@ export const Group = {
     },
     GuestbookInput: function(props) {
         return (props.category === 1 && 
-            <InputLayout isEditMode={props.isEditMode}>
-                <Input width="100%" placeholder="방명록을 남기세요"/>
+            <InputLayout isEditable={props.isEditable}>
+                <Input width="100%" placeholder="방명록을 남기세요" disabled={props.isEditable}/>
                 <IconButton icon={IoPencil} color="white" size="1rem"/>
             </InputLayout>
         );
     },
     Post: function(props) {
         const options = {
-            hideEmotion: props.category === 1,
             share: props.category === 0,
-            blur: props.category === 0 && !props.isMyProfile,
-            report: (props.category === 0 && !props.isMyProfile) || (props.category === 1 && props.isMyProfile),
-            delete: props.isMyProfile
+            blur: props.category === 0 && !props.isProfileMine,
+            report: (props.category === 0 && !props.isProfileMine) || (props.category === 1 && props.isProfileMine),
+            delete: props.isProfileMine
         };
         return (
-            <PostList category={props.category} isEditMode={props.isEditMode}>
+            <PostList category={props.category} isEditable={props.isEditable}>
                 {props.category === 0 
-                ? props.postList.map((post, index) => <PostCard id={index} key={index} emotion={post.emotion} {...options}/>)
-                : props.guestbookList.map((post, index) => <PostCard id={index} key={index} nickname={post.nickname} content={post.content} {...options}/>)}
+                ? props.diaries.map((post, index) => <PostCard id={index} key={index} nickname={post.author} emotion={post.emotion} date={post.issuedDate} content={post.content} {...options}/>)
+                : props.guestbooks.map((post, index) => <PostCard id={index} key={index} nickname={post.author} hideEmotion date={post.date} content={post.content} {...options}/>)}
             </PostList>
         );
     },
@@ -100,10 +118,6 @@ export const Group = {
 export const Element = {
     Header: function() {
         return <Header transparent recommend feed/>;
-    },
-    Motie: function(props) {
-        return <div style={{width: "150px", height: "150px", backgroundColor: "white", borderRadius: "50%", boxShadow: "0 0 30px #ffffff80"}}/>
-        // return <MotieFrame emotion={props.emotion}/>;
     },
     Boundary: function(props) {
         return <Boundary backgroundColor={props.backgroundColor} top={props.top} bottom={props.bottom}/>

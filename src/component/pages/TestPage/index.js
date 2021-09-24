@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as saga from "../../../store/actions/_saga";
 
@@ -22,7 +22,7 @@ function TestPage(props) {
 
     const [isAlertOpen, setAlertOpen] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    const [idx, setIdx] = useState(0);
+    const detailPopup = useRef();
   
     const details = [{
         id: 1,
@@ -77,7 +77,7 @@ function TestPage(props) {
 
     const openPopup = (idx) => {
         setPopupOpen(true);
-        setIdx(idx);
+        detailPopup.current.setIdx(idx);
     }
 
     const login = () => {
@@ -124,7 +124,7 @@ function TestPage(props) {
             </ProfileList>
             {/* 모달 */}
             <Alert title="테스트 제목" message="테스트 Alert입니다." isOpen={isAlertOpen} setOpen={setAlertOpen}/>
-            <DetailPopup isOpen={isPopupOpen} idx={idx} details={details} setOpen={setPopupOpen} history={props.history}/>
+            <DetailPopup isOpen={isPopupOpen} details={details} setOpen={setPopupOpen} history={props.history} ref={detailPopup}/>
         </Container>
     );
 }

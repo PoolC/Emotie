@@ -7,6 +7,7 @@ import FloatingButton from "../../common/FloatingButton";
 import { GiPencil } from "react-icons/gi";
 import { MdKeyboardArrowUp } from "react-icons/md"
 import Progress from "../../common/modal/Progress";
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 import server from "../../../utils/server";
 
@@ -22,7 +23,7 @@ function FeedPage(props) {
     const goWritePage = () => props.history.push('/profile/:1/write');
 
     const feeds =  emotions.map((emotion, index) => 
-        <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} id={index}/>
+        <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} diary diaryId={index}/>
     );
 
     useEffect(() => {
@@ -37,6 +38,14 @@ function FeedPage(props) {
         // fetchFeeds();
     }, []);
 
+    const detectScroll = () => {
+        setLoading(true);
+        setFullscreen(false);
+        // 추가로 10개 불러오는 api 호출
+    }
+
+    useBottomScrollListener(detectScroll);
+    
     return (
         <Container>
             <Header search recommend/>
