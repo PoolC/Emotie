@@ -29,7 +29,6 @@ function WritePage(props) {
     const [ tagId, setTagId ] = useState(null);
     const [ selectEmotionOpen, setSelectEmotionOpen ] = useState(false);
     const [ submitOpen, setSubmitOpen ] = useState(false);
-    const [ loginOpen, setLoginOpen ] = useState(false);
 
     const tagClick = (id, key) => {
         const defaultState = ({
@@ -64,9 +63,6 @@ function WritePage(props) {
             // })
             // .catch(error => {
             //     console.log(error.response);
-            //     if(response === 401) {
-                    // setLoginOpen(true);
-            //     }
             // });
             
             console.log(tagId);
@@ -101,8 +97,7 @@ function WritePage(props) {
             </Body>
             {/* 모달 */}
             <Alert title="감정 미선택" message="감정을 선택해주세요." isOpen={selectEmotionOpen} setOpen={setSelectEmotionOpen}/>
-            <Alert title="마음글 작성 성공" message="마음글이 성공적으로 작성되었습니다." isOpen={submitOpen} setOpen={setSubmitOpen}/>
-            <Alert title="로그인 필요" message="로그인을 먼저 해주세요." isOpen={loginOpen} setOpen={setLoginOpen}/>
+            <Alert title="마음글 작성 성공" message="마음글이 성공적으로 작성되었습니다." isOpen={submitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => props.history.goBack()}/>
         </Container>
     );
 }
