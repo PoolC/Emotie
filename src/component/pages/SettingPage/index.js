@@ -34,6 +34,7 @@ function SettingPage(props) {
     const [isCheckAlertOpen, setCheckAlertOpen] = useState(false);
     const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
     const [duplicateMessage, setDuplicateMessage] = useState('');
+    const [passwordMessage, setPasswordMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     // 클릭 이벤트
@@ -138,7 +139,7 @@ function SettingPage(props) {
                     <Container.Frame>
                         <Element.Title>비밀번호 변경</Element.Title>
                         <Group.PasswordCheck password={password} setPassword={setPassword}/>
-                        <Group.NewPassword password={password} setPassword={setPassword}/>
+                        <Group.NewPassword password={password} setPassword={setPassword} passwordMessage={passwordMessage} setPasswordMessage={setPasswordMessage}/>
                         <Element.Button onClick={changePassword}>비밀번호 변경</Element.Button>
                     </Container.Frame>}
                 {category === 2 && // 계정 삭제
