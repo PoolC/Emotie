@@ -40,8 +40,8 @@ export const Group = {
                 <Description>별명</Description>
                 <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
                 <SemiSection>
-                    <PillButton>중복 확인</PillButton>
-                    <Alert>이미 존재하는 별명입니다.</Alert>
+                    <PillButton onClick={props.checkNicknameDuplicated}>중복 확인</PillButton>
+                    <Alert>{props.duplicateMessage}</Alert>
                 </SemiSection>
             </Section>
         );
