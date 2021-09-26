@@ -42,6 +42,7 @@ function SettingPage(props) {
         setTempNickname(nickname);
         setTempBirth(birth);
         setTempGender(gender);
+        setDuplicateMessage('');
         setPassword({old: "", new1: "", new2: ""});
 
         // 카테고리 변경
