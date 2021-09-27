@@ -48,7 +48,7 @@ function PostCard(props) {
     function onShare(event) {
         event.stopPropagation();
        
-        const url = `http://localhost:3000/profile/:${1}/post/:${props.diaryId}`
+        const url = `http://localhost:3000/profile/:${1}/post/:${props.id}`
         navigator.clipboard.writeText(url);
         setAlertInfo({
             isOpen: true,
@@ -64,7 +64,7 @@ function PostCard(props) {
         event.stopPropagation();
         // if(props.diary) {
         //     server
-        //     .post('/diaries/blind/{props.diaryId}')
+        //     .post('/diaries/blind/{props.id}')
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -93,7 +93,7 @@ function PostCard(props) {
         event.stopPropagation();
         // if(props.diary) {
         //     server
-        //     .post('/diaries/report/{props.diaryId}')
+        //     .post('/diaries/report/{props.id}')
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -116,7 +116,7 @@ function PostCard(props) {
         // }
         // else if(props.guestbook) {
         //     server
-        //     .post('/guestbooks/report/{props.guestbookId}')
+        //     .post('/guestbooks/report/{props.id}')
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -146,7 +146,7 @@ function PostCard(props) {
         // if(props.diary) {
         //     server
         //     .delete('/diaries', {
-        //          "id": [props.diaryId]
+        //          "id": [props.id]
         //     })
         //     .then(response => {
         //         console.log(response.data);
@@ -170,7 +170,7 @@ function PostCard(props) {
         // }
         // else if(props.guestbook) {
         //     server
-        //     .delete('/guestbooks/{props.guestbookId}')
+        //     .delete('/guestbooks/{props.id}')
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
