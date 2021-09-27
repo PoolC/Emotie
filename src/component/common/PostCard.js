@@ -9,7 +9,7 @@ import { RiAlarmWarningLine, RiDeleteBinLine } from "react-icons/ri";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Alert from './modal/Alert';
 
-import server from "../../utils/server";
+
 
 function PostCard(props) {
     const options = [
@@ -47,33 +47,15 @@ function PostCard(props) {
 
     function onShare(event) {
         event.stopPropagation();
-        // if(props.diary) {
-        //     server
-        //     .post('/diaries/export', {
-        //         "id": [props.diaryId],
-	    //         "permission": true
-        //     })
-        //     .then(response => {
-        //         console.log(response.data);
-        //         navigator.clipboard.writeText("마음글 url");
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "마음글 공유 성공",
-        //             message: "마음글 공유 url을 복사하였습니다.",
-        //             firstButtonFunc: null
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "마음글 공유 실패",
-        //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: null
-        //             });
-        //         }   
-        //     });
-        // }
+       
+        const url = `http://localhost:3000/profile/:${1}/post/:${props.diaryId}`
+        navigator.clipboard.writeText(url);
+        setAlertInfo({
+            isOpen: true,
+            title: "마음글 공유 성공",
+            message: "마음글 공유 url을 복사하였습니다.",
+            firstButtonFunc: null
+        });
 
         console.log("share");
     }
@@ -82,7 +64,7 @@ function PostCard(props) {
         event.stopPropagation();
         // if(props.diary) {
         //     server
-        //     .put('/feed/blind/{props.diaryId}')
+        //     .post('/diaries/blind/{props.diaryId}')
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -111,7 +93,7 @@ function PostCard(props) {
         event.stopPropagation();
         // if(props.diary) {
         //     server
-        //     .put('/diaries/report/{props.diaryId}')
+        //     .post('/diaries/report/{props.diaryId}')
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
