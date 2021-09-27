@@ -9,7 +9,7 @@ import { MdKeyboardArrowUp } from "react-icons/md"
 import Progress from "../../common/modal/Progress";
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
-import server from "../../../utils/server";
+import * as api from "../../../utils/api";
 
 const emotions = [{color:"#FFF27D", tag:"기쁨"}, {color:"#FF855E", tag:"화남"}, {color:"#9FA7EF", tag:"슬픔"}, {color:"#AEE477", tag:"놀람"}, {color:"#9431A4", tag:"질투"}, {color:"#F29CB6", tag:"설렘"}, {color:"#FFFFFF", tag:"무난"}, {color:"#ADADAD", tag:"지침"}];
 
@@ -26,17 +26,17 @@ function FeedPage(props) {
         <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} diary diaryId={index}/>
     );
 
-    useEffect(() => {
-        // async function fetchFeeds() {
-        //     setLoading(true);
-        //     setFullscreen(true);
-        //     const response = await server.get('/feed');
-        //     setFeeds(response);
-        //     setLoading(false);
-        //     setFullscreen(false);
-        // }
-        // fetchFeeds();
-    }, []);
+    // async function fetchFeeds() {
+    //     setLoading(true);
+    //     setFullscreen(true);
+    //     const response = await api.getFeeds();
+    //     setFeeds(response.data);
+    //     setLoading(false);
+    //     setFullscreen(false);
+    // }
+    // useEffect(() => {
+    //     fetchFeeds();
+    // }, []);
 
     const detectScroll = () => {
         setLoading(true);
