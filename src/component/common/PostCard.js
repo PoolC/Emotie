@@ -9,7 +9,7 @@ import { RiAlarmWarningLine, RiDeleteBinLine } from "react-icons/ri";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Alert from './modal/Alert';
 
-
+import * as api from "../../utils/api";
 
 function PostCard(props) {
     const options = [
@@ -63,8 +63,7 @@ function PostCard(props) {
     function onBlur(event) {
         event.stopPropagation();
         // if(props.diary) {
-        //     server
-        //     .post('/diaries/blind/{props.id}')
+        //     api.blur(props.id)
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -92,8 +91,7 @@ function PostCard(props) {
     function onReport(event) {
         event.stopPropagation();
         // if(props.diary) {
-        //     server
-        //     .post('/diaries/report/{props.id}')
+        //     api.reportDiary(props.id)
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -115,8 +113,7 @@ function PostCard(props) {
         //     });
         // }
         // else if(props.guestbook) {
-        //     server
-        //     .post('/guestbooks/report/{props.id}')
+        //     api.reportGuestbook(props.id)
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -144,10 +141,7 @@ function PostCard(props) {
     function onDelete(event) {
         event.stopPropagation();
         // if(props.diary) {
-        //     server
-        //     .delete('/diaries', {
-        //          "id": [props.id]
-        //     })
+        //     api.deleteDiary(props.id)
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
@@ -169,8 +163,7 @@ function PostCard(props) {
         //     });
         // }
         // else if(props.guestbook) {
-        //     server
-        //     .delete('/guestbooks/{props.id}')
+        //     api.deleteGuestbook(props.id)
         //     .then(response => {
         //         console.log(response.data);
         //         setAlertInfo({
