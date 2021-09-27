@@ -31,18 +31,19 @@ function PostCard(props) {
         } : null
     ];
 
-    const [diaryShare, setDiaryShare] = useState(false);
-    const [diaryShareError, setDiaryShareError] = useState(false);
-    const [diaryBlur, setDiaryBlur] = useState(false);
-    const [diaryBlurError, setDiaryBlurError] = useState(false);
-    const [diaryReport, setDiaryReport] = useState(false);
-    const [diaryReportError, setDiaryReportError] = useState(false);
-    const [guestbookReport, setGuestbookReport] = useState(false);
-    const [guestbookReportError, setGuestbookReportError] = useState(false);
-    const [diaryDelete, setDiaryDelete] = useState(false);
-    const [diaryDeleteError, setDiaryDeleteError] = useState(false);
-    const [guestbookDelete, setGuestbookDelete] = useState(false);
-    const [guestbookDeleteError, setGuestbookDeleteError] = useState(false);
+    const [alertInfo, setAlertInfo] = useState({
+        isOpen: false,
+        title: "Alert",
+        message: "alert message",
+        firstButtonFunc: null
+    });
+
+    function setIsOpen(isOpen) {
+        setAlertInfo({
+            ...alertInfo,
+            isOpen: isOpen
+        });
+    }
 
     function onShare(event) {
         event.stopPropagation();
@@ -55,12 +56,21 @@ function PostCard(props) {
         //     .then(response => {
         //         console.log(response.data);
         //         navigator.clipboard.writeText("마음글 url");
-        //         setDiaryShare(true);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "마음글 공유 성공",
+        //             message: "마음글 공유 url을 복사하였습니다.",
+        //             firstButtonFunc: null
+        //         });
         //     })
         //     .catch(error => {
-        //         console.log(error.response);
-        //         if(response === 404) {
-        //             setDiaryShareError(true);     
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "마음글 공유 실패",
+        //                 message: "해당 마음글이 존재하지 않습니다.",
+        //                 firstButtonFunc: null
+        //             });
         //         }   
         //     });
         // }
@@ -75,12 +85,21 @@ function PostCard(props) {
         //     .put('/feed/blind/{props.diaryId}')
         //     .then(response => {
         //         console.log(response.data);
-        //         setDiaryReport(true);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "마음글 숨기기 성공",
+        //             message: "숨기기가 완료되었습니다.",
+        //             firstButtonFunc: () => window.location.reload()
+        //         });
         //     })
         //     .catch(error => {
-        //         console.log(error.response);
-        //         if(response === 404) {
-        //             setDiaryReportError(true);     
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "마음글 숨기기 실패",
+        //                 message: "해당 마음글이 존재하지 않습니다.",
+        //                 firstButtonFunc: () => window.location.reload()
+        //             }); 
         //         }   
         //     });
         // }
@@ -95,12 +114,21 @@ function PostCard(props) {
         //     .put('/diaries/report/{props.diaryId}')
         //     .then(response => {
         //         console.log(response.data);
-        //         setDiaryBlur(true);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "마음글 신고 성공",
+        //             message: "신고가 완료되었습니다.",
+        //             firstButtonFunc: () => window.location.reload()
+        //         });
         //     })
         //     .catch(error => {
-        //         console.log(error.response);
-        //         if(response === 404) {
-        //             setDiaryBlurError(true);     
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "마음글 신고 실패",
+        //                 message: "해당 마음글이 존재하지 않습니다.",
+        //                 firstButtonFunc: () => window.location.reload()
+        //             });     
         //         }   
         //     });
         // }
@@ -109,12 +137,21 @@ function PostCard(props) {
         //     .post('/guestbooks/report/{props.guestbookId}')
         //     .then(response => {
         //         console.log(response.data);
-        //         setGuestbookReport(true);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "방명록 신고 성공",
+        //             message: "신고가 완료되었습니다.",
+        //             firstButtonFunc: () => window.location.reload()
+        //         });
         //     })
         //     .catch(error => {
-        //         console.log(error.response);
-        //         if(response === 404) {
-        //             setGuestbookReportError(true);
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "방명록 신고 실패",
+        //                 message: "해당 방명록이 존재하지 않습니다.",
+        //                 firstButtonFunc: () => window.location.reload()
+        //             });
         //         }
         //     });
         // }
@@ -131,12 +168,21 @@ function PostCard(props) {
         //     })
         //     .then(response => {
         //         console.log(response.data);
-        //         setDiaryDelete(true);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "마음글 삭제 성공",
+        //             message: "삭제가 완료되었습니다.",
+        //             firstButtonFunc: () => window.location.reload()
+        //         });
         //     })
         //     .catch(error => {
-        //         console.log(error.response);
-        //         if(response === 404) {
-        //             setDiaryDeleteError(true);     
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "마음글 삭제 실패",
+        //                 message: "해당 마음글이 존재하지 않습니다.",
+        //                 firstButtonFunc: () => window.location.reload()
+        //             });       
         //         }   
         //     });
         // }
@@ -145,12 +191,21 @@ function PostCard(props) {
         //     .delete('/guestbooks/{props.guestbookId}')
         //     .then(response => {
         //         console.log(response.data);
-        //         setGuestbookDelete(true);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "방명록 삭제 성공",
+        //             message: "삭제가 완료되었습니다.",
+        //             firstButtonFunc: () => window.location.reload()
+        //         });
         //     })
         //     .catch(error => {
-        //         console.log(error.response);
-        //         if(response === 404) {
-        //             setGuestbookDeleteError(true);
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "방명록 삭제 실패",
+        //                 message: "해당 방명록이 존재하지 않습니다.",
+        //                 firstButtonFunc: () => window.location.reload()
+        //             });
         //         }
         //     });
         // }
@@ -176,18 +231,7 @@ function PostCard(props) {
             </Container>
             {/* 모달 */}
             {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.id}/></DropDownContainer>}
-            <Alert title="마음글 공유 성공" message="마음글 공유 url을 복사하였습니다." isOpen={diaryShare} setOpen={setDiaryShare}/>
-            <Alert title="마음글 공유 실패" message="해당 마음글이 존재하지 않습니다." isOpen={diaryShareError} setOpen={setDiaryShareError}/>
-            <Alert title="마음글 숨기기 성공" message="숨기기가 완료되었습니다." isOpen={diaryBlur} setOpen={setDiaryBlur} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="마음글 숨기기 실패" message="해당 마음글이 존재하지 않습니다." isOpen={diaryBlurError} setOpen={setDiaryBlurError} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="마음글 신고 성공" message="신고가 완료되었습니다." isOpen={diaryReport} setOpen={setDiaryReport} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="마음글 신고 실패" message="해당 마음글이 존재하지 않습니다." isOpen={diaryReportError} setOpen={setDiaryReportError} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="방명록 신고 성공" message="신고가 완료되었습니다." isOpen={guestbookReport} setOpen={setGuestbookReport} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="방명록 신고 실패" message="해당 방명록이 존재하지 않습니다." isOpen={guestbookReportError} setOpen={setGuestbookReportError} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="마음글 삭제 성공" message="삭제가 완료되었습니다." isOpen={diaryDelete} setOpen={setDiaryDelete} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="마음글 삭제 실패" message="해당 마음글이 존재하지 않습니다." isOpen={diaryDeleteError} setOpen={setDiaryDeleteError} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="방명록 삭제 성공" message="삭제가 완료되었습니다." isOpen={guestbookDelete} setOpen={setGuestbookDelete} firstButtonFunc={() => window.location.reload()}/>
-            <Alert title="방명록 삭제 실패" message="해당 방명록이 존재하지 않습니다." isOpen={guestbookDeleteError} setOpen={setGuestbookDeleteError} firstButtonFunc={() => window.location.reload()}/>
+            <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButtonFunc={alertInfo.firstButtonFunc}/>
         </Wrapper>
     );
 }
