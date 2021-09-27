@@ -62,7 +62,7 @@ function PostCard(props) {
 
     function onBlur(event) {
         event.stopPropagation();
-        // if(props.diary) {
+        // if(props.category === "diary") {
         //     api.blur(props.id)
         //     .then(response => {
         //         console.log(response.data);
@@ -90,7 +90,7 @@ function PostCard(props) {
 
     function onReport(event) {
         event.stopPropagation();
-        // if(props.diary) {
+        // if(props.category === "diary") {
         //     api.reportDiary(props.id)
         //     .then(response => {
         //         console.log(response.data);
@@ -112,7 +112,7 @@ function PostCard(props) {
         //         }   
         //     });
         // }
-        // else if(props.guestbook) {
+        // else if(props.category === "guestbook") {
         //     api.reportGuestbook(props.id)
         //     .then(response => {
         //         console.log(response.data);
@@ -140,7 +140,7 @@ function PostCard(props) {
 
     function onDelete(event) {
         event.stopPropagation();
-        // if(props.diary) {
+        // if(props.category === "diary") {
         //     api.deleteDiary(props.id)
         //     .then(response => {
         //         console.log(response.data);
@@ -162,7 +162,7 @@ function PostCard(props) {
         //         }   
         //     });
         // }
-        // else if(props.guestbook) {
+        // else if(props.category === "guestbook") {
         //     api.deleteGuestbook(props.id)
         //     .then(response => {
         //         console.log(response.data);
