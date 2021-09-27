@@ -192,8 +192,8 @@ function PostCard(props) {
         <Wrapper>
             <Container borderColor={props.emotion?.color} onClick={props.onClick}>
                 <Info>
-                    {!props.hideEmotion && <EmotionTag emotion={props.emotion}/>}
-                    <Nickname hideEmotion={props.hideEmotion}>{props.nickname || "공릉동 공룡"}</Nickname>
+                    {props.emotion && <EmotionTag emotion={props.emotion}/>}
+                    <Nickname hideEmotion={props.emotion ? false : true}>{props.nickname || "공릉동 공룡"}</Nickname>
                     <Date>{props.date || "2021.07.20"}</Date>
                 </Info>
                 <Content>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
