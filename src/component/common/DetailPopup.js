@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 
 import EmotionTag from './EmotionTag';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 
-function DetailPopup(props) {
-    const [idx, setIdx] = useState(props.idx);
-    useEffect(() => {
-        setIdx(props.idx);
-    }, [props.idx]);
+function DetailPopup(props, ref) {
+    const [idx, setIdx] = useState(0);
+    useImperativeHandle(ref, () => ({
+        setIdx,
+    }));
 
     const goProfilePage = (nickname) => props.history.push(`/profile/${nickname}`);
     const slidePost = (neigh) => setIdx(idx + neigh);
@@ -37,6 +37,7 @@ function DetailPopup(props) {
     );
 }
 
+DetailPopup = forwardRef(DetailPopup);
 export default DetailPopup;
 
 const Container = styled.div`

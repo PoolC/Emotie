@@ -6,7 +6,7 @@ export const BaseLayout = styled.div`
     min-height: 100vh;
     padding: 0 calc(15% - 30px) 0 15%;
     box-sizing: border-box;
-    background-color: ${props => props.emotion?.color || "white"};
+    background-color: ${props => props.backgroundColor || "white"};
     
     @media only screen and (max-width: 768px) {
         flex-flow: column nowrap;
@@ -15,18 +15,24 @@ export const BaseLayout = styled.div`
 `
 
 export const MotieLayout = styled.div`
+    position: relative;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     width: 35%;
+    margin: 90px 0;
     z-index: 15;
 
     @media only screen and (max-width: 768px) {
         width: unset;
         height: 300px;
-        margin-top: 60px;
+        margin: 60px 0 0 0;
     }
+`
+export const MotieEditWrapper = styled.div`
+    position: absolute;
+    bottom: 0;
 `
 
 export const ContentLayout = styled.div`
@@ -73,15 +79,15 @@ export const Nickname = styled.h1`
     color: black;
     font-size: 1.5rem;
     font-weight: 700;
-    opacity: ${props => props.isEditMode ? 0.2 : 1};
+    opacity: ${props => props.isEditable ? 0.2 : 1};
     transition: opacity 300ms;
 `
 export const DescriptionWrapper = styled.div`
-    margin: 0 ${props => props.isEditMode ? "-15px" : "0"};
-    padding: ${props => props.isEditMode ? "15px" : "0"};
+    margin: 0 ${props => props.isEditable ? "-15px" : "0"};
+    padding: ${props => props.isEditable ? "15px" : "0"};
     border: none;
     border-radius: 15px;
-    background-color: ${props => props.isEditMode ? "black" : "transparent"};
+    background-color: ${props => props.isEditable ? "black" : "transparent"};
     transition: all ease 300ms;
 `
 export const Description = styled.textarea`
@@ -107,16 +113,16 @@ export const DescriptionCount = styled.span`
     font-size: 0.8rem;
     color: black;
     overflow: visible;
-    opacity: ${props => props.isEditMode ? 1 : 0};
+    opacity: ${props => props.isEditable ? 1 : 0};
     transition: opacity ease 300ms;
 `
 export const StateLayout = styled.div`
     display: flex;
     flex-flow: row nowrap;
     gap: 40px;
-    opacity: ${props => props.isEditMode ? 0.2 : 1};
+    opacity: ${props => props.isEditable ? 0.2 : 1};
     transition: opacity 300ms;
-    pointer-events: ${props => props.isEditMode ? 'none' : 'unset'};
+    pointer-events: ${props => props.isEditable ? 'none' : 'unset'};
 `
 export const State = styled.span`
     font-size: 0.9rem;
@@ -135,9 +141,9 @@ export const CategoryLayout = styled.div`
     flex-flow: row nowrap;
     justify-content: space-evenly;
     border-top: 1px solid #111111;
-    opacity: ${props => props.isEditMode ? 0.2 : 1};
+    opacity: ${props => props.isEditable ? 0.2 : 1};
     transition: opacity 300ms;
-    pointer-events: ${props => props.isEditMode ? 'none' : 'unset'};
+    pointer-events: ${props => props.isEditable ? 'none' : 'unset'};
 `
 export const Category = styled.button`
     padding: 15px;
@@ -163,9 +169,9 @@ export const InputLayout = styled.div`
     gap: 15px;
     background-color: #3C3C3CAA;
     border-radius: 5px;
-    opacity: ${props => props.isEditMode ? 0.2 : 1};
+    opacity: ${props => props.isEditable ? 0.2 : 1};
     transition: opacity 300ms;
-    pointer-events: ${props => props.isEditMode ? 'none' : 'unset'};
+    pointer-events: ${props => props.isEditable ? 'none' : 'unset'};
 `
 export const Input = styled.input`
     flex: 1 0 0;
@@ -188,9 +194,9 @@ export const PostList = styled.div`
     flex-flow: column nowrap;
     gap: 10px;
     padding: ${props => props.category === 1 ? "15px" : "0"} 30px 90px 30px;
-    opacity: ${props => props.isEditMode ? 0.2 : 1};
+    opacity: ${props => props.isEditable ? 0.2 : 1};
     transition: opacity 300ms;
-    pointer-events: ${props => props.isEditMode ? 'none' : 'unset'};
+    pointer-events: ${props => props.isEditable ? 'none' : 'unset'};
 
     @media only screen and (max-width: 768px) {
         padding-bottom: 30px;

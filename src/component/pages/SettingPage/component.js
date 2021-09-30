@@ -33,30 +33,39 @@ export const Group = {
     },
     // 개인정보 수정
     Nickname: function(props) {
+        const onNicknameChanged = (event) => props.setTempNickname(event.target.value);
+
         return (
             <Section>
                 <Description>별명</Description>
-                <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={props.onNicknameChanged}/></PillInputWrapper>
-                <Alert>이미 존재하는 별명입니다.</Alert>
+                <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
+                <SemiSection>
+                    <PillButton>중복 확인</PillButton>
+                    <Alert>이미 존재하는 별명입니다.</Alert>
+                </SemiSection>
             </Section>
         );
     },
     Birth: function(props) {
+        const handleYear = (year) => props.setTempBirth({ ...props.birth, year: year });
+        const handleMonth = (month) => props.setTempBirth({ ...props.birth, month: month });
+        const handleDay = (day) => props.setTempBirth({ ...props.birth, day: day });
+
         return (
             <Section>
                 <Description>생년월일</Description>
                 <SemiSection>
                     <SelectGroup 
                         state={props.birth.year} 
-                        handleState={props.handleBirth.setYear}
+                        handleState={handleYear}
                         options={Array.from({length: 122}, (_, k) => k + 1900)}/>
                     <SelectGroup 
                         state={props.birth.month} 
-                        handleState={props.handleBirth.setMonth}
+                        handleState={handleMonth}
                         options={Array.from({length: 12}, (_, k) => k + 1)}/>
                     <SelectGroup 
                         state={props.birth.day} 
-                        handleState={props.handleBirth.setDay}
+                        handleState={handleDay}
                         options={Array.from({length: 31}, (_, k) => k + 1)}/>
                 </SemiSection>
             </Section>
@@ -67,29 +76,33 @@ export const Group = {
             <Section>
                 <Description>성별</Description>
                 <SemiSection>
-                    <PillButton width="80px" onClick={() => props.setGender('MALE')} negative={props.gender === 'MALE'}>남성</PillButton>
-                    <PillButton width="80px" onClick={() => props.setGender('FEMALE')} negative={props.gender === 'FEMALE'}>여성</PillButton>
-                    <PillButton width="80px" onClick={() => props.setGender('HIDDEN')} negative={props.gender === 'HIDDEN'}>비공개</PillButton>
+                    <PillButton width="80px" onClick={() => props.setTempGender('MALE')} negative={props.gender === 'MALE'}>남성</PillButton>
+                    <PillButton width="80px" onClick={() => props.setTempGender('FEMALE')} negative={props.gender === 'FEMALE'}>여성</PillButton>
+                    <PillButton width="80px" onClick={() => props.setTempGender('HIDDEN')} negative={props.gender === 'HIDDEN'}>비공개</PillButton>
                 </SemiSection>
             </Section>
         );
     },
     // 비밀번호 변경
     PasswordCheck: function(props) {
+        const onPasswordChanged = (event) => props.setPassword({ ...props.password, old: event.target.value });
+
         return (
             <Section>
                 <Description>비밀번호 확인</Description>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={props.handlePassword.onOldChanged}/></PillInputWrapper>
-                <Alert>기존 비밀번호와 일치하지 않습니다.</Alert>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={onPasswordChanged}/></PillInputWrapper>
             </Section>
         );
     },
     NewPassword: function(props) {
+        const onPasswordChanged1 = (event) => props.setPassword({ ...props.password, new1: event.target.value });
+        const onPasswordChanged2 = (event) => props.setPassword({ ...props.password, new2: event.target.value });
+
         return (
             <Section>
                 <Description>새 비밀번호</Description>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.new1} onChange={props.handlePassword.onNew1Changed}/></PillInputWrapper>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호 확인" value={props.password.new2} onChange={props.handlePassword.onNew2Changed}/></PillInputWrapper>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.new1} onChange={onPasswordChanged1}/></PillInputWrapper>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호 확인" value={props.password.new2} onChange={onPasswordChanged2}/></PillInputWrapper>
                 <Alert>비밀번호는 12자 이하 영문+숫자의 조합이어야 합니다.</Alert>
             </Section>
         );
