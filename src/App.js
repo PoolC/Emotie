@@ -9,6 +9,7 @@ import LandingPage from "./component/pages/LandingPage/index";
 import LoginPage from "./component/pages/LoginPage/index";
 import RegisterPage from "./component/pages/RegisterPage/index";
 import FindPage from "./component/pages/FindPage/index";
+import AuthPage from "./component/pages/AuthPage/index";
 import ProfilePage from "./component/pages/ProfilePage/index";
 import MotieEditPage from "./component/pages/MotieEditPage/index";
 import DetailPage from "./component/pages/DetailPage/index";
@@ -47,6 +48,7 @@ function App() {
                 <Route exact path="/login" component={withRouter(LoginPage)}/>
                 <Route exact path="/register" component={withRouter(RegisterPage)}/>
                 <Route exact path="/find" component={withRouter(FindPage)}/>
+                <Route exact path="/auth" component={withRouter(AuthPage)}/>
 
                 <Route exact path="/profile/:id" component={withRouter(ProfilePage)}/>
                 <Route exact path="/profile/:id/motie-edit" component={withRouter(MotieEditPage)}/>
