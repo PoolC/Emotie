@@ -15,21 +15,34 @@ import {
 } from "./style";
 
 function FindPage(props) {
-    const [step, setStep] = useState('');
-    const [isFirstCert, setFirstCert] = useState(true);
-    const goLoginPage = () => props.history.push('/login');
-    let Page = null;
-    const url = window.location.search;
-    const what = url.includes("?");
 
-    const parameter = url.split("=");
-    const token = parameter[1];
+    const goLoginPage = () => props.history.push('/login');
+    
+    let Page = null;
+
+    const [step, setStep] = useState(0);
+    const [isFirstCert, setFirstCert] = useState(true);
+    const [token, setToken] = useState('');
+
+    const [isOpen, setOpen] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
+    const [alertTitle, setAlertTitle] = useState('경고');
+
+
+
+    window.onload=()=>{
+        const url = window.location.search;
+        const what = url.includes("?");
+        if (what){
+            const parameter = url.split("=");
+            setToken(parameter[1]);
+        }
+    }
+    
     console.log(token);
 
-    if (what) {
+    if (token!=='') {
         setStep(1);
-    }else{
-        setStep(0);
     }
     console.log(step);
     // if (check){
@@ -37,9 +50,7 @@ function FindPage(props) {
     //     console.log(token);
     // }
 
-    const [isOpen, setOpen] = useState(false);
-    const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
-    const [alertTitle, setAlertTitle] = useState('경고');
+
 
     const emailAuth = () => {
         console.log('로그인');
@@ -87,7 +98,6 @@ function FindPage(props) {
 
             <PillButton width="260px" onClick={() => setStep(1)}>검색</PillButton>
         </>;
-        return;
     } else if (step === 1) {
         Page =
             <>
@@ -106,11 +116,9 @@ function FindPage(props) {
                     <PillButton width="120px">확인</PillButton>
                 </FlexBox>
             </>;
-        return;
 
     } else {
         Page = <Text>잘못된 접근입니다.</Text>;
-        return;
     }
     return (
         <Container>
