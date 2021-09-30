@@ -6,7 +6,7 @@ import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
-import Alert from "../../common/modal/Alert"
+import Alert from "../../common/modal/Alert";
 
 import * as api from "../../../utils/api";
 
