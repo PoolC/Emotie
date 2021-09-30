@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Header from "../../common/Header";
 import logo from "../../../image/logo_img.svg";
@@ -35,7 +35,7 @@ function LoginPage(props) {
     const [alertTitle, setAlertTitle] = useState('경고');
     const isEmailValid = (email) => {
         var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return (email != '' && email != 'undefined' && regExp.test(email));
+        return (email !== '' && email !== 'undefined' && regExp.test(email));
     };
 
     const detectInput = () => {
@@ -100,7 +100,7 @@ function LoginPage(props) {
             <PillButton width="260px" onClick={detectInput}>로그인</PillButton>
             <ButtonText onClick={goFindPage}>비밀번호를 잊으셨나요?</ButtonText>
             <Switch onClick={goRegisterPage}>계정이 없으신가요? 가입하기</Switch>
-            <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
+            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
         </Container>
     );
 }
