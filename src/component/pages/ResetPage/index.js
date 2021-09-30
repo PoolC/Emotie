@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container } from "./style";
 import Header from "../../common/Header";
 
-function AuthPage(props) {
+function ResetPage(props) {
     // const auth=()=>{
     //     server
     //         .post('/auth/login', {
@@ -47,9 +47,9 @@ function AuthPage(props) {
     return (
         <Container>
             <Header/>
-            이메일 인증
+            리셋페이지
         </Container>
     );
 }
 
-export default AuthPage;
+export default ResetPage;
