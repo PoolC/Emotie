@@ -8,13 +8,15 @@ import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 import Alert from "../../common/modal/Alert"
 
-import server from "../../../utils/server";
+import * as api from "../../../utils/api";
 
 import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link
 } from "./style";
 
 function RegisterPage(props) {
+    const goLoginPage = () => props.history.push('/login');
+
     const [isChecked, setChecked] = useState(false);
 
     const [gender, setGender] = useState("MALE");
@@ -27,6 +29,8 @@ function RegisterPage(props) {
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
+
+    const [isSubmitOpen, setSubmitOpen] = useState(false);
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -75,7 +79,6 @@ function RegisterPage(props) {
                 break;
             default:
                 setAlertMsg('입력값 에러입니다');
-                setOpen(true);
         }
     }
 
@@ -118,14 +121,9 @@ function RegisterPage(props) {
     }
 
     const registIn = () => {
-        server
-            .post('/members', {
-                "nickname": nickname,
-                "password": password,
-                "passwordCheck": rePassword,
-                "gender": gender,
-                "dateOfBirth": dateOfBirth,
-                "email": email,
+        api.register(nickname, password, rePassword, gender, dateOfBirth, email)
+            .then(() => {
+                setSubmitOpen(true);
             })
             .catch(error => {
                 if (error.response) {
@@ -217,11 +215,12 @@ function RegisterPage(props) {
             </ButtonText>
             <PillButton width="260px" children="다음" onClick={() => detectInput()}></PillButton>
             <Border>
-                <Link>
+                <Link onClick={goLoginPage}>
                     이미 계정이 있나요? 로그인하기
                 </Link>
             </Border>
-            <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
+            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
+            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => props.history.goLoginPage()}/>
         </Container>
     );
 }

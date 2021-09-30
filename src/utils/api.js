@@ -17,3 +17,6 @@ export const editUserInfo = (nickname, gender, birth) => server.put('/members', 
 export const checkPassword = (password) => server.get('/members/password', { password: password });
 export const changePassword = (password, passwordCheck) => server.put('/members/password', { password: password, passwordCheck: passwordCheck });
 export const deleteAccount = (nickname) => server.delete(`/members/${nickname}`);
+
+//가입
+export const register = (nickname, password, rePassword, gender, dateOfBirth, email) => server.post('/members', {nickname: nickname, password: password, passwordCheck: rePassword, gender: gender, dateOfBirth: dateOfBirth, email: email});
