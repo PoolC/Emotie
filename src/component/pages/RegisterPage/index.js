@@ -6,72 +6,27 @@ import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
-
-import Alert from "../../../component/common/modal/Alert";
+import Alert from "../../common/modal/Alert"
 
 import server from "../../../utils/server";
 
-
 import {
-    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, ButtonText, Border, Link
+    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link
 } from "./style";
 
 function RegisterPage(props) {
-    const [isFirstCert, setFirstCert] = useState(true);
-    const [privacyChecked, setPrivacyChecked] = useState(false);
-    const [emailChecked, setEmailChecked] = useState(false);
-    const [nicknameChecked, setNicknameChecked] = useState(false);
+    const [isChecked, setChecked] = useState(false);
 
     const [gender, setGender] = useState("MALE");
 
     const [year, setYear] = useState("2000");
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
-
     const dateOfBirth = year + "-" + month + "-" + day;
 
-    //alert처리한 거 바꾸는 중
-    const detectInput = () => {
-        if (email.length === 0) {
-            alert('이메일을 입력하세요');
-            return;
-        } else if (emailAlert != '') {
-            alert(emailAlert);
-            return;
-        }
-        if (password.length === 0) {
-            alert('비밀번호를 입력하세요');
-            return;
-        } else if (passwordAlert != '') {
-            alert(passwordAlert);
-            return;
-        }
-        if (rePassword.length === 0) {
-            console.log('5');
-            alert('비밀번호를 재입력하세요');
-            return;
-        } else if (rePasswordAlert != '') {
-            alert(rePasswordAlert);
-            return;
-        }
-
-        if (nickname.length === 0) {
-            alert('별명을 입력하세요');
-            return;
-        }
-        if (nicknameChecked === false) {
-            console.log('8');
-            alert('별명 중복 확인을 해주세요');
-            return;
-        }
-
-        if(privacyChecked === false){
-            alert('개인 정보 및 이용약관에 동의하세요');
-            return;
-        }
-        console.log('아나');
-        registIn();
-    }
+    const [isOpen, setOpen] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
+    const [alertTitle, setAlertTitle] = useState('경고');
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -80,7 +35,7 @@ function RegisterPage(props) {
         rePassword: '',
         nickname: ''
     });
-    const { email, emailCert, password, rePassword, nickname } = inputs;
+    const { email, password, rePassword, nickname } = inputs;
 
     const [alerts, setAlerts] = useState({
         emailAlert: '',
@@ -99,12 +54,12 @@ function RegisterPage(props) {
 
     const isEmailValid = (email) => {
         var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return (email != '' && email != 'undefined' && regExp.test(email));
+        return (email !== '' && email !== 'undefined' && regExp.test(email));
     };
-    //이 부분 변경하기
     const isPasswordValid = (password) => {
-        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/;
-        return (password != '' && password != 'undefined' && regExp.test(password));
+        var num = password.search(/[0-9]/g);
+        var eng = password.search(/[a-z]/ig);
+        return (password !== '' && password !== 'undefined'&& password.length >= 8 && password.length <= 20&&password.search(/\s/) === -1&&num!==-1&&eng!==-1);
     };
     const inputCheck = (e) => {
         const { value, name } = e.target;
@@ -118,11 +73,51 @@ function RegisterPage(props) {
             case 'rePassword':
                 (password === value) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호가 일치하지 않습니다' });
                 break;
+            default:
+                setAlertMsg('입력값 에러입니다');
+                setOpen(true);
         }
     }
 
+    const detectInput = () => {
+        if (email.length === 0) {
+            setAlertMsg('이메일을 입력하세요');
+            setOpen(true);
+            return;
+        } else if (emailAlert !== '') {
+            setAlertMsg(emailAlert);
+            setOpen(true);
+            return;
+        }
+
+        if (password.length === 0) {
+            setAlertMsg('비밀번호를 입력하세요');
+            setOpen(true);
+            return;
+        } else if (passwordAlert !== '') {
+            setAlertMsg(passwordAlert);
+            setOpen(true);
+            return;
+        }
+
+        if (rePassword.length === 0) {
+            setAlertMsg('비밀번호를 재입력하세요');
+            setOpen(true);
+            return;
+        } else if (rePasswordAlert !== '') {
+            setAlertMsg(rePasswordAlert);
+            setOpen(true);
+            return;
+        }
+        if (nickname.length === 0) {
+            setAlertMsg('별명을 입력하세요');
+            setOpen(true);
+            return;
+        }
+        registIn();
+    }
+
     const registIn = () => {
-        console.log("가입");
         server
             .post('/members', {
                 "nickname": nickname,
@@ -132,47 +127,36 @@ function RegisterPage(props) {
                 "dateOfBirth": dateOfBirth,
                 "email": email,
             })
-            .then(response => {
-                console.log(response);
-            })
             .catch(error => {
-                console.log(error);
+                if (error.response) {
+                    // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
+                    if (error.response && error.response.status === 401) {
+                        setAlertTitle(error.response.status);
+                        setAlertMsg('잘못된 형식입니다');
+                        setOpen(true);
+                    } else if (error.response && error.response.status === 409) {
+                        setAlertTitle(error.response.status);
+                        setAlertMsg('이미 가입된 이메일이거나 별명입니다');
+                        setOpen(true);
+                    } else {
+                        setAlertTitle(error.response.status);
+                        setAlertMsg('알 수 없는 에러가 발생했습니다.');
+                        setOpen(true);
+                    }
+                }
+                else if (error.request) {
+                    // 요청이 이루어 졌으나 응답을 받지 못함
+                    setAlertTitle('에러');
+                    setAlertMsg('서버에서 응답이 오지 않습니다.')
+                    setOpen(true);
+                }
+                else {
+                    setAlertTitle('에러');
+                    setAlertMsg('가입 요청에 문제가 발생했습니다')
+                    setOpen(true);
+                }
             });
     }
-
-    const emailAuth = () => {
-
-    };
-
-    const isNicknameUnique = () => {
-        console.log("중복 확인");
-        server
-        .get('/members/nickname', {
-            "nickname": nickname
-        }, console.log("nick 감"))
-        .then(response => {
-            console.log(response);
-            //200 400 처리 어떻게 되는 거지
-            setNicknameChecked(true);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }
-    const emailAuthSend = () => {
-        server
-        .post('/auth/authorization', {
-        })
-        .then(response => {
-            console.log(response);
-            setEmailChecked(true);
-        })
-        .catch(error => {
-            console.log(error);
-            setEmailChecked(false);
-        });
-    };
-
     return (
         <Container>
             <Header />
@@ -182,15 +166,9 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="email" value={email} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="이메일" type="text"></PillInput><CertButton children={isFirstCert ? "인증번호 받기" : "재인증 하기"} onClick={() => { setFirstCert(false); setEmailChecked(false); emailAuthSend();}}></CertButton>
+                        <PillInput name="email" value={email} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="이메일" type="text"></PillInput>
                     </FlexBox>
                     <InputAlert>{emailAlert}</InputAlert>
-                </InputGroup>
-                <InputGroup>
-                    <FlexBox>
-                        <PillInput width="140px" placeholder="이메일 인증번호" type="text"></PillInput><CertButton children={"확인"} onClick={() => emailAuth()}></CertButton>
-                    </FlexBox>
-                    <InputAlert></InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <PillInput name="password" value={password} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="비밀번호" type="password">
@@ -204,8 +182,7 @@ function RegisterPage(props) {
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="별명" type="text" readOnly={nicknameChecked}></PillInput>
-                        <CertButton children={"중복 확인"} onClick={() => isNicknameUnique()}></CertButton>
+                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="별명" type="text"></PillInput>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
@@ -219,7 +196,6 @@ function RegisterPage(props) {
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-
                         <SelectGroup
                             state={year}
                             handleState={setYear}
@@ -237,7 +213,7 @@ function RegisterPage(props) {
                 </InputGroup>
             </Gap>
             <ButtonText>
-                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={privacyChecked} onClick={() => setPrivacyChecked(!privacyChecked)} />
+                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)} />
             </ButtonText>
             <PillButton width="260px" children="다음" onClick={() => detectInput()}></PillButton>
             <Border>
@@ -245,6 +221,7 @@ function RegisterPage(props) {
                     이미 계정이 있나요? 로그인하기
                 </Link>
             </Border>
+            <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
         </Container>
     );
 }
