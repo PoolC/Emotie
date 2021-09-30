@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import * as saga from "../../../store/actions/_saga";
+
 
 import Header from "../../common/Header";
 import logo from "../../../image/logo_img.svg";
@@ -33,6 +36,9 @@ function LoginPage(props) {
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
+
+    const dispatch = useDispatch();
+
     const isEmailValid = (email) => {
         var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         return (email !== '' && email !== 'undefined' && regExp.test(email));
@@ -59,6 +65,14 @@ function LoginPage(props) {
     const login = () => {
         console.log('로그인');
         api.follow(id, password)
+            .then(() => {
+                const payload = {
+                    email: id,
+                    password: password
+                }
+                dispatch(saga.login(payload));
+            }
+            )
             .catch(error => {
                 if (error.response) {
                     // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
