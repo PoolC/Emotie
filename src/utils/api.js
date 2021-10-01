@@ -1,5 +1,9 @@
 import server from "./server";
 
+
+//가입
+export const register = (nickname, password, rePassword, gender, dateOfBirth, email) => server.post('/members', {nickname: nickname, password: password, passwordCheck: rePassword, gender: gender, dateOfBirth: dateOfBirth, email: email});
+
 // 로그인
 export const login = ({ email, password }) => server.post('/auth/login', { email: email, password: password });
 export const getUserInfo = () => server.get('/members/me');
