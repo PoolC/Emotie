@@ -4,6 +4,7 @@ import * as saga from "./store/actions/_saga";
 import * as user from "./store/actions/user";
 
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { forAuthorized, forUnauthorized } from "./hoc/authChecker";
 
 import LandingPage from "./component/pages/LandingPage/index";
 import LoginPage from "./component/pages/LoginPage/index";
@@ -42,21 +43,21 @@ function App() {
     return (
         <Router>
             <Switch>
-                <Route exact path="/" component={withRouter(LandingPage)}/>
+                <Route exact path="/" component={forUnauthorized(withRouter(LandingPage), authStatus)}/>
 
-                <Route exact path="/login" component={withRouter(LoginPage)}/>
-                <Route exact path="/register" component={withRouter(RegisterPage)}/>
-                <Route exact path="/find" component={withRouter(FindPage)}/>
+                <Route exact path="/login" component={forUnauthorized(withRouter(LoginPage), authStatus)}/>
+                <Route exact path="/register" component={forUnauthorized(withRouter(RegisterPage), authStatus)}/>
+                <Route exact path="/find" component={forUnauthorized(withRouter(FindPage), authStatus)}/>
 
-                <Route exact path="/profile/:id" component={withRouter(ProfilePage)}/>
-                <Route exact path="/profile/:id/motie-edit" component={withRouter(MotieEditPage)}/>
+                <Route exact path="/profile/:id" component={forAuthorized(withRouter(ProfilePage), authStatus)}/>
+                <Route exact path="/profile/:id/motie-edit" component={forAuthorized(withRouter(MotieEditPage), authStatus)}/>
                 <Route exact path="/profile/:id/post/:postId" component={withRouter(DetailPage)}/>
-                <Route exact path="/write" component={withRouter(WritePage)}/>
+                <Route exact path="/write" component={forAuthorized(withRouter(WritePage), authStatus)}/>
 
-                <Route exact path="/feed" component={withRouter(FeedPage)}/>
-                <Route exact path="/recommend" component={withRouter(RecommendPage)}/>
+                <Route exact path="/feed" component={forAuthorized(withRouter(FeedPage), authStatus)}/>
+                <Route exact path="/recommend" component={forAuthorized(withRouter(RecommendPage), authStatus)}/>
 
-                <Route exact path="/setting" component={withRouter(SettingPage)}/>
+                <Route exact path="/setting" component={forAuthorized(withRouter(SettingPage), authStatus)}/>
                 
                 <Route exact path="/error" component={withRouter(ErrorPage)}/>
                 <Route exact path="/test" component={withRouter(TestPage)}/>

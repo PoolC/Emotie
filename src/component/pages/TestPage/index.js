@@ -104,12 +104,12 @@ function TestPage(props) {
                 <PillButton width="200px" negative onClick={logout}>로그아웃</PillButton>
             </LoginContainer>
             <PostList>
-                <PostCard hideEmotion share blur report delete id={details[0].id} onClick={() => {openPopup(0)}}/>
-                <PostCard hideEmotion share blur report id={details[1].id} onClick={() => {openPopup(1)}}/>
-                <PostCard hideEmotion share blur id={details[2].id} onClick={() => {openPopup(2)}}/>
-                <PostCard hideEmotion share blur report delete id={details[3].id} onClick={() => {openPopup(3)}}/>
-                <PostCard hideEmotion share blur report id={details[4].id} onClick={() => {openPopup(4)}}/>
-                <PostCard hideEmotion share blur report delete id={details[5].id} onClick={() => {openPopup(5)}}/>
+                <PostCard share blur report delete id={details[0].id} onClick={() => {openPopup(0)}}/>
+                <PostCard share blur report id={details[1].id} onClick={() => {openPopup(1)}}/>
+                <PostCard share blur id={details[2].id} onClick={() => {openPopup(2)}}/>
+                <PostCard share blur report delete id={details[3].id} onClick={() => {openPopup(3)}}/>
+                <PostCard share blur report id={details[4].id} onClick={() => {openPopup(4)}}/>
+                <PostCard share blur report delete id={details[5].id} onClick={() => {openPopup(5)}}/>
                 <PostCard emotion={Emotions.SAD} share blur report delete id={details[6].id} onClick={() => {openPopup(6)}}/>
             </PostList>
             <ProfileList>

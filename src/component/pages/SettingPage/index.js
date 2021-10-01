@@ -33,7 +33,9 @@ function SettingPage(props) {
     const [isSuccessAlertOpen, setSuccessAlertOpen] = useState(false);
     const [isCheckAlertOpen, setCheckAlertOpen] = useState(false);
     const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState();
+    const [duplicateMessage, setDuplicateMessage] = useState('');
+    const [passwordMessage, setPasswordMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     // 클릭 이벤트
     const changeCategory = (id) => {
@@ -41,10 +43,22 @@ function SettingPage(props) {
         setTempNickname(nickname);
         setTempBirth(birth);
         setTempGender(gender);
+        setDuplicateMessage('');
         setPassword({old: "", new1: "", new2: ""});
 
         // 카테고리 변경
         setCategory(id);
+    };
+    const checkNicknameDuplicated = () => {
+        api.checkNicknameDuplicated(tempNickname)
+        .then(response => {
+            if (response.data.checkNickname) setDuplicateMessage('사용 가능한 별명입니다!');
+            else setDuplicateMessage('이미 존재하는 별명입니다.');
+        })
+        .catch(error => {
+            if (error.response && error.response.status === 400) return setDuplicateMessage('올바르지 않은 형식의 별명입니다.');
+            setDuplicateMessage('서버와의 통신 중 오류가 발생하였습니다.');
+        });
     };
     const editUserInfo = () => {
         const birthRaw = `${numberToTwoString(tempBirth.year)}-${numberToTwoString(tempBirth.month)}-${numberToTwoString(tempBirth.day)}`;
@@ -55,8 +69,9 @@ function SettingPage(props) {
             showSuccessAlert();
         })
         .catch(error => {
-            if (error.response && error.response.status === 400) return showFormatErrorAlert();
-            showServerErrorAlert();
+            if (error.response && error.response.status === 400) return showErrorAlert('올바르지 않은 형식의 개인 정보가 포함되어 있습니다.');
+            else if (error.response && error.response.status === 409) return showErrorAlert('이미 존재하는 별명입니다.');
+            showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.');
         });
     };
     const changePassword = () => {
@@ -64,60 +79,48 @@ function SettingPage(props) {
         api.checkPassword(password.old)
         .then(response => {
             // 비밀번호 변경
-            if (!response.data.checkPassword) return showPasswordNotEqualErrorAlert();
+            if (!response.data.checkPassword) return showErrorAlert('기존 비밀번호가 일치하지 않습니다.');
             api.changePassword(password.new1, password.new2)
             .then(response => {
                 setPassword({old: "", new1: "", new2: ""});
                 showSuccessAlert();
             })
             .catch(error => {
-                if (error.response && error.response.status === 400) return showNewPasswordNotEqualErrorAlert();
-                showServerErrorAlert();
+                if (error.response && error.response.status === 400) return showErrorAlert('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+                showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.');
             });
         })
         .catch(error => {
-            if (error.response && error.response.status === 400) return showPasswordNotEqualErrorAlert();
-            showServerErrorAlert();
+            if (error.response && error.response.status === 400) return showErrorAlert('기존 비밀번호가 일치하지 않습니다.');
+            showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.');
         });
     };
     const deleteAccount = () => {
         // 비밀번호 확인
         api.checkPassword(password.old)
         .then(response => {
-            if (!response.data.checkPassword) return showPasswordNotEqualErrorAlert();
+            if (!response.data.checkPassword) return showErrorAlert('기존 비밀번호가 일치하지 않습니다.');
             // 계정 삭제
             api.deleteAccount(nickname)
             .then(response => {
                 // TODO
                 showSuccessAlert();
             })
-            .catch(error => showServerErrorAlert());
+            .catch(error => showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.'));
         })
         .catch(error => {
-            if (error.response && error.response.status === 400) return showPasswordNotEqualErrorAlert();
-            showServerErrorAlert();
+            if (error.response && error.response.status === 400) return showErrorAlert('기존 비밀번호가 일치하지 않습니다.');
+            showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.');
         });
     };
 
     // 알림
     const showSuccessAlert = () => setSuccessAlertOpen(true);
     const showCheckAlert = () => setCheckAlertOpen(true);
-    const showServerErrorAlert = () => {
-        setErrorMessage('서버와의 통신 중 오류가 발생하였습니다.');
+    const showErrorAlert = (message) => {
+        setErrorMessage(message);
         setErrorAlertOpen(true);
-    }
-    const showFormatErrorAlert = () => {
-        setErrorMessage('올바르지 않은 형식의 개인 정보가 포함되어 있습니다.');
-        setErrorAlertOpen(true);
-    }
-    const showPasswordNotEqualErrorAlert = () => {
-        setErrorMessage('기존 비밀번호가 일치하지 않습니다.');
-        setErrorAlertOpen(true);
-    }
-    const showNewPasswordNotEqualErrorAlert = () => {
-        setErrorMessage('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-        setErrorAlertOpen(true);
-    }
+    };
 
     return (
         <Container.Base>
@@ -127,7 +130,7 @@ function SettingPage(props) {
                 {category === 0 && // 개인정보 수정
                     <Container.Frame>
                         <Element.Title>기본 정보</Element.Title>
-                        <Group.Nickname nickname={tempNickname} setTempNickname={setTempNickname}/>
+                        <Group.Nickname nickname={tempNickname} setTempNickname={setTempNickname} checkNicknameDuplicated={checkNicknameDuplicated} duplicateMessage={duplicateMessage}/>
                         <Group.Birth birth={tempBirth} setTempBirth={setTempBirth}/>
                         <Group.Gender gender={tempGender} setTempGender={setTempGender}/>
                         <Element.Button onClick={editUserInfo}>수정 완료</Element.Button>
@@ -136,7 +139,7 @@ function SettingPage(props) {
                     <Container.Frame>
                         <Element.Title>비밀번호 변경</Element.Title>
                         <Group.PasswordCheck password={password} setPassword={setPassword}/>
-                        <Group.NewPassword password={password} setPassword={setPassword}/>
+                        <Group.NewPassword password={password} setPassword={setPassword} passwordMessage={passwordMessage} setPasswordMessage={setPasswordMessage}/>
                         <Element.Button onClick={changePassword}>비밀번호 변경</Element.Button>
                     </Container.Frame>}
                 {category === 2 && // 계정 삭제
