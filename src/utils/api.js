@@ -13,6 +13,7 @@ export const editIntroduction = (introduction) => server.put('/profiles', { intr
 export const follow = (nickname, state) => server.post(`/members/follow/${nickname}`, { isFollowing: state });
 
 // 설정
+export const checkNicknameDuplicated = (nickname) => server.get('/members/nickname', { nickname: nickname });
 export const editUserInfo = (nickname, gender, birth) => server.put('/members', { nickname: nickname, gender: gender, dateOfBirth: birth });
 export const checkPassword = (password) => server.get('/members/password', { password: password });
 export const changePassword = (password, passwordCheck) => server.put('/members/password', { password: password, passwordCheck: passwordCheck });
@@ -20,3 +21,12 @@ export const deleteAccount = (nickname) => server.delete(`/members/${nickname}`)
 
 // 등록
 export const uploadPost = (emotion, content, isPrivate) => server.post('/diaries', { emotion: emotion, content: content, isOpened:  isPrivate });
+
+// 블러
+export const blur = (id) => server.post(`/diaries/blind/${id}`);
+// 신고
+export const reportDiary = (id) => server.post(`/diaries/report/${id}`);
+export const reportGuestbook = (id) => server.post(`/guestbooks/report/${id}`);
+// 삭제
+export const deleteDiary = (id) => server.delete('/diaries', { id: [id] });
+export const deleteGuestbook = (id) => server.delete(`/guestbooks/${id}`);
