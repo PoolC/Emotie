@@ -1,5 +1,7 @@
+import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
+import * as saga from "../../store/actions/_saga";
 
 import styled from "styled-components";
 
@@ -11,33 +13,33 @@ import { IoSearch, IoPeople, IoLayers } from "react-icons/io5";
 import DropDown from "./DropDown";
 
 function Header(props) {
+    // 스토어
+    const dispatch = useDispatch();
+    const authStatus = useSelector(store => store.auth.status);
+    const myNickname = useSelector(store => store.user.nickname);
+
     // 미디어 쿼리
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     // 클릭 이벤트
     const goRecommendPage = () => props.history.push('/recommend');
     const goFeedPage = () => props.history.push('/feed');
-	const goProfilePage = () => console.log("my profile page");
+	const goProfilePage = () => props.history.push(`/profile/${myNickname}`);
     const goSettingPage = () => props.history.push('/setting');
-    const logout = () => console.log("logout");
+    const goLoginPage = () => props.history.push('/login');
+    const logout = () => dispatch(saga.logout());
     
-    const options = [
-        {
-            text: "내 프로필",
-            eventHandler: goProfilePage
-        },
-        {
-            text: "설정",
-            eventHandler: goSettingPage
-        },
-        {
-            text: "seperator"
-        },
-        {
-            text: "로그아웃",
-            eventHandler: logout
-        }
-    ]
+    // 드롭다운
+    const dropdownOptions = (authStatus === 'AUTHORIZED') 
+        ? [
+            { text: "내 프로필", eventHandler: goProfilePage },
+            { text: "설정", eventHandler: goSettingPage },
+            { text: "seperator" },
+            { text: "로그아웃", eventHandler: logout }
+        ]
+        : [
+            { text: "로그인", eventHandler: goLoginPage }
+        ];
 
     return (
         <Container transparent={props.transparent}>
@@ -47,7 +49,7 @@ function Header(props) {
                 {props.search && isMobile && <IconButton icon={IoSearch} color={props.transparent ? "black" : "white"}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage} color={props.transparent ? "black" : "white"}/>}
                 {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage} color={props.transparent ? "black" : "white"}/>}
-                <DropDown id="profile" width="188" options={options}/>
+                <DropDown id="profile" width="188" options={dropdownOptions}/>
             </MenuLayout>
         </Container>
     );
