@@ -18,3 +18,12 @@ export const editUserInfo = (nickname, gender, birth) => server.put('/members', 
 export const checkPassword = (password) => server.get('/members/password', { password: password });
 export const changePassword = (password, passwordCheck) => server.put('/members/password', { password: password, passwordCheck: passwordCheck });
 export const deleteAccount = (nickname) => server.delete(`/members/${nickname}`);
+
+// 블러
+export const blur = (id) => server.post(`/diaries/blind/${id}`);
+// 신고
+export const reportDiary = (id) => server.post(`/diaries/report/${id}`);
+export const reportGuestbook = (id) => server.post(`/guestbooks/report/${id}`);
+// 삭제
+export const deleteDiary = (id) => server.delete('/diaries', { id: [id] });
+export const deleteGuestbook = (id) => server.delete(`/guestbooks/${id}`);
