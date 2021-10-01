@@ -19,6 +19,10 @@ export const checkPassword = (password) => server.get('/members/password', { pas
 export const changePassword = (password, passwordCheck) => server.put('/members/password', { password: password, passwordCheck: passwordCheck });
 export const deleteAccount = (nickname) => server.delete(`/members/${nickname}`);
 
+
+// 피드 불러오기
+export const getFeeds = () => server.get('/feed');
+
 // 등록
 export const uploadPost = (emotion, content, isPrivate) => server.post('/diaries', { emotion: emotion, content: content, isOpened:  isPrivate });
 
