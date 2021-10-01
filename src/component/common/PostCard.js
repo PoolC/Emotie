@@ -48,7 +48,7 @@ function PostCard(props) {
     function onShare(event) {
         event.stopPropagation();
        
-        const url = `http://localhost:3000/profile/:${1}/post/:${props.id}`
+        const url = `http://localhost:3000/profile/${1}/post/${props.id}`
         navigator.clipboard.writeText(url);
         setAlertInfo({
             isOpen: true,
