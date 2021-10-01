@@ -23,6 +23,12 @@ export const checkPassword = (password) => server.get('/members/password', { pas
 export const changePassword = (password, passwordCheck) => server.put('/members/password', { password: password, passwordCheck: passwordCheck });
 export const deleteAccount = (nickname) => server.delete(`/members/${nickname}`);
 
+//인증
+export const pwResetEmail = (email) => server.post(`/auth/password-reset?email=${email}`);
+export const pwResetCheck = (token, email, password, passwordCheck) => server.put(`/auth/password-reset?passwordRestToken=${token}`, {email: email, password: password, passwordCheck: passwordCheck});
+
+export const activateAccount = (email, token) => server.put(`/auth/authorization?email=${email}&authorizationToken=${token}`);
+
 // 추천 불러오기
 export const getRecommends = () => server.get('/recommend');
 

@@ -10,6 +10,8 @@ import LandingPage from "./component/pages/LandingPage/index";
 import LoginPage from "./component/pages/LoginPage/index";
 import RegisterPage from "./component/pages/RegisterPage/index";
 import FindPage from "./component/pages/FindPage/index";
+import ResetPage from "./component/pages/ResetPage/index";
+import AuthPage from "./component/pages/AuthPage/index";
 import ProfilePage from "./component/pages/ProfilePage/index";
 import MotieEditPage from "./component/pages/MotieEditPage/index";
 import DetailPage from "./component/pages/DetailPage/index";
@@ -48,6 +50,9 @@ function App() {
                 <Route exact path="/login" component={forUnauthorized(withRouter(LoginPage), authStatus)}/>
                 <Route exact path="/register" component={forUnauthorized(withRouter(RegisterPage), authStatus)}/>
                 <Route exact path="/find" component={forUnauthorized(withRouter(FindPage), authStatus)}/>
+
+                <Route exact path="/auth/authorization" component={withRouter(AuthPage)}/>
+                <Route exact path="/auth/password-reset" component={withRouter(ResetPage)}/>
 
                 <Route exact path="/profile/:id" component={forAuthorized(withRouter(ProfilePage), authStatus)}/>
                 <Route exact path="/profile/:id/motie-edit" component={forAuthorized(withRouter(MotieEditPage), authStatus)}/>

@@ -1,55 +1,62 @@
-import React, { useState, useEffect } from "react";
-
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
 import Alert from "../../common/modal/Alert"
 
-import server from "../../../utils/server";
+import * as api from "../../../utils/api";
 
 
 import {
-    Container, Title, Text, FlexBox, CertButton, Gap, InputGroup, InputAlert
+    Container, Title, Text, InputGroup, InputAlert
 } from "./style";
 
 function FindPage(props) {
-    const [step, setStep] = useState('');
-    const [isFirstCert, setFirstCert] = useState(true);
-    const goLoginPage = () => props.history.push('/login');
-    let Page = null;
-    const url = window.location.search;
-    const what = url.includes("?");
-
-    const parameter = url.split("=");
-    const token = parameter[1];
-    console.log(token);
-
-    if (what) {
-        setStep(1);
-    }else{
-        setStep(0);
-    }
-    console.log(step);
-    // if (check){
-    //     token=setToken(url.split("=")[1]);
-    //     console.log(token);
-    // }
 
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
 
-    const emailAuth = () => {
-        console.log('로그인');
-        server
-            .post('/auth/login', {
-                "email": "anfro2520@gmail.com",
-                "password": "password",
-            })
+    const [email, setEmail] = useState('');
+    const [alert, setAlert]=useState('');
+
+    const isEmailValid = (email) => {
+        var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        return (email !== '' && email !== 'undefined' && regExp.test(email));
+    };
+
+    const inputChange = (e)=>{
+        const { value } = e.target;
+        setEmail(value);
+    }
+    
+    const inputCheck = (e) => {
+        const { value } = e.target;
+        if(!isEmailValid(value)){
+            setAlert('이메일 양식이 아닙니다');
+        }else{
+            setAlert('');
+        }
+    }
+
+    const detectInput = () => {
+        if (email.length === 0) {
+            setAlertMsg('이메일을 입력하세요');
+            setOpen(true);
+            return;
+        }
+        if(!isEmailValid(email)){
+            setAlertMsg('이메일 양식이 아닙니다');
+            setOpen(true);
+            return;
+        }
+    }
+    const resetEmailSend = () => {
+        detectInput();
+        api.pwResetEmail(email)
             .then(response => {
-                setAlertTitle('');
+                setAlertTitle('인증 메일 전송');
                 setAlertMsg('이메일 인증 메일이 전송되었습니다. 이메일에서 확인해주세요.')
                 setOpen(true);
             })
@@ -75,47 +82,16 @@ function FindPage(props) {
                 }
             });
     }
-
-    if (step === 0) {
-        Page = <>
-            <Title>계정 찾기</Title>
-            <Text>이메일을 입력하세요</Text>
-            <InputGroup>
-                <PillInput width="200px" placeholder="이메일"></PillInput>
-                <InputAlert>이메일 형식이 아닙니다</InputAlert>
-            </InputGroup>
-
-            <PillButton width="260px" onClick={() => setStep(1)}>검색</PillButton>
-        </>;
-        return;
-    } else if (step === 1) {
-        Page =
-            <>
-                <Title>비밀번호 변경</Title>
-                <Text>변경할 비밀 번호를 입력하세요</Text>
-                <InputGroup>
-                    <PillInput width="200px" placeholder="새 비밀번호" type="password"></PillInput>
-                    <InputAlert>12자 이하 영문+숫자 조합이여야 합니다</InputAlert>
-                </InputGroup>
-                <InputGroup>
-                    <PillInput width="200px" placeholder="비밀번호 재입력" type="password"></PillInput>
-                    <InputAlert>비밀번호가 일치하지 않습니다</InputAlert>
-                </InputGroup>
-                <FlexBox>
-                    <PillButton negative width="120px" onClick={() => setStep(0)}>이전</PillButton>
-                    <PillButton width="120px">확인</PillButton>
-                </FlexBox>
-            </>;
-        return;
-
-    } else {
-        Page = <Text>잘못된 접근입니다.</Text>;
-        return;
-    }
     return (
         <Container>
             <Header />
-            {Page}
+            <Title>계정 찾기</Title>
+            <Text>이메일을 입력하세요</Text>
+            <InputGroup>
+                <PillInput width="200px" placeholder="이메일" value={email} onInput={inputChange} onBlur={inputCheck}></PillInput>
+                <InputAlert>{alert}</InputAlert>
+            </InputGroup>
+            <PillButton width="260px" onClick={()=>resetEmailSend()}>확인 메일 전송</PillButton>
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
         </Container>
     );

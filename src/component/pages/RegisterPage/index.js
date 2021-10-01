@@ -15,6 +15,7 @@ import {
 } from "./style";
 
 function RegisterPage(props) {
+
     const goLoginPage = () => props.history.push('/login');
 
     const [isChecked, setChecked] = useState(false);
@@ -63,7 +64,7 @@ function RegisterPage(props) {
     const isPasswordValid = (password) => {
         var num = password.search(/[0-9]/g);
         var eng = password.search(/[a-z]/ig);
-        return (password !== '' && password !== 'undefined'&& password.length >= 8 && password.length <= 20&&password.search(/\s/) === -1&&num!==-1&&eng!==-1);
+        return (password != '' && password != 'undefined'&& password.length >= 8 && password.length <= 20&&password.search(/\s/) == -1&&num!=-1&&eng!=-1);
     };
     const inputCheck = (e) => {
         const { value, name } = e.target;
@@ -108,6 +109,44 @@ function RegisterPage(props) {
             setOpen(true);
             return;
         } else if (rePasswordAlert !== '') {
+            setAlertMsg(rePasswordAlert);
+            setOpen(true);
+            return;
+        }
+        if (nickname.length === 0) {
+            setAlertMsg('별명을 입력하세요');
+            setOpen(true);
+            return;
+        }
+        registIn();
+    }
+
+    const detectInput = () => {
+        if (email.length === 0) {
+            setAlertMsg('이메일을 입력하세요');
+            setOpen(true);
+            return;
+        } else if (emailAlert != '') {
+            setAlertMsg(emailAlert);
+            setOpen(true);
+            return;
+        }
+
+        if (password.length === 0) {
+            setAlertMsg('비밀번호를 입력하세요');
+            setOpen(true);
+            return;
+        } else if (passwordAlert != '') {
+            setAlertMsg(passwordAlert);
+            setOpen(true);
+            return;
+        }
+
+        if (rePassword.length === 0) {
+            setAlertMsg('비밀번호를 재입력하세요');
+            setOpen(true);
+            return;
+        } else if (rePasswordAlert != '') {
             setAlertMsg(rePasswordAlert);
             setOpen(true);
             return;
@@ -219,6 +258,7 @@ function RegisterPage(props) {
                     이미 계정이 있나요? 로그인하기
                 </Link>
             </Border>
+            <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
             <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
             <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => props.history.goLoginPage()}/>
         </Container>
