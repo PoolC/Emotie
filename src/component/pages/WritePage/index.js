@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
 import { Container, Body, TagContainer, Tag, TextSection, TextArea, CheckBoxContainer, ButtonSection } from "./style";
 import EmotionTag from "../../common/EmotionTag";
@@ -8,12 +7,11 @@ import PillButton from "../../common/PillButton";
 import CheckBox from "../../common/CheckBox";
 import Alert from "../../common/modal/Alert";
 
-import server from "../../../utils/server";
+import * as api from "../../../utils/api";
 
 const emotions = [{color:"#FFF27D", tag:"기쁨", key:"happy"}, {color:"#FF855E", tag:"화남", key:"angry"}, {color:"#9FA7EF", tag:"슬픔", key:"sad"}, {color:"#AEE477", tag:"놀람", key:"surprised"}, {color:"#9431A4", tag:"질투", key:"jealous"}, {color:"#F29CB6", tag:"설렘", key:"flutter"}, {color:"#FFFFFF", tag:"무난", key:"normal"}, {color:"#ADADAD", tag:"지침", key:"tired"}];
 
 function WritePage(props) {
-    const { id } = useParams();
     const [ isPrivate, setPrivate ] = useState(false);
     const [ content, setContent ] = useState("");
     const [ tagState, setTagState ] = useState({
@@ -51,18 +49,13 @@ function WritePage(props) {
             setSelectEmotionOpen(true);
         }
         else {
-            // server
-            // .post('/diaries', {
-            //     "emotion": tagId, 
-            //     "content": content, 
-            //     "isOpened":  isPrivate
-            // })
+            // api.uploadPost(tagId, content, isPrivate)
             // .then(response => {
             //     console.log(response.data);
             //     setSubmitOpen(true);
             // })
             // .catch(error => {
-            //     console.log(error.response);
+            //     error.response && console.log(error.response.status);
             // });
             
             console.log(tagId);

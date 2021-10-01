@@ -6,15 +6,18 @@ import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
-import Alert from "../../common/modal/Alert"
+import Alert from "../../common/modal/Alert";
 
-import server from "../../../utils/server";
+import * as api from "../../../utils/api";
 
 import {
-    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, CertButton, FlexBox, ButtonText, Border, Link
+    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link
 } from "./style";
 
 function RegisterPage(props) {
+
+    const goLoginPage = () => props.history.push('/login');
+
     const [isChecked, setChecked] = useState(false);
 
     const [gender, setGender] = useState("MALE");
@@ -28,6 +31,8 @@ function RegisterPage(props) {
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
 
+    const [isSubmitOpen, setSubmitOpen] = useState(false);
+
     const [inputs, setInputs] = useState({
         email: '',
         emailCert: '',
@@ -35,7 +40,7 @@ function RegisterPage(props) {
         rePassword: '',
         nickname: ''
     });
-    const { email, emailCert, password, rePassword, nickname } = inputs;
+    const { email, password, rePassword, nickname } = inputs;
 
     const [alerts, setAlerts] = useState({
         emailAlert: '',
@@ -54,7 +59,7 @@ function RegisterPage(props) {
 
     const isEmailValid = (email) => {
         var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return (email != '' && email != 'undefined' && regExp.test(email));
+        return (email !== '' && email !== 'undefined' && regExp.test(email));
     };
     const isPasswordValid = (password) => {
         var num = password.search(/[0-9]/g);
@@ -73,7 +78,47 @@ function RegisterPage(props) {
             case 'rePassword':
                 (password === value) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호가 일치하지 않습니다' });
                 break;
+            default:
+                setAlertMsg('입력값 에러입니다');
         }
+    }
+
+    const detectInput = () => {
+        if (email.length === 0) {
+            setAlertMsg('이메일을 입력하세요');
+            setOpen(true);
+            return;
+        } else if (emailAlert !== '') {
+            setAlertMsg(emailAlert);
+            setOpen(true);
+            return;
+        }
+
+        if (password.length === 0) {
+            setAlertMsg('비밀번호를 입력하세요');
+            setOpen(true);
+            return;
+        } else if (passwordAlert !== '') {
+            setAlertMsg(passwordAlert);
+            setOpen(true);
+            return;
+        }
+
+        if (rePassword.length === 0) {
+            setAlertMsg('비밀번호를 재입력하세요');
+            setOpen(true);
+            return;
+        } else if (rePasswordAlert !== '') {
+            setAlertMsg(rePasswordAlert);
+            setOpen(true);
+            return;
+        }
+        if (nickname.length === 0) {
+            setAlertMsg('별명을 입력하세요');
+            setOpen(true);
+            return;
+        }
+        registIn();
     }
 
     const detectInput = () => {
@@ -115,14 +160,9 @@ function RegisterPage(props) {
     }
 
     const registIn = () => {
-        server
-            .post('/members', {
-                "nickname": nickname,
-                "password": password,
-                "passwordCheck": rePassword,
-                "gender": gender,
-                "dateOfBirth": dateOfBirth,
-                "email": email,
+        api.register(nickname, password, rePassword, gender, dateOfBirth, email)
+            .then(() => {
+                setSubmitOpen(true);
             })
             .catch(error => {
                 if (error.response) {
@@ -149,7 +189,7 @@ function RegisterPage(props) {
                 }
                 else {
                     setAlertTitle('에러');
-                    setAlertMsg('로그인 요청에 문제가 발생했습니다')
+                    setAlertMsg('가입 요청에 문제가 발생했습니다')
                     setOpen(true);
                 }
             });
@@ -214,11 +254,13 @@ function RegisterPage(props) {
             </ButtonText>
             <PillButton width="260px" children="다음" onClick={() => detectInput()}></PillButton>
             <Border>
-                <Link>
+                <Link onClick={goLoginPage}>
                     이미 계정이 있나요? 로그인하기
                 </Link>
             </Border>
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
+            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
+            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => props.history.goLoginPage()}/>
         </Container>
     );
 }
