@@ -9,6 +9,7 @@ import { AiOutlineShareAlt} from "react-icons/ai";
 
 function DetailPage(props) {
     const { id, postId } = useParams();
+    
     return (
         <Container>
             <Header></Header>

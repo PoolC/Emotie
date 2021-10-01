@@ -30,6 +30,7 @@ function FindPage(props) {
         const { value } = e.target;
         setEmail(value);
     }
+    
     const inputCheck = (e) => {
         const { value } = e.target;
         if(!isEmailValid(value)){
