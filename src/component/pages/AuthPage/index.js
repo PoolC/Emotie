@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
-import { Container } from "./style";
 import Header from "../../common/Header";
+import PillButton from "../../common/PillButton";
+import PillInput from "../../common/PillInput";
+import Alert from "../../common/modal/Alert"
+import {
+    Container, Title, Text, InputGroup, InputAlert
+} from "./style";
 
 function AuthPage(props) {
     // const auth=()=>{
@@ -47,7 +52,6 @@ function AuthPage(props) {
     return (
         <Container>
             <Header/>
-            이메일 인증
         </Container>
     );
 }

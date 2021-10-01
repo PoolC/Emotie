@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
-import { Container } from "./style";
 import Header from "../../common/Header";
+import PillButton from "../../common/PillButton";
+import PillInput from "../../common/PillInput";
+import Alert from "../../common/modal/Alert"
+import {
+    Container, Title, Text, InputGroup, InputAlert, FlexBox
+} from "./style";
 
 function ResetPage(props) {
     // const auth=()=>{
@@ -47,7 +52,19 @@ function ResetPage(props) {
     return (
         <Container>
             <Header/>
-            리셋페이지
+            <Title>비밀번호 변경</Title>
+                <Text>변경할 비밀 번호를 입력하세요</Text>
+                <InputGroup>
+                    <PillInput width="200px" placeholder="새 비밀번호" type="password"></PillInput>
+                    <InputAlert>8~20자 영문+숫자 조합이여야 합니다</InputAlert>
+                </InputGroup>
+                <InputGroup>
+                    <PillInput width="200px" placeholder="비밀번호 재입력" type="password"></PillInput>
+                    <InputAlert>비밀번호가 일치하지 않습니다</InputAlert>
+                </InputGroup>
+                <FlexBox>
+                    <PillButton width="260px">확인</PillButton>
+                </FlexBox>
         </Container>
     );
 }
