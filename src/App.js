@@ -51,8 +51,8 @@ function App() {
                 <Route exact path="/register" component={forUnauthorized(withRouter(RegisterPage), authStatus)}/>
                 <Route exact path="/find" component={forUnauthorized(withRouter(FindPage), authStatus)}/>
 
-                <Route exact path="/auth/authorization" component={withRouter(AuthPage)}/>
-                <Route exact path="/auth/password-reset" component={withRouter(ResetPage)}/>
+                <Route exact path="/auth/authorization" component={forUnauthorized(withRouter(AuthPage), authStatus)}/>
+                <Route exact path="/auth/password-reset" component={forUnauthorized(withRouter(ResetPage), authStatus)}/>
 
                 <Route exact path="/profile/:id" component={forAuthorized(withRouter(ProfilePage), authStatus)}/>
                 <Route exact path="/profile/:id/motie-edit" component={forAuthorized(withRouter(MotieEditPage), authStatus)}/>
