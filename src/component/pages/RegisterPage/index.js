@@ -64,7 +64,7 @@ function RegisterPage(props) {
     const isPasswordValid = (password) => {
         var num = password.search(/[0-9]/g);
         var eng = password.search(/[a-z]/ig);
-        return (password != '' && password != 'undefined'&& password.length >= 8 && password.length <= 20&&password.search(/\s/) == -1&&num!=-1&&eng!=-1);
+        return (password !== '' && password !== 'undefined'&& password.length >= 8 && password.length <= 20 && password.search(/\s/) === -1 && num !== -1 && eng !== -1);
     };
     const inputCheck = (e) => {
         const { value, name } = e.target;
@@ -93,7 +93,6 @@ function RegisterPage(props) {
             setOpen(true);
             return;
         }
-
         if (password.length === 0) {
             setAlertMsg('비밀번호를 입력하세요');
             setOpen(true);
@@ -109,44 +108,6 @@ function RegisterPage(props) {
             setOpen(true);
             return;
         } else if (rePasswordAlert !== '') {
-            setAlertMsg(rePasswordAlert);
-            setOpen(true);
-            return;
-        }
-        if (nickname.length === 0) {
-            setAlertMsg('별명을 입력하세요');
-            setOpen(true);
-            return;
-        }
-        registIn();
-    }
-
-    const detectInput = () => {
-        if (email.length === 0) {
-            setAlertMsg('이메일을 입력하세요');
-            setOpen(true);
-            return;
-        } else if (emailAlert != '') {
-            setAlertMsg(emailAlert);
-            setOpen(true);
-            return;
-        }
-
-        if (password.length === 0) {
-            setAlertMsg('비밀번호를 입력하세요');
-            setOpen(true);
-            return;
-        } else if (passwordAlert != '') {
-            setAlertMsg(passwordAlert);
-            setOpen(true);
-            return;
-        }
-
-        if (rePassword.length === 0) {
-            setAlertMsg('비밀번호를 재입력하세요');
-            setOpen(true);
-            return;
-        } else if (rePasswordAlert != '') {
             setAlertMsg(rePasswordAlert);
             setOpen(true);
             return;
