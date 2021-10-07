@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import Alert from "../../common/modal/Alert"
-import { useParams } from "react-router-dom";
 import {
     Container, Title, Text
 } from "./style";
@@ -14,16 +13,22 @@ function AuthPage(props) {
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
+
     const goLoginPage = () => {
         props.history.push('/login');
     }
-    const email ='';
-    const token ='';
-    const tokenRequest = () => {
 
+    const [step, setStep] = useState(false);
+
+    const url = window.location.href;
+    const split=url.split("=");
+    const token=split[2];
+    const email=(split[1].split("&"))[0];
+
+    const tokenRequest = () => {
         api.activateAccount(email, token)
-            .then(response => {
-                console.log(response);
+            .then(() => {
+                setStep(true);
             })
             .catch(error => {
                 if (error.response) {
@@ -63,10 +68,15 @@ function AuthPage(props) {
     window.onload = () => tokenRequest();
     return (
         <Container>
-            <Header />
-            <Title>이메일 인증이 완료되었습니다</Title>
-            <Text>가입이 완료되었습니다</Text>
-            <PillButton>로그인 페이지로</PillButton>
+            {step === true &&
+                <>
+                    <Header />
+                    <Title>이메일 인증이 완료되었습니다</Title>
+                    <Text>가입이 완료되었습니다</Text>
+                    <PillButton onClick={() => goLoginPage()}>로그인 페이지로</PillButton>
+                </>
+            }
+            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
         </Container>
     );
 }
