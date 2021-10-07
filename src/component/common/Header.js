@@ -16,7 +16,7 @@ function Header(props) {
     // 스토어
     const dispatch = useDispatch();
     const authStatus = useSelector(store => store.auth.status);
-    const myNickname = useSelector(store => store.user.nickname);
+    const myUUID = useSelector(store => store.user.uuid);
 
     // 미디어 쿼리
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
@@ -24,7 +24,7 @@ function Header(props) {
     // 클릭 이벤트
     const goRecommendPage = () => props.history.push('/recommend');
     const goFeedPage = () => props.history.push('/feed');
-	const goProfilePage = () => props.history.push(`/profile/${myNickname}`);
+	const goProfilePage = () => props.history.push(`/profile/${myUUID}`);
     const goSettingPage = () => props.history.push('/setting');
     const goLoginPage = () => props.history.push('/login');
     const logout = () => dispatch(saga.logout());

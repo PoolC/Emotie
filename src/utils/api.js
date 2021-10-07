@@ -13,7 +13,7 @@ export const login = ({ email, password }) => server.post('/auth/login', { email
 export const getUserInfo = () => server.get('/members/me');
 
 // 프로필
-export const getProfileInfo = (nickname) => server.get(`/profiles/${nickname}`);
+export const getProfileInfo = (uuid) => server.get(`/profiles/${uuid}`);
 export const editNickname = (nickname) => server.put('/profiles', { nickname: nickname });
 export const editIntroduction = (introduction) => server.put('/profiles', { introduction: introduction });
 
@@ -25,7 +25,7 @@ export const changePassword = (password, passwordCheck) => server.put('/members/
 export const deleteAccount = (nickname) => server.delete(`/members/${nickname}`);
 
 // 구독
-export const follow = (nickname, state) => server.post(`/members/follow/${nickname}`, { isFollowing: state });
+export const follow = (uuid, state) => server.post(`/members/follow/${uuid}`, { isFollowing: state });
 
 // 불러오기
 export const getRecommends = () => server.get('/recommend');

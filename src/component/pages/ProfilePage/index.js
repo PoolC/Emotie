@@ -11,7 +11,9 @@ import Alert from "../../common/modal/Alert";
 function ProfilePage(props) {
     // 프로필 정보
     const { id } = useParams();
-    const { profileInfo, isProfileMine } = useProfileInfo(id);
+    const uuid = id * 1;
+
+    const { profileInfo, isProfileMine, setProfileInfo } = useProfileInfo(uuid);
 
     // 수정할 수 있는 데이터
     const [tempIntroduction, setTempIntroduction] = useState('');
@@ -25,12 +27,13 @@ function ProfilePage(props) {
     const [isCancelAlertOpen, setCancelAlertOpen] = useState(false);
     const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
 
-    // 클릭 이벤트
+    // 클릭 이벤트 (본인 프로필)
     const startEdit = () => setEditable(true);
     const saveEdit = async () => {
         try {
             await api.editIntroduction(tempIntroduction);
             // await api.editMotieItems(tempMotieItems);
+            setProfileInfo({ ...profileInfo, introduction: tempIntroduction, motieItems: tempMotieItems });
         }
         catch(error) {
             showErrorAlert();
@@ -43,8 +46,11 @@ function ProfilePage(props) {
         setEditable(false);
     }
     const write = () => props.history.push(`/write`);
+
+    // 클릭 이벤트 (타인 프로필)
     const follow = () => {
-        api.follow(id, true)
+        api.follow(uuid, !profileInfo.followed)
+        .then(response => setProfileInfo({ ...profileInfo, followed: !profileInfo.followed }))
         .catch(error => showErrorAlert());
     }
 
@@ -69,17 +75,18 @@ function ProfilePage(props) {
                         setTempIntroduction={setTempIntroduction} 
                         isEditable={isEditable}/>
                     <Group.State 
+                        follower={profileInfo.followers} followee={profileInfo.followers}
                         isProfileMine={isProfileMine} isEditable={isEditable}/>
                     <Group.Menu 
                         startEdit={startEdit} saveEdit={saveEdit} cancelEdit={showCancelAlert}
                         write={write} follow={follow} 
-                        isProfileMine={isProfileMine} isEditable={isEditable}/>
+                        isProfileMine={isProfileMine} isFollowed={profileInfo.followed} isEditable={isEditable}/>
                     <Group.Category 
                         category={category} setCategory={setCategory} 
                         isEditable={isEditable}/>
                     <Group.GuestbookInput 
                         category={category} 
-                        isEditable={isEditable}/>
+                        isProfileMine={isProfileMine} isEditable={isEditable}/>
                 </Container.Profile>
                 <Group.Post 
                     category={category} 

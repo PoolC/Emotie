@@ -3,6 +3,7 @@ import { UPDATE_INFO, RESET_INFO } from '../actions/user';
 import { stringToNumber } from "../../utils/converter";
 
 const initialState = {
+    uuid: -1,
     email: "",
     nickname: "",
     introduction: "",
@@ -24,6 +25,7 @@ const user = (state = initialState, action) => {
         case UPDATE_INFO:
             return { 
                 ...state, 
+                uuid: action.uuid,
                 email: action.email,
                 nickname: action.nickname,
                 introduction: action.introduction,
@@ -33,6 +35,7 @@ const user = (state = initialState, action) => {
         case RESET_INFO:
             return { 
                 ...state, 
+                uuid: -1,
                 email: "",
                 nickname: "",
                 introduction: "",

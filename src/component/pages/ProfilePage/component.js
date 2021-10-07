@@ -60,8 +60,8 @@ export const Group = {
     State: function(props) {
         return (props.isProfileMine && 
             <StateLayout isEditable={props.isEditable}>
-                <State>팔로워 null</State>
-                <State>팔로잉 null</State>
+                <State>팔로워 {props.follower.length}명</State>
+                <State>팔로잉 {props.followee.length}명</State>
             </StateLayout>
         );
     },
@@ -78,7 +78,7 @@ export const Group = {
                         <PillShadowButton width="100px" onClick={props.startEdit}>프로필 수정</PillShadowButton>
                     </>
                 }</>
-                : <PillShadowButton width="100px" onClick={props.follow}>팔로우</PillShadowButton>}
+                : <PillShadowButton width="100px" onClick={props.follow}>{props.isFollowed ? "언팔로우" : "팔로우"}</PillShadowButton>}
             </MenuLayout>
         );
     },
@@ -91,7 +91,7 @@ export const Group = {
         );
     },
     GuestbookInput: function(props) {
-        return (props.category === 1 && 
+        return (props.category === 1 && !props.isProfileMine && 
             <InputLayout isEditable={props.isEditable}>
                 <Input width="100%" placeholder="방명록을 남기세요" disabled={props.isEditable}/>
                 <IconButton icon={IoPencil} color="white" size="1rem"/>
@@ -101,15 +101,15 @@ export const Group = {
     Post: function(props) {
         const options = {
             share: props.category === 0,
-            blur: props.category === 0 && !props.isProfileMine,
-            report: (props.category === 0 && !props.isProfileMine) || (props.category === 1 && props.isProfileMine),
-            delete: props.isProfileMine
+            blur: false,
+            report: (props.category === 0 && !props.isProfileMine) || props.category === 1,
+            delete: props.category === 0 && props.isProfileMine
         };
         return (
             <PostList category={props.category} isEditable={props.isEditable}>
                 {props.category === 0 
-                ? props.diaries.map((post, index) => <PostCard key={index} id={index} category="diary" nickname={post.author} emotion={post.emotion} date={post.issuedDate} content={post.content} {...options}/>)
-                : props.guestbooks.map((post, index) => <PostCard key={index} id={index} category="guestbook" nickname={post.author} date={post.date} content={post.content} {...options}/>)}
+                ? props.diaries.map((post, index) => <PostCard key={index} id={post.id} category="diary" nickname={post.nickname} emotion={{tag: post.emotion.emotion, color: post.emotion.color}} date={post.date} content={post.content} {...options}/>)
+                : props.guestbooks.map((post, index) => <PostCard key={index} id={post.id} category="guestbook" nickname={post.nickname} date={post.date} content={post.content} {...options}/>)}
             </PostList>
         );
     },

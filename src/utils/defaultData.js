@@ -3,76 +3,94 @@ export const profileInfo = {
     introduction: '존재하지 않는 계정입니다.',
     diaries: [
         {
-            "author": "알 수 없는 별명",
-            "issuedDate": "알 수 없는 날짜",
-            "emotion": "알 수 없는 감정",
-            "content": "알 수 없는 마음글"
+            id: 1,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 마음글",
+            emotion: {
+                emotion: "무난",
+                color: "#FFFFFF"
+            }
         },
         {
-            "author": "알 수 없는 별명",
-            "issuedDate": "알 수 없는 날짜",
-            "emotion": "알 수 없는 감정",
-            "content": "알 수 없는 마음글"
+            id: 2,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 마음글",
+            emotion: {
+                emotion: "무난",
+                color: "#FFFFFF"
+            }
         },
         {
-            "author": "알 수 없는 별명",
-            "issuedDate": "알 수 없는 날짜",
-            "emotion": "알 수 없는 감정",
-            "content": "알 수 없는 마음글"
+            id: 3,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 마음글",
+            emotion: {
+                emotion: "무난",
+                color: "#FFFFFF"
+            }
         },
         {
-            "author": "알 수 없는 별명",
-            "issuedDate": "알 수 없는 날짜",
-            "emotion": "알 수 없는 감정",
-            "content": "알 수 없는 마음글"
+            id: 4,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 마음글",
+            emotion: {
+                emotion: "무난",
+                color: "#FFFFFF"
+            }
         },
         {
-            "author": "알 수 없는 별명",
-            "issuedDate": "알 수 없는 날짜",
-            "emotion": "알 수 없는 감정",
-            "content": "알 수 없는 마음글"
-        },
+            id: 5,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 마음글",
+            emotion: {
+                emotion: "무난",
+                color: "#FFFFFF"
+            }
+        }
     ],
     guestbooks: [
         {
-            "author": "알 수 없는 별명",
-            "content": "알 수 없는 방명록",
-            "date": "알 수 없는 날짜"  
+            id: 1,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 방명록"
         },
         {
-            "author": "알 수 없는 별명",
-            "content": "알 수 없는 방명록",
-            "date": "알 수 없는 날짜"  
+            id: 2,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 방명록"
         },
         {
-            "author": "알 수 없는 별명",
-            "content": "알 수 없는 방명록",
-            "date": "알 수 없는 날짜"  
+            id: 3,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 방명록"
         },
         {
-            "author": "알 수 없는 별명",
-            "content": "알 수 없는 방명록",
-            "date": "알 수 없는 날짜"  
+            id: 4,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 방명록"
         },
         {
-            "author": "알 수 없는 별명",
-            "content": "알 수 없는 방명록",
-            "date": "알 수 없는 날짜"  
-        },
+            id: 5,
+            nickname: "알 수 없는 별명",
+            date: "알 수 없는 날짜",
+            content: "알 수 없는 방명록"
+        }
     ],
     bgcolor: ["#9FA7EF", "#AEE477"],
-    motie: {
-        "id": 1,
-        "emotionId": "필사적임",
-        "imageUrl": ""
-    },
-    motieItems:[
-        {
-            "id": 2,
-            "imageUrl": "",
-            "coordinate": "",
-            "rotate": "",
-            "size": ""
-        },
-    ]
+    followed: false,
+    followers: [
+        
+    ],
+    // 임시
+    motie: null,
+    motieItems: null
 };
