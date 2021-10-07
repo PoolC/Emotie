@@ -36,7 +36,7 @@ export const Group = {
         return (
             <Section>
                 <Description>이메일</Description>
-                <Label>{props.email}test@gmail.com</Label>
+                <Label>{props.email}</Label>
             </Section>
         );
     },
@@ -46,11 +46,11 @@ export const Group = {
         return (
             <Section>
                 <Description>별명</Description>
-                <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
                 <SemiSection>
-                    <PillButton onClick={props.checkNicknameDuplicated}>중복 확인</PillButton>
-                    <Alert>{props.duplicateMessage}</Alert>
+                    <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
+                    <PillButton width="100px" onClick={props.checkNicknameDuplicated}>중복 확인</PillButton>
                 </SemiSection>
+                <Alert>{props.duplicateMessage}</Alert>
             </Section>
         );
     },

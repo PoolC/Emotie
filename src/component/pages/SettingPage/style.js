@@ -53,13 +53,9 @@ export const Section = styled.div`
 `
 export const SemiSection = styled.div`
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
     gap: 10px;
-
-    @media only screen and (max-width: 320px) {
-        flex-flow: column nowrap;
-    }
 `
 export const Description = styled.p`
     margin: 0;
