@@ -25,7 +25,7 @@ function useProfileInfo(uuid) {
 
     // 자신의 프로필인지 확인
     const myUUID = useSelector(store => store.user.uuid);
-    useEffect(() => setProfileMine(uuid === myUUID), [profileInfo, myUUID]);
+    useEffect(() => setProfileMine(uuid === myUUID), [uuid, myUUID]);
 
     return { profileInfo, isProfileMine, setProfileInfo };
 }
