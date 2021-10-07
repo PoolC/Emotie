@@ -56,6 +56,7 @@ function UpdateInfoFragment(props) {
     return (
         <Container.Frame>
             <Element.Title>기본 정보</Element.Title>
+            <Group.Email email={email}/>
             <Group.Nickname nickname={tempNickname} setTempNickname={setTempNickname} checkNicknameDuplicated={checkNicknameDuplicated} duplicateMessage={duplicateMessage}/>
             <Group.Birth birth={tempBirth} setTempBirth={setTempBirth}/>
             <Group.Gender gender={tempGender} setTempGender={setTempGender}/>

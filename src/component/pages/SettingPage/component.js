@@ -1,7 +1,7 @@
 import { 
     BaseLayout, ContentLayout, 
     CategoryLayout, Category,
-    FrameLayout, Title, Section, SemiSection, Description, Alert, PillInputWrapper
+    FrameLayout, Title, Section, SemiSection, Description, Label, Alert, PillInputWrapper
 } from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
@@ -32,6 +32,14 @@ export const Group = {
         );
     },
     // 개인정보 수정
+    Email: function(props) {
+        return (
+            <Section>
+                <Description>이메일</Description>
+                <Label>{props.email}test@gmail.com</Label>
+            </Section>
+        );
+    },
     Nickname: function(props) {
         const onNicknameChanged = (event) => props.setTempNickname(event.target.value);
 

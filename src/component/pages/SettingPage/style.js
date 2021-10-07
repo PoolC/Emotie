@@ -67,6 +67,12 @@ export const Description = styled.p`
     font-size: 0.9rem;
     word-break: keep-all;
 `
+export const Label = styled.p`
+    margin: 0;
+    color: white;
+    font-size: 1.2rem;
+    word-break: keep-all;
+`
 export const Alert = styled.span`
     color: #EF9797;
     font-size: 0.7rem;
