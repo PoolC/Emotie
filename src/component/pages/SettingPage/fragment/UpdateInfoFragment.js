@@ -17,39 +17,45 @@ function UpdateInfoFragment(props) {
     // 수정할 수 있는 데이터
     const [tempNickname, setTempNickname] = useState("");
     const [tempBirth, setTempBirth] = useState(birth);
-    const [tempGender, setTempGender] = useState("");
+    const [tempGender, setTempGender] = useState("HIDDEN");
     useEffect(() => setTempNickname(nickname), [nickname]);
     useEffect(() => setTempBirth(birth), [birth]);
     useEffect(() => setTempGender(gender), [gender]);
 
     // 인터페이스
     const dispatch = useDispatch();
-    const [duplicateMessage, setDuplicateMessage] = useState('');
+    const [nicknameDuplicateState, setNicknameDuplicateState] = useState({ message: "", checked: false });
 
     // 클릭 이벤트
     const checkNicknameDuplicated = () => {
+        // 선행 조건 : 별명 변경
+        if (nickname === tempNickname) return props.showErrorAlert('본인의 별명은 본인만이 가질 수 있어요!');
+
         api.checkNicknameDuplicated(tempNickname)
         .then(response => {
-            if (response.data.checkNickname) setDuplicateMessage('사용 가능한 별명입니다!');
-            else setDuplicateMessage('이미 존재하는 별명입니다.');
+            if (response.data.checkNickname) setNicknameDuplicateState({ message: '사용 가능한 별명입니다!', checked: true });
+            else setNicknameDuplicateState({ message: '이미 존재하는 별명입니다.', checked: false });
         })
         .catch(error => {
-            if (error.response && error.response.status === 400) return setDuplicateMessage('올바르지 않은 형식의 별명입니다.');
-            setDuplicateMessage('서버와의 통신 중 오류가 발생하였습니다.');
+            if (error.response && error.response.status === 400) setNicknameDuplicateState({ message: '올바르지 않은 형식의 별명입니다.', checked: false });
+            else setNicknameDuplicateState({ message: '서버와의 통신 중 오류가 발생하였습니다.', checked: false });
         });
     };
     const updateUserInfo = () => {
-        const birthRaw = `${numberToTwoString(tempBirth.year)}-${numberToTwoString(tempBirth.month)}-${numberToTwoString(tempBirth.day)}`;
+        // 선행 조건 : 중복 확인
+        if (nickname !== tempNickname && !nicknameDuplicateState.checked) return props.showErrorAlert('별명을 변경하려면 먼저 중복 확인을 진행해주세요.');
 
-        api.editUserInfo(tempNickname, tempGender, birthRaw)
+        const tempBirthRaw = `${numberToTwoString(tempBirth.year)}-${numberToTwoString(tempBirth.month)}-${numberToTwoString(tempBirth.day)}`;
+
+        api.updateUserInfo(tempNickname, tempGender, tempBirthRaw)
         .then(response => {
             dispatch(saga.initUser());
             props.showSuccessAlert();
         })
         .catch(error => {
-            if (error.response && error.response.status === 400) return props.showErrorAlert('올바르지 않은 형식의 개인 정보가 포함되어 있습니다.');
-            else if (error.response && error.response.status === 409) return props.showErrorAlert('이미 존재하는 별명입니다.');
-            props.showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.');
+            if (error.response && error.response.status === 400) props.showErrorAlert('수정한 개인 정보에 올바르지 않은 형식이 포함되어 있습니다.');
+            else if (error.response && error.response.status === 409) props.showErrorAlert('이미 존재하는 별명입니다.');
+            else props.showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.');
         });
     };
 
@@ -57,7 +63,7 @@ function UpdateInfoFragment(props) {
         <Container.Frame>
             <Element.Title>기본 정보</Element.Title>
             <Group.Email email={email}/>
-            <Group.Nickname nickname={tempNickname} setTempNickname={setTempNickname} checkNicknameDuplicated={checkNicknameDuplicated} duplicateMessage={duplicateMessage}/>
+            <Group.Nickname nickname={tempNickname} setTempNickname={setTempNickname} duplicateState={nicknameDuplicateState} setDuplicateState={setNicknameDuplicateState} checkNicknameDuplicated={checkNicknameDuplicated}/>
             <Group.Birth birth={tempBirth} setTempBirth={setTempBirth}/>
             <Group.Gender gender={tempGender} setTempGender={setTempGender}/>
             <Element.Button onClick={updateUserInfo}>수정 완료</Element.Button>

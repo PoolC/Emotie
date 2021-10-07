@@ -70,7 +70,7 @@ export const Label = styled.p`
     word-break: keep-all;
 `
 export const Alert = styled.span`
-    color: #EF9797;
+    color: ${props => props.checked ? "skyblue" : "#EF9797"};
     font-size: 0.7rem;
 `
 export const PillInputWrapper = styled.div`
