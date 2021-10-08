@@ -55,8 +55,8 @@ function App() {
                 <Route exact path="/auth/password-reset" component={forUnauthorized(withRouter(ResetPage), authStatus)}/>
 
                 <Route exact path="/profile/:id" component={forAuthorized(withRouter(ProfilePage), authStatus)}/>
-                <Route exact path="/profile/:id/motie-edit" component={forAuthorized(withRouter(MotieEditPage), authStatus)}/>
-                <Route exact path="/profile/:id/post/:postId" component={withRouter(DetailPage)}/>
+                <Route exact path="/motie-edit" component={forAuthorized(withRouter(MotieEditPage), authStatus)}/>
+                <Route exact path="/profile/post/:postId" component={withRouter(DetailPage)}/>
                 <Route exact path="/write" component={forAuthorized(withRouter(WritePage), authStatus)}/>
 
                 <Route exact path="/feed" component={forAuthorized(withRouter(FeedPage), authStatus)}/>
