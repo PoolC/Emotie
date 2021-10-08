@@ -31,6 +31,7 @@ export function* initUserSaga(action) {
     try {
         const response = yield call(getUserInfo);
         const userInfo = {
+            uuid: response.data.uuid,
             email: response.data.email,
             nickname: response.data.nickname,
             introduction: response.data.introduction,
