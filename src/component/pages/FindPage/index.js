@@ -6,6 +6,7 @@ import PillInput from "../../common/PillInput";
 import Alert from "../../common/modal/Alert"
 
 import * as api from "../../../utils/api";
+import * as reg from "../../../utils/regex"
 
 
 import {
@@ -21,11 +22,6 @@ function FindPage(props) {
     const [email, setEmail] = useState('');
     const [alert, setAlert]=useState('');
 
-    const isEmailValid = (email) => {
-        var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return (email !== '' && email !== 'undefined' && regExp.test(email));
-    };
-
     const inputChange = (e)=>{
         const { value } = e.target;
         setEmail(value);
@@ -33,7 +29,7 @@ function FindPage(props) {
     
     const inputCheck = (e) => {
         const { value } = e.target;
-        if(!isEmailValid(value)){
+        if(!reg.checkEmail(value)){
             setAlert('이메일 양식이 아닙니다');
         }else{
             setAlert('');
@@ -46,14 +42,14 @@ function FindPage(props) {
             setOpen(true);
             return;
         }
-        if(!isEmailValid(email)){
+        if(alert!==""){
             setAlertMsg('이메일 양식이 아닙니다');
             setOpen(true);
             return;
         }
+        resetEmailSend();
     }
     const resetEmailSend = () => {
-        detectInput();
         api.pwResetEmail(email)
             .then(response => {
                 setAlertTitle('인증 메일 전송');
@@ -91,7 +87,7 @@ function FindPage(props) {
                 <PillInput width="200px" placeholder="이메일" value={email} onInput={inputChange} onBlur={inputCheck}></PillInput>
                 <InputAlert>{alert}</InputAlert>
             </InputGroup>
-            <PillButton width="260px" onClick={()=>resetEmailSend()}>확인 메일 전송</PillButton>
+            <PillButton width="260px" onClick={()=>detectInput()}>확인 메일 전송</PillButton>
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
         </Container>
     );
