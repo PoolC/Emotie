@@ -9,6 +9,7 @@ import SelectGroup from "../../common/SelectGroup";
 import Alert from "../../common/modal/Alert";
 
 import * as api from "../../../utils/api";
+import * as reg from "../../../utils/regex"
 
 import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link
@@ -56,24 +57,14 @@ function RegisterPage(props) {
             [name]: value
         });
     };
-
-    const isEmailValid = (email) => {
-        var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return (email !== '' && email !== 'undefined' && regExp.test(email));
-    };
-    const isPasswordValid = (password) => {
-        var num = password.search(/[0-9]/g);
-        var eng = password.search(/[a-z]/ig);
-        return (password !== '' && password !== 'undefined'&& password.length >= 8 && password.length <= 20 && password.search(/\s/) === -1 && num !== -1 && eng !== -1);
-    };
     const inputCheck = (e) => {
         const { value, name } = e.target;
         switch (name) {
             case 'email':
-                isEmailValid(value) ? setAlerts({ ...alerts, emailAlert: '' }) : setAlerts({ ...alerts, emailAlert: '이메일 형식이 아닙니다' });
+                reg.checkEmail(value) ? setAlerts({ ...alerts, emailAlert: '' }) : setAlerts({ ...alerts, emailAlert: '이메일 형식이 아닙니다' });
                 break;
             case 'password':
-                isPasswordValid(value) ? setAlerts({ ...alerts, passwordAlert: '' }) : setAlerts({ ...alerts, passwordAlert: '8자 이상 20자 이하 영문+숫자 조합입니다' });
+                reg.checkPassword(value) ? setAlerts({ ...alerts, passwordAlert: '' }) : setAlerts({ ...alerts, passwordAlert: '8자 이상 20자 이하 영문+숫자 조합입니다' });
                 break;
             case 'rePassword':
                 (password === value) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호가 일치하지 않습니다' });
@@ -221,7 +212,7 @@ function RegisterPage(props) {
             </Border>
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
             <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
-            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => props.history.goLoginPage()}/>
+            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => goLoginPage()}/>
         </Container>
     );
 }
