@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import * as saga from "../../../store/actions/_saga";
+import { useSelector, useDispatch } from "react-redux";
 
+import * as saga from "../../../store/actions/_saga";
 
 import Header from "../../common/Header";
 import logo from "../../../image/logo_img.svg";
@@ -37,6 +37,25 @@ function LoginPage(props) {
     const [alertTitle, setAlertTitle] = useState('경고');
 
     const dispatch = useDispatch();
+    const authStatus = useSelector(store => store.auth.status);
+    
+    useEffect(() => loginStateDetect(authStatus), [authStatus, dispatch]);
+    const loginStateDetect=(authStatus)=>{
+        switch (authStatus) {
+            case 'FAILED':
+                setAlertTitle('로그인 실패');
+                setAlertMsg('로그인에 실패했습니다');
+                setOpen(true);
+                break;
+            case 'EXPIRED':
+                setAlertTitle('로그인 만료');
+                setAlertMsg('로그인이 만료되었습니다');
+                setOpen(true);
+                break;
+            default:
+                break;
+        }
+    }
 
     const detectInput = () => {
         if (id.length === 0) {
@@ -56,41 +75,13 @@ function LoginPage(props) {
         }
         login();
     }
+
     const login = () => {
         const payload = {
             email: id,
             password: password
         }
         dispatch(saga.login(payload));
-
-            // .catch(error => {
-            //     if (error.response) {
-            //         // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
-            //         if (error.response.status === 401) {
-            //             setAlertTitle(error.response.status);
-            //             setAlertMsg('비밀번호가 틀렸습니다.');
-            //             setOpen(true);
-            //         } else if (error.response.status === 404) {
-            //             setAlertTitle(error.response.status);
-            //             setAlertMsg('가입되지 않은 이메일입니다.');
-            //             setOpen(true);
-            //         } else {
-            //             setAlertTitle(error.response.status);
-            //             setAlertMsg('알 수 없는 에러가 발생했습니다.');
-            //             setOpen(true);
-            //         }
-            //     }
-            //     else if (error.request) {
-            //         setAlertTitle('에러');
-            //         setAlertMsg('서버에서 응답이 오지 않습니다.')
-            //         setOpen(true);
-            //     }
-            //     else {
-            //         setAlertTitle('에러');
-            //         setAlertMsg('로그인 요청에 문제가 발생했습니다')
-            //         setOpen(true);
-            //     }
-            // });
     }
 
     return (
