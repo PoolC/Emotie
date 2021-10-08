@@ -9,6 +9,7 @@ import PillButton from "../../common/PillButton";
 import PillInput from "../../common/PillInput";
 import Alert from "../../common/modal/Alert"
 
+import * as reg from "../../../utils/regex"
 
 import {
     Container, Title, Text, Logo, Switch, ButtonText
@@ -37,18 +38,13 @@ function LoginPage(props) {
 
     const dispatch = useDispatch();
 
-    const isEmailValid = (email) => {
-        var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return (email !== '' && email !== 'undefined' && regExp.test(email));
-    };
-
     const detectInput = () => {
         if (id.length === 0) {
             setAlertMsg('이메일을 입력하세요');
             setOpen(true);
             return;
         }
-        if (!isEmailValid(id)) {
+        if (!reg.checkEmail(id)) {
             setAlertMsg('이메일 양식이 아닙니다');
             setOpen(true);
             return;
@@ -65,7 +61,8 @@ function LoginPage(props) {
             email: id,
             password: password
         }
-        dispatch(saga.login(payload))
+        dispatch(saga.login(payload));
+
             // .catch(error => {
             //     if (error.response) {
             //         // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
