@@ -53,13 +53,9 @@ export const Section = styled.div`
 `
 export const SemiSection = styled.div`
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
     gap: 10px;
-
-    @media only screen and (max-width: 320px) {
-        flex-flow: column nowrap;
-    }
 `
 export const Description = styled.p`
     margin: 0;
@@ -67,8 +63,14 @@ export const Description = styled.p`
     font-size: 0.9rem;
     word-break: keep-all;
 `
+export const Label = styled.p`
+    margin: 0;
+    color: white;
+    font-size: 1.2rem;
+    word-break: keep-all;
+`
 export const Alert = styled.span`
-    color: #EF9797;
+    color: ${props => props.checked ? "skyblue" : "#EF9797"};
     font-size: 0.7rem;
 `
 export const PillInputWrapper = styled.div`
