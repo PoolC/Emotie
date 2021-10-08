@@ -88,13 +88,17 @@ function ResetPage(props) {
         .catch(error => {
             if (error.response) {
                 // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
-                if (error.response && error.response.status === 404) {
+                if(error.response.status==400){
+                    setAlertTitle(error.response.status);
+                    setAlertMsg('비밀번호 재입력이 일치하지 않습니다.');
+                    setOpen(true);
+                }else if (error.response.status === 404) {
                     setAlertTitle(error.response.status);
                     setAlertMsg('가입 대기 상태의 이메일이 아닙니다.');
                     setOpen(true);
-                } else if (error.response && error.response.status === 409) {
+                } else if ( error.response.status === 409) {
                     setAlertTitle(error.response.status);
-                    setAlertMsg('가입 대기 상태의 이메일이 아닙니다.');
+                    setAlertMsg('잘못된 url입니다.');
                     setOpen(true);
                 } else {
                     setAlertTitle(error.response.status);
