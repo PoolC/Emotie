@@ -1,7 +1,9 @@
+import { checkPassword } from "../../../utils/regex";
+
 import { 
     BaseLayout, ContentLayout, 
     CategoryLayout, Category,
-    FrameLayout, Title, Section, SemiSection, Description, Alert, PillInputWrapper
+    FrameLayout, Title, Section, SemiSection, Description, Label, Alert, PillInputWrapper
 } from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
@@ -32,17 +34,28 @@ export const Group = {
         );
     },
     // 개인정보 수정
+    Email: function(props) {
+        return (
+            <Section>
+                <Description>이메일</Description>
+                <Label>{props.email}</Label>
+            </Section>
+        );
+    },
     Nickname: function(props) {
-        const onNicknameChanged = (event) => props.setTempNickname(event.target.value);
+        const onNicknameChanged = (event) => {
+            props.setTempNickname(event.target.value);
+            props.setDuplicateState({ message: '', checked: false });
+        };
 
         return (
             <Section>
                 <Description>별명</Description>
-                <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
                 <SemiSection>
-                    <PillButton onClick={props.checkNicknameDuplicated}>중복 확인</PillButton>
-                    <Alert>{props.duplicateMessage}</Alert>
+                    <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
+                    <PillButton width="100px" onClick={props.checkNicknameDuplicated}>중복 확인</PillButton>
                 </SemiSection>
+                <Alert checked={props.duplicateState.checked}>{props.duplicateState.message}</Alert>
             </Section>
         );
     },
@@ -89,43 +102,41 @@ export const Group = {
 
         return (
             <Section>
-                <Description>비밀번호 확인</Description>
+                <Description>기존 비밀번호 확인</Description>
                 <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.old} onChange={onPasswordChanged}/></PillInputWrapper>
             </Section>
         );
     },
     NewPassword: function(props) {
-        const passwordValidRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/;
-
-        const onPasswordChanged1 = (event) => {
-            props.setPassword({ ...props.password, new1: event.target.value });
+        const onNewPasswordChanged = (event) => {
+            props.setPassword({ ...props.password, new: event.target.value });
 
             // 확인
-            const checkIfValid = passwordValidRegExp.test(event.target.value);
-            const checkIfEqual = event.target.value === props.password.new2;
+            const checkIfValid = checkPassword(event.target.value);
+            const checkIfEqual = event.target.value === props.password.check;
             
-            if (!checkIfValid) props.setPasswordMessage('비밀번호는 8자 이상 20자 이하의 영문+숫자의 조합이어야 합니다.');
+            if (!checkIfValid) props.setPasswordMessage('비밀번호는 8자 이상 20자 이하의 영문+숫자(+특수문자)의 조합이어야 합니다.');
             else if (!checkIfEqual) props.setPasswordMessage('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
             else props.setPasswordMessage('');
         }
-        const onPasswordChanged2 = (event) => {
-            props.setPassword({ ...props.password, new2: event.target.value });
+        const onPasswordCheckChanged = (event) => {
+            props.setPassword({ ...props.password, check: event.target.value });
 
             // 확인
-            const checkIfValid = passwordValidRegExp.test(event.target.value);
-            const checkIfEqual = event.target.value === props.password.new1;
+            const checkIfValid = checkPassword(event.target.value);
+            const checkIfEqual = event.target.value === props.password.new;
             
             if (!checkIfEqual) props.setPasswordMessage('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-            else if (!checkIfValid) props.setPasswordMessage('비밀번호는 8자 이상 20자 이하의 영문+숫자의 조합이어야 합니다.');
+            else if (!checkIfValid) props.setPasswordMessage('비밀번호는 8자 이상 20자 이하의 영문+숫자(+특수문자)의 조합이어야 합니다.');
             else props.setPasswordMessage('');
         }
 
         return (
             <Section>
                 <Description>새 비밀번호</Description>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호" value={props.password.new1} onChange={onPasswordChanged1}/></PillInputWrapper>
-                <PillInputWrapper><PillInput type="password" width="100%" placeholder="비밀번호 확인" value={props.password.new2} onChange={onPasswordChanged2}/></PillInputWrapper>
-                <Alert>{props.passwordMessage}</Alert>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="새 비밀번호" value={props.password.new} onChange={onNewPasswordChanged}/></PillInputWrapper>
+                <PillInputWrapper><PillInput type="password" width="100%" placeholder="새 비밀번호 확인" value={props.password.check} onChange={onPasswordCheckChanged}/></PillInputWrapper>
+                <Alert checked={false}>{props.passwordMessage}</Alert>
             </Section>
         );
     },

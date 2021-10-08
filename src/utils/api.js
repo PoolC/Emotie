@@ -14,15 +14,13 @@ export const getUserInfo = () => server.get('/members/me');
 
 // 프로필
 export const getProfileInfo = (nickname) => server.get(`/profiles/${nickname}`);
-export const editNickname = (nickname) => server.put('/profiles', { nickname: nickname });
 export const editIntroduction = (introduction) => server.put('/profiles', { introduction: introduction });
 
 // 설정
 export const checkNicknameDuplicated = (nickname) => server.get('/members/nickname', { nickname: nickname });
-export const editUserInfo = (nickname, gender, birth) => server.put('/members', { nickname: nickname, gender: gender, dateOfBirth: birth });
-export const checkPassword = (password) => server.get('/members/password', { password: password });
-export const changePassword = (password, passwordCheck) => server.put('/members/password', { password: password, passwordCheck: passwordCheck });
-export const deleteAccount = (nickname) => server.delete(`/members/${nickname}`);
+export const updateUserInfo = (nickname, gender, birth) => server.put('/members', { nickname: nickname, gender: gender, dateOfBirth: birth });
+export const changePassword = (currentPassword, password, passwordCheck) => server.put('/members/password', { currentPassword: currentPassword, password: password, passwordCheck: passwordCheck });
+export const deleteAccount = (currentPassword, reason) => server.delete('/members', { currentPassword: currentPassword, reason: reason });
 
 // 구독
 export const follow = (nickname, state) => server.post(`/members/follow/${nickname}`, { isFollowing: state });
