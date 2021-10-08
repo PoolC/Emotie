@@ -39,7 +39,7 @@ function LoginPage(props) {
     const dispatch = useDispatch();
     const authStatus = useSelector(store => store.auth.status);
     
-    useEffect(() => loginStateDetect(authStatus), [authStatus, dispatch]);
+    useEffect(() => loginStateDetect(authStatus), [authStatus]);
     const loginStateDetect=(authStatus)=>{
         switch (authStatus) {
             case 'FAILED':
