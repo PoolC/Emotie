@@ -17,6 +17,7 @@ function FeedPage(props) {
     const [loading, setLoading] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     // const [feeds, setFeeds] = useState(null);
+    const [ page, setPage ] = useState(0);
 
     const goDetailPage = () => props.history.push('/profile/:1/post/:1');
     const goToTop = () => window.scrollTo(0, 0);
@@ -29,19 +30,24 @@ function FeedPage(props) {
     // async function fetchFeeds() {
     //     setLoading(true);
     //     setFullscreen(true);
-    //     const response = await api.getFeeds();
+    //     const response = await api.getFeeds(page);
     //     setFeeds(response.data);
     //     setLoading(false);
     //     setFullscreen(false);
     // }
     // useEffect(() => {
+    //     setPage(1);
     //     fetchFeeds();
     // }, []);
 
-    const detectScroll = () => {
+    async function detectScroll() {
         setLoading(true);
         setFullscreen(false);
-        // 추가로 10개 불러오는 api 호출
+        // setPage(page + 1);
+        // const response = await api.getFeeds(page);
+        // setFeeds([...feeds, response.data]);
+        // setLoading(false);
+        // setFullscreen(false);
     }
 
     useBottomScrollListener(detectScroll);
