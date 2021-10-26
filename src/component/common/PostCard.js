@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import IconButton from './IconButton';
 import EmotionTag from './EmotionTag';
@@ -8,6 +8,7 @@ import { AiOutlineShareAlt, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RiAlarmWarningLine, RiDeleteBinLine } from "react-icons/ri";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Alert from './modal/Alert';
+import Reasons from './modal/Reasons';
 
 import * as api from "../../utils/api";
 
@@ -38,12 +39,83 @@ function PostCard(props) {
         firstButtonFunc: null
     });
 
+    const [successReport, setSuccessReport] = useState(false);
+    const [reportInfo, setReportInfo] = useState({
+        isOpen: false,
+        title: "신고사유",
+        options: ["부적절한 홍보글", "성적 또는 폭력적 내용", "명예훼손/사생활 침해"],
+        firstButton: "신고",
+        firstButtonFunc: () => setSuccessReport(true),
+        secondButton: "취소"
+    });
+    const [reportReason, setReportReason] = useState(0);
+
     function setIsOpen(isOpen) {
         setAlertInfo({
             ...alertInfo,
             isOpen: isOpen
         });
     }
+
+    function setReportOpen(isOpen) {
+        setReportInfo({
+            ...reportInfo,
+            isOpen: isOpen
+        })
+    }
+
+    function reportAlert() {
+        // if(props.category === "diary") {
+        //     api.reportDiary(props.id, reportInfo.options[reportReason])
+        //     .then(response => {
+        //         console.log(response.data);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "마음글 신고 성공",
+        //             message: "신고가 완료되었습니다.",
+        //             firstButtonFunc: () => window.location.reload()
+        //         });
+        //     })
+        //     .catch(error => {
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "마음글 신고 실패",
+        //                 message: "해당 마음글이 존재하지 않습니다.",
+        //                 firstButtonFunc: () => window.location.reload()
+        //             });     
+        //         }   
+        //     });
+        // }
+        // else if(props.category === "guestbook") {
+        //     api.reportGuestbook(props.id, reportInfo.options[reportReason])
+        //     .then(response => {
+        //         console.log(response.data);
+        //         setAlertInfo({
+        //             isOpen: true,
+        //             title: "방명록 신고 성공",
+        //             message: "신고가 완료되었습니다.",
+        //             firstButtonFunc: () => window.location.reload()
+        //         });
+        //     })
+        //     .catch(error => {
+        //         if(error.response && error.response.status === 404) {
+        //             setAlertInfo({
+        //                 isOpen: true,
+        //                 title: "방명록 신고 실패",
+        //                 message: "해당 방명록이 존재하지 않습니다.",
+        //                 firstButtonFunc: () => window.location.reload()
+        //             });
+        //         }
+        //     });
+        // }
+    };
+    useEffect(() => {
+        if(successReport) {
+            reportAlert();
+            setSuccessReport(false);
+        }
+    }, [successReport]);
 
     function onShare(event) {
         event.stopPropagation();
@@ -90,50 +162,7 @@ function PostCard(props) {
 
     function onReport(event) {
         event.stopPropagation();
-        // if(props.category === "diary") {
-        //     api.reportDiary(props.id)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "마음글 신고 성공",
-        //             message: "신고가 완료되었습니다.",
-        //             firstButtonFunc: () => window.location.reload()
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "마음글 신고 실패",
-        //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: () => window.location.reload()
-        //             });     
-        //         }   
-        //     });
-        // }
-        // else if(props.category === "guestbook") {
-        //     api.reportGuestbook(props.id)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "방명록 신고 성공",
-        //             message: "신고가 완료되었습니다.",
-        //             firstButtonFunc: () => window.location.reload()
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "방명록 신고 실패",
-        //                 message: "해당 방명록이 존재하지 않습니다.",
-        //                 firstButtonFunc: () => window.location.reload()
-        //             });
-        //         }
-        //     });
-        // }
+        setReportOpen(true);
 
         console.log("report");
     }
@@ -207,6 +236,7 @@ function PostCard(props) {
             {/* 모달 */}
             {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.id}/></DropDownContainer>}
             <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButtonFunc={alertInfo.firstButtonFunc}/>
+            <Reasons title={reportInfo.title} options={reportInfo.options} isOpen={reportInfo.isOpen} setOpen={setReportOpen} firstButton={reportInfo.firstButton} firstButtonFunc={reportInfo.firstButtonFunc} secondButton={reportInfo.secondButton} reportReason={reportReason} setReportReason={setReportReason}/>
         </Wrapper>
     );
 }

@@ -18,7 +18,7 @@ function FeedPage(props) {
     const [fullscreen, setFullscreen] = useState(false);
     // const [feeds, setFeeds] = useState(null);
 
-    const goDetailPage = () => props.history.push('/profile/:1/post/:1');
+    const goDetailPage = () => props.history.push('/profile/post/:1');
     const goToTop = () => window.scrollTo(0, 0);
     const goWritePage = () => props.history.push('/write');
 
