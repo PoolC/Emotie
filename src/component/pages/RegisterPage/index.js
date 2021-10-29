@@ -36,10 +36,7 @@ function RegisterPage(props) {
 
     const [isSubmitOpen, setSubmitOpen] = useState(false);
 
-<<<<<<< HEAD
     const [isTermOpen, setTermOpen] = useState(false);
-=======
->>>>>>> 77a2cf3... Add nickname duplicate check button
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -188,11 +185,11 @@ function RegisterPage(props) {
                 }
             })
             .catch(error => {
-                if (error.response === 400) {
+                if (error.response===400) {
                     setAlertTitle(error.response);
                     setAlertMsg('올바르지 않은 별명 형식입니다');
                     setOpen(true);
-                } else {
+                }else{
                     setAlertTitle(error.response);
                     setAlertMsg('서버 오류입니다');
                     setOpen(true);
@@ -268,10 +265,7 @@ function RegisterPage(props) {
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
             <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
             <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => goLoginPage()} />
-<<<<<<< HEAD
             <Term isOpen={isTermOpen} setOpen={setTermOpen}></Term>
-=======
->>>>>>> 77a2cf3... Add nickname duplicate check button
         </Container>
     );
 }
