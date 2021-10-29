@@ -188,11 +188,11 @@ function RegisterPage(props) {
                 }
             })
             .catch(error => {
-                if (error.response===400) {
+                if (error.response === 400) {
                     setAlertTitle(error.response);
                     setAlertMsg('올바르지 않은 별명 형식입니다');
                     setOpen(true);
-                }else{
+                } else {
                     setAlertTitle(error.response);
                     setAlertMsg('서버 오류입니다');
                     setOpen(true);
@@ -231,9 +231,9 @@ function RegisterPage(props) {
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillButton width="80px" onClick={() => setGender('MALE')} negative={gender === 0}>남성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender('FEMALE')} negative={gender === 1}>여성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender('HIDDEN')} negative={gender === 2}>비공개</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('MALE')} negative={gender === 'MALE'}>남성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('FEMALE')} negative={gender === 'FEMALE'}>여성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('HIDDEN')} negative={gender === 'HIDDEN'}>비공개</PillButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
