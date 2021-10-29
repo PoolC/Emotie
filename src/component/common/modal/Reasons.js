@@ -49,7 +49,7 @@ const Container = styled.div`
 const Dialog = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    width: 400px;
+    width: 300px;
     padding: 20px;
     box-sizing: border-box;
     background-color: #3C3C3C;
@@ -57,7 +57,7 @@ const Dialog = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: 200ms margin-top;
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 400px) {
         width: 80%;
     }
 `

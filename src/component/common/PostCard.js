@@ -39,13 +39,12 @@ function PostCard(props) {
         firstButtonFunc: null
     });
 
-    const [successReport, setSuccessReport] = useState(false);
     const [reportInfo, setReportInfo] = useState({
         isOpen: false,
         title: "신고사유",
         options: ["부적절한 홍보글", "성적 또는 폭력적 내용", "명예훼손/사생활 침해"],
         firstButton: "신고",
-        firstButtonFunc: () => setSuccessReport(true),
+        firstButtonFunc: reportAlert,
         secondButton: "취소"
     });
     const [reportReason, setReportReason] = useState(0);
@@ -58,6 +57,7 @@ function PostCard(props) {
     }
 
     function setReportOpen(isOpen) {
+        if(isOpen) setReportReason(0);
         setReportInfo({
             ...reportInfo,
             isOpen: isOpen
@@ -65,6 +65,7 @@ function PostCard(props) {
     }
 
     function reportAlert() {
+        console.log("신고성공");
         // if(props.category === "diary") {
         //     api.reportDiary(props.id, reportInfo.options[reportReason])
         //     .then(response => {
@@ -73,7 +74,7 @@ function PostCard(props) {
         //             isOpen: true,
         //             title: "마음글 신고 성공",
         //             message: "신고가 완료되었습니다.",
-        //             firstButtonFunc: () => window.location.reload()
+        //             firstButtonFunc: window.location.reload
         //         });
         //     })
         //     .catch(error => {
@@ -82,7 +83,7 @@ function PostCard(props) {
         //                 isOpen: true,
         //                 title: "마음글 신고 실패",
         //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: () => window.location.reload()
+        //                 firstButtonFunc: window.location.reload
         //             });     
         //         }   
         //     });
@@ -95,7 +96,7 @@ function PostCard(props) {
         //             isOpen: true,
         //             title: "방명록 신고 성공",
         //             message: "신고가 완료되었습니다.",
-        //             firstButtonFunc: () => window.location.reload()
+        //             firstButtonFunc: window.location.reload
         //         });
         //     })
         //     .catch(error => {
@@ -104,18 +105,12 @@ function PostCard(props) {
         //                 isOpen: true,
         //                 title: "방명록 신고 실패",
         //                 message: "해당 방명록이 존재하지 않습니다.",
-        //                 firstButtonFunc: () => window.location.reload()
+        //                 firstButtonFunc: window.location.reload
         //             });
         //         }
         //     });
         // }
     };
-    useEffect(() => {
-        if(successReport) {
-            reportAlert();
-            setSuccessReport(false);
-        }
-    }, [successReport]);
 
     function onShare(event) {
         event.stopPropagation();
@@ -142,7 +137,7 @@ function PostCard(props) {
         //             isOpen: true,
         //             title: "마음글 숨기기 성공",
         //             message: "숨기기가 완료되었습니다.",
-        //             firstButtonFunc: () => window.location.reload()
+        //             firstButtonFunc: window.location.reload
         //         });
         //     })
         //     .catch(error => {
@@ -151,7 +146,7 @@ function PostCard(props) {
         //                 isOpen: true,
         //                 title: "마음글 숨기기 실패",
         //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: () => window.location.reload()
+        //                 firstButtonFunc: window.location.reload
         //             }); 
         //         }   
         //     });
@@ -177,7 +172,7 @@ function PostCard(props) {
         //             isOpen: true,
         //             title: "마음글 삭제 성공",
         //             message: "삭제가 완료되었습니다.",
-        //             firstButtonFunc: () => window.location.reload()
+        //             firstButtonFunc: window.location.reload
         //         });
         //     })
         //     .catch(error => {
@@ -186,7 +181,7 @@ function PostCard(props) {
         //                 isOpen: true,
         //                 title: "마음글 삭제 실패",
         //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: () => window.location.reload()
+        //                 firstButtonFunc: window.location.reload
         //             });       
         //         }   
         //     });
@@ -199,7 +194,7 @@ function PostCard(props) {
         //             isOpen: true,
         //             title: "방명록 삭제 성공",
         //             message: "삭제가 완료되었습니다.",
-        //             firstButtonFunc: () => window.location.reload()
+        //             firstButtonFunc: window.location.reload
         //         });
         //     })
         //     .catch(error => {
@@ -208,7 +203,7 @@ function PostCard(props) {
         //                 isOpen: true,
         //                 title: "방명록 삭제 실패",
         //                 message: "해당 방명록이 존재하지 않습니다.",
-        //                 firstButtonFunc: () => window.location.reload()
+        //                 firstButtonFunc: window.location.reload
         //             });
         //         }
         //     });
