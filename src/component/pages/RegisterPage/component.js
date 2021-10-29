@@ -192,6 +192,9 @@ const Dialog = styled.div`
     border-radius: 28px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: 200ms margin-top;
+    @media only screen and (max-width: 768px) {
+        width:90%;
+    }
 `
 const Title = styled.h2`
     margin: 0;
@@ -209,6 +212,9 @@ const Message = styled.div`
     overflow:scroll;
     padding:30px;
     line-height:1.6;
+    @media only screen and (max-width: 768px) {
+        height:300px;
+    }
 `
 const ButtonContainer = styled.div`
     display: flex;
