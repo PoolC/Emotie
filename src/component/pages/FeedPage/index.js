@@ -23,7 +23,7 @@ function FeedPage(props) {
     // const [feeds, setFeeds] = useState(() => JSON.parse(window.localStorage.getItem("feeds")) || []);
     const [ page, setPage ] = useState(() => JSON.parse(window.localStorage.getItem("page")) || 1);
 
-    const goDetailPage = () => props.history.push('/profile/:1/post/:1');
+    const goDetailPage = () => props.history.push('/profile/post/:1');
     const goToTop = () => window.scrollTo(0, 0);
     const goWritePage = () => props.history.push('/write');
 

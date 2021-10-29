@@ -18,12 +18,12 @@ export const login = ({ email, password }) => server.post('/auth/login', { email
 // 다이어리
 export const uploadPost = (emotion, content, isPrivate) => server.post('/diaries', { emotion: emotion, content: content, isOpened:  isPrivate });
 export const blur = (id) => server.post(`/diaries/blind/${id}`); // api 구현 후 수정 필요
-export const reportDiary = (id) => server.post(`/diaries/report/${id}`);
+export const reportDiary = (id, reason) => server.post(`/diaries/report/${id}`, { reason: reason });
 export const deleteDiary = (id) => server.delete('/diaries', { id: [id] });
 export const getFeeds = (pageNumber) => server.get(`/feed?page=${pageNumber}`);
 
 // 방명록
-export const reportGuestbook = (id) => server.post(`/guestbooks/report/${id}`);
+export const reportGuestbook = (id, reason) => server.post(`/guestbooks/report/${id}`, { reason: reason });
 export const deleteGuestbook = (id) => server.delete(`/guestbooks/${id}`);
 
 // 프로필
