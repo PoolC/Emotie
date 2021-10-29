@@ -7,12 +7,13 @@ import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 import Alert from "../../common/modal/Alert";
+import Term from "./component"
 
 import * as api from "../../../utils/api";
-import * as reg from "../../../utils/regex"
+import * as reg from "../../../utils/regex";
 
 import {
-    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link
+    Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link, CertButton
 } from "./style";
 
 function RegisterPage(props) {
@@ -20,6 +21,7 @@ function RegisterPage(props) {
     const goLoginPage = () => props.history.push('/login');
 
     const [isChecked, setChecked] = useState(false);
+    const [isNicknameChecked, setNicknameChecked] = useState(false);
 
     const [gender, setGender] = useState("MALE");
 
@@ -34,6 +36,8 @@ function RegisterPage(props) {
 
     const [isSubmitOpen, setSubmitOpen] = useState(false);
 
+    const [isTermOpen, setTermOpen] = useState(false);
+
     const [inputs, setInputs] = useState({
         email: '',
         emailCert: '',
@@ -41,6 +45,7 @@ function RegisterPage(props) {
         rePassword: '',
         nickname: ''
     });
+
     const { email, password, rePassword, nickname } = inputs;
 
     const [alerts, setAlerts] = useState({
@@ -57,6 +62,7 @@ function RegisterPage(props) {
             [name]: value
         });
     };
+
     const inputCheck = (e) => {
         const { value, name } = e.target;
         switch (name) {
@@ -107,6 +113,10 @@ function RegisterPage(props) {
             setAlertMsg('별명을 입력하세요');
             setOpen(true);
             return;
+        } else if (isNicknameChecked === false) {
+            setAlertMsg('별명 중복확인이 필요합니다');
+            setOpen(true);
+            return;
         }
         registIn();
     }
@@ -146,6 +156,46 @@ function RegisterPage(props) {
                 }
             });
     }
+    const nicknameCheck = () => {
+        setInputs({
+            ...inputs,
+            nickname: nickname.trim()
+        });
+        if (nickname.length < 1 && nickname.length > 20) {
+            setAlertTitle('양식 오류');
+            setAlertMsg('별명은 1~20자 사이여야 합니다')
+            setOpen(true);
+            return;
+        }
+        duplicateCheck();
+    }
+
+    const duplicateCheck = () => {
+        api.checkNicknameDuplicated(nickname)
+            .then(response => {
+                if (response.data.checkNickname === true) {
+                    setNicknameChecked(true);
+                    setAlertTitle('알림');
+                    setAlertMsg('사용 가능한 별명입니다');
+                    setOpen(true);
+                } else {
+                    setAlertTitle('경고');
+                    setAlertMsg('이미 존재하는 별명입니다');
+                    setOpen(true);
+                }
+            })
+            .catch(error => {
+                if (error.response===400) {
+                    setAlertTitle(error.response);
+                    setAlertMsg('올바르지 않은 별명 형식입니다');
+                    setOpen(true);
+                }else{
+                    setAlertTitle(error.response);
+                    setAlertMsg('서버 오류입니다');
+                    setOpen(true);
+                }
+            })
+    }
     return (
         <Container>
             <Header />
@@ -171,15 +221,16 @@ function RegisterPage(props) {
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="별명" type="text"></PillInput>
+                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="별명" type="text"></PillInput>
+                        <CertButton onClick={() => nicknameCheck()}>중복 확인</CertButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillButton width="80px" onClick={() => setGender('MALE')} negative={gender === 0}>남성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender('FEMALE')} negative={gender === 1}>여성</PillButton>
-                        <PillButton width="80px" onClick={() => setGender('HIDDEN')} negative={gender === 2}>비공개</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('MALE')} negative={gender === 'MALE'}>남성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('FEMALE')} negative={gender === 'FEMALE'}>여성</PillButton>
+                        <PillButton width="80px" onClick={() => setGender('HIDDEN')} negative={gender === 'HIDDEN'}>비공개</PillButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
                 </InputGroup>
@@ -202,7 +253,8 @@ function RegisterPage(props) {
                 </InputGroup>
             </Gap>
             <ButtonText>
-                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)} />
+                <div onClick={()=>setTermOpen(true)}>개인정보처리방침 및 이용약관에 동의합니다</div>
+                <CheckBox checked={isChecked} onClick={() => setChecked(!isChecked)} />
             </ButtonText>
             <PillButton width="260px" children="다음" onClick={() => detectInput()}></PillButton>
             <Border>
@@ -212,7 +264,8 @@ function RegisterPage(props) {
             </Border>
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
             <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
-            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => goLoginPage()}/>
+            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => goLoginPage()} />
+            <Term isOpen={isTermOpen} setOpen={setTermOpen}></Term>
         </Container>
     );
 }
