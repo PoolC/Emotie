@@ -9,7 +9,7 @@ import feed from "../../../image/LandingPageImg/feed.png";
 import recommend from "../../../image/LandingPageImg/recommend.png";
 
 function LandingPage(props) {
-    const goWrite = () => props.history.push('/profile/허허/write');
+    const goLoginPage = () => props.history.push('/login');
     return (
         <Container>
             <Header />
@@ -18,7 +18,7 @@ function LandingPage(props) {
                     <Logo src={logo}></Logo>
                     <Title style={{textAlign:'center'}}>매일 당신의 감정을 기록하세요</Title>
                     <Text style={{textAlign:'center'}}>당신의 감정과 개성이 반영된 프로필로 사람들과 소통하세요</Text>
-                    <PillButton negative children="지금 쓰러가기" width="200px" onClick={() => goWrite()}></PillButton>
+                    <PillButton negative children="지금 쓰러가기" width="200px" onClick={() => goLoginPage()}></PillButton>
                 </MainPart>
             </Wrap>
             <Wrap style={{ backgroundColor: '#8381E8'}}>
