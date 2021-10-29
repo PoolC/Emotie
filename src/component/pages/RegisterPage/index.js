@@ -7,6 +7,7 @@ import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 import Alert from "../../common/modal/Alert";
+import Term from "./component"
 
 import * as api from "../../../utils/api";
 import * as reg from "../../../utils/regex"
@@ -33,6 +34,8 @@ function RegisterPage(props) {
     const [alertTitle, setAlertTitle] = useState('경고');
 
     const [isSubmitOpen, setSubmitOpen] = useState(false);
+
+    const [isTermOpen, setTermOpen] = useState(false);
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -202,7 +205,8 @@ function RegisterPage(props) {
                 </InputGroup>
             </Gap>
             <ButtonText>
-                <CheckBox label="개인정보처리방침 및 이용약관에 동의합니다" checked={isChecked} onClick={() => setChecked(!isChecked)} />
+                <div onClick={()=>setTermOpen(true)}>개인정보처리방침 및 이용약관에 동의합니다</div>
+                <CheckBox checked={isChecked} onClick={() => setChecked(!isChecked)} />
             </ButtonText>
             <PillButton width="260px" children="다음" onClick={() => detectInput()}></PillButton>
             <Border>
@@ -212,7 +216,8 @@ function RegisterPage(props) {
             </Border>
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
             <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
-            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => goLoginPage()}/>
+            <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => goLoginPage()} />
+            <Term isOpen={isTermOpen} setOpen={setTermOpen}></Term>
         </Container>
     );
 }
