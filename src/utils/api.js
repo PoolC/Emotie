@@ -16,6 +16,7 @@ export const activateAccount = (email, token) => server.put(`/auth/authorization
 export const login = ({ email, password }) => server.post('/auth/login', { email: email, password: password });
 
 // 다이어리
+export const getProfileDiaries = (memberId, pageNum) => server.get(`/diaries/user/${memberId}?page=${pageNum}`);
 export const uploadPost = (emotion, content, isPrivate) => server.post('/diaries', { emotion: emotion, content: content, isOpened:  isPrivate });
 export const blur = (id) => server.post(`/diaries/blind/${id}`); // api 구현 후 수정 필요
 export const reportDiary = (id, reason) => server.post(`/diaries/report/${id}`, { reason: reason });
@@ -23,6 +24,7 @@ export const deleteDiary = (id) => server.delete('/diaries', { id: [id] });
 export const getFeeds = (pageNumber) => server.get(`/feed?page=${pageNumber}`);
 
 // 방명록
+export const getProfileGuestbooks = (memberId, pageNum) => server.get(`/guestbooks/user/${memberId}?page=${pageNum}`);
 export const reportGuestbook = (id, reason) => server.post(`/guestbooks/report/${id}`, { reason: reason });
 export const deleteGuestbook = (id) => server.delete(`/guestbooks/${id}`);
 

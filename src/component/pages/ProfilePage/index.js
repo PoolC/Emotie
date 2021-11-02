@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import useProfileInfo from "../../../hooks/useProfileInfo";
+import useProfileDiaries from "../../../hooks/useProfileDiaries";
+import useProfileGuestbooks from "../../../hooks/useProfileGuestbooks";
 
 import * as api from "../../../utils/api";
 
@@ -13,6 +15,8 @@ function ProfilePage(props) {
     const { memberId } = useParams();
 
     const { profileInfo, isProfileMine, setProfileInfo } = useProfileInfo(memberId);
+    const profileDiaries = useProfileDiaries(memberId);
+    const profileGuestbooks = useProfileGuestbooks(memberId);
 
     // 수정할 수 있는 데이터
     const [tempIntroduction, setTempIntroduction] = useState('');
@@ -90,7 +94,7 @@ function ProfilePage(props) {
                 </Container.Profile>
                 <Group.Post 
                     category={category} 
-                    diaries={profileInfo.diaries} guestbooks={profileInfo.guestbooks} 
+                    diaries={profileDiaries.diaries} guestbooks={profileGuestbooks.guestbooks} 
                     isProfileMine={isProfileMine} isEditable={isEditable}/>
             </Container.Content>
             {/* 바운더리 */}
