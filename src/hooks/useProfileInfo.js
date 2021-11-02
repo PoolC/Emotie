@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import * as api from "../utils/api";
 import * as defaultData from "../utils/defaultData";
 
-function useProfileInfo(uuid) {
+function useProfileInfo(memberId) {
     const [profileInfo, setProfileInfo] = useState(defaultData.profileInfo);
     const [isProfileMine, setProfileMine] = useState(false);
 
     // 프로필 정보 불러오기
     const getProfileInfo = async () => {
         try {
-            const response = await api.getProfileInfo(uuid);
+            const response = await api.getProfileInfo(memberId);
             setProfileInfo(response.data);
         }
         catch(error) {
@@ -24,8 +24,8 @@ function useProfileInfo(uuid) {
     }, []);
 
     // 자신의 프로필인지 확인
-    const myUUID = useSelector(store => store.user.uuid);
-    useEffect(() => setProfileMine(uuid === myUUID), [uuid, myUUID]);
+    const myMemberId = useSelector(store => store.user.memberId);
+    useEffect(() => setProfileMine(memberId === myMemberId), [memberId, myMemberId]);
 
     return { profileInfo, isProfileMine, setProfileInfo };
 }

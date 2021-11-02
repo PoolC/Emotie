@@ -3,10 +3,9 @@ import { UPDATE_INFO, RESET_INFO } from '../actions/user';
 import { stringToNumber } from "../../utils/converter";
 
 const initialState = {
-    uuid: -1,
+    memberId: "",
     email: "",
     nickname: "",
-    introduction: "",
     gender: "",
     birth: { year: 1900, month: 1, day: 1 },
 };
@@ -25,20 +24,18 @@ const user = (state = initialState, action) => {
         case UPDATE_INFO:
             return { 
                 ...state, 
-                uuid: action.uuid,
+                memberId: action.memberId,
                 email: action.email,
                 nickname: action.nickname,
-                introduction: action.introduction,
                 gender: action.gender,
                 birth: divideBirth(action.birth),
             };
         case RESET_INFO:
             return { 
                 ...state, 
-                uuid: -1,
+                memberId: "",
                 email: "",
                 nickname: "",
-                introduction: "",
                 gender: "",
                 birth: { year: 1900, month: 1, day: 1 },
             };

@@ -10,10 +10,9 @@ import Alert from "../../common/modal/Alert";
 
 function ProfilePage(props) {
     // 프로필 정보
-    const { id } = useParams();
-    const uuid = id * 1;
+    const { memberId } = useParams();
 
-    const { profileInfo, isProfileMine, setProfileInfo } = useProfileInfo(uuid);
+    const { profileInfo, isProfileMine, setProfileInfo } = useProfileInfo(memberId);
 
     // 수정할 수 있는 데이터
     const [tempIntroduction, setTempIntroduction] = useState('');
@@ -49,7 +48,7 @@ function ProfilePage(props) {
 
     // 클릭 이벤트 (타인 프로필)
     const follow = () => {
-        api.follow(uuid, !profileInfo.followed)
+        api.follow(memberId, !profileInfo.followed)
         .then(response => setProfileInfo({ ...profileInfo, followed: !profileInfo.followed }))
         .catch(error => showErrorAlert());
     }

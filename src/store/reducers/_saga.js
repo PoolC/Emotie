@@ -31,12 +31,11 @@ export function* initUserSaga(action) {
     try {
         const response = yield call(getUserInfo);
         const userInfo = {
-            uuid: response.data.uuid,
+            memberId: response.data.memberId,
             email: response.data.email,
             nickname: response.data.nickname,
-            introduction: response.data.introduction,
             gender: response.data.gender,
-            birth: response.data.birth,
+            birth: response.data.dateOfBirth,
         };
         yield put(user.updateInfo(userInfo));
     }
