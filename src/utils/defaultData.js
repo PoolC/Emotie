@@ -1,96 +1,137 @@
 export const profileInfo = {
-    nickname: '존재하지 않는 계정',
-    introduction: '존재하지 않는 계정입니다.',
-    diaries: [
+    nickname: 'Test',
+    introduction: 'Test 계정입니다.',
+    allEmotion: {
+        tag: "슬픔",
+        color: "#9FA7EF"
+    },
+    recentEmotion: [
         {
-            id: 1,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 마음글",
-            emotion: {
-                emotion: "무난",
-                color: "#FFFFFF"
-            }
+            tag: "슬픔",
+            color: "#9FA7EF"
         },
         {
-            id: 2,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 마음글",
-            emotion: {
-                emotion: "무난",
-                color: "#FFFFFF"
-            }
-        },
-        {
-            id: 3,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 마음글",
-            emotion: {
-                emotion: "무난",
-                color: "#FFFFFF"
-            }
-        },
-        {
-            id: 4,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 마음글",
-            emotion: {
-                emotion: "무난",
-                color: "#FFFFFF"
-            }
-        },
-        {
-            id: 5,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 마음글",
-            emotion: {
-                emotion: "무난",
-                color: "#FFFFFF"
-            }
+            tag: "슬픔",
+            color: "#9FA7EF"
         }
     ],
-    guestbooks: [
-        {
-            id: 1,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 방명록"
-        },
-        {
-            id: 2,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 방명록"
-        },
-        {
-            id: 3,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 방명록"
-        },
-        {
-            id: 4,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 방명록"
-        },
-        {
-            id: 5,
-            nickname: "알 수 없는 별명",
-            date: "알 수 없는 날짜",
-            content: "알 수 없는 방명록"
-        }
-    ],
-    bgcolor: ["#9FA7EF", "#AEE477"],
     followed: false,
     followers: [
-        
+        {
+            memberId: '2',
+            nickname: 'Test2'
+        },
+        {
+            memberId: '3',
+            nickname: 'Test3'
+        }
+    ],
+    followees: [
+        {
+            memberId: '2',
+            nickname: 'Test2'
+        },
+        {
+            memberId: '3',
+            nickname: 'Test3'
+        }
     ],
     // 임시
     motie: null,
     motieItems: null
+};
+
+export const diaries = {
+    diaries: [
+        {
+            diaryId: 1,
+            nickname: "Test",
+            date: "2021-07-24 21:09:02",
+            emotion: {
+                tag: "기쁨",
+                color: "#FFF27D"
+            },
+            content: "오늘 잠을 잘 잤다. 기뻤다.",
+            isOpened: true
+        },
+        {
+            diaryId: 2,
+            nickname: "Test",
+            date: "2021-07-24 21:09:02",
+            emotion: {
+                tag: "기쁨",
+                color: "#FFF27D"
+            },
+            content: "오늘 잠을 잘 잤다. 기뻤다.",
+            isOpened: true
+        },
+        {
+            diaryId: 3,
+            nickname: "Test",
+            date: "2021-07-24 21:09:02",
+            emotion: {
+                tag: "기쁨",
+                color: "#FFF27D"
+            },
+            content: "오늘 잠을 잘 잤다. 기뻤다.",
+            isOpened: true
+        },
+        {
+            diaryId: 4,
+            nickname: "Test",
+            date: "2021-07-24 21:09:02",
+            emotion: {
+                tag: "기쁨",
+                color: "#FFF27D"
+            },
+            content: "오늘 잠을 잘 잤다. 기뻤다.",
+            isOpened: true
+        },
+        {
+            diaryId: 5,
+            nickname: "Test",
+            date: "2021-07-24 21:09:02",
+            emotion: {
+                tag: "기쁨",
+                color: "#FFF27D"
+            },
+            content: "오늘 잠을 잘 잤다. 기뻤다.",
+            isOpened: true
+        },
+    ],
+};
+
+export const guestbooks = {
+    guestbooks: [
+        {
+            guestbookId: 1,
+            nickname: "Test2",
+            date: "2021-07-24 21:09:02",
+            content: "안녕하세요"
+        },
+        {
+            guestbookId: 2,
+            nickname: "Test3",
+            date: "2021-07-24 21:09:02",
+            content: "저희 일촌 맺어요~~"
+        },
+        {
+            guestbookId: 3,
+            nickname: "Test4",
+            date: "2021-07-24 21:09:02",
+            content: "광고"
+        },
+        {
+            guestbookId: 4,
+            nickname: "Test5",
+            date: "2021-07-24 21:09:02",
+            content: "^^"
+        },
+        {
+            guestbookId: 5,
+            nickname: "Test6",
+            date: "2021-07-24 21:09:02",
+            content: "안녕하세요"
+        },
+    ],
 };

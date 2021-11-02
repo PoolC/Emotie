@@ -78,7 +78,7 @@ export const Group = {
                         <PillShadowButton width="100px" onClick={props.startEdit}>프로필 수정</PillShadowButton>
                     </>
                 }</>
-                : <PillShadowButton width="100px" onClick={props.follow}>{props.isFollowed ? "언팔로우" : "팔로우"}</PillShadowButton>}
+                : <PillShadowButton width="100px" onClick={props.toggleFollow}>{props.isFollowed ? "언팔로우" : "팔로우"}</PillShadowButton>}
             </MenuLayout>
         );
     },

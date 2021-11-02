@@ -7,7 +7,7 @@ export const checkNicknameDuplicated = (nickname) => server.get('/members/nickna
 export const updateUserInfo = (nickname, gender, birth) => server.put('/members', { nickname: nickname, gender: gender, dateOfBirth: birth });
 export const changePassword = (currentPassword, password, passwordCheck) => server.put('/members/password', { currentPassword: currentPassword, password: password, passwordCheck: passwordCheck });
 export const deleteAccount = (currentPassword, reason) => server.delete('/members', { currentPassword: currentPassword, reason: reason });
-export const follow = (uuid, state) => server.post(`/members/follow/${uuid}`, { isFollowing: state });
+export const toggleFollow = (memberId) => server.post(`/members/follow/${memberId}`);
 
 // 인증
 export const pwResetEmail = (email) => server.post(`/auth/password-reset?email=${email}`);
@@ -27,6 +27,6 @@ export const reportGuestbook = (id, reason) => server.post(`/guestbooks/report/$
 export const deleteGuestbook = (id) => server.delete(`/guestbooks/${id}`);
 
 // 프로필
-export const getProfileInfo = (uuid) => server.get(`/profiles/${uuid}`);
+export const getProfileInfo = (memberId) => server.get(`/profiles/${memberId}`);
 export const editIntroduction = (introduction) => server.put('/profiles', { introduction: introduction });
 export const getRecommends = () => server.get('/recommend');
