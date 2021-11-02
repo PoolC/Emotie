@@ -44,8 +44,12 @@ export const Group = {
     },
     Nickname: function(props) {
         const onNicknameChanged = (event) => {
-            props.setTempNickname(event.target.value);
-            props.setDuplicateState({ message: '', checked: false });
+            const input = event.target.value;
+            props.setTempNickname(input);
+
+            if (input.trim() !== input) props.setValidity({ message: '별명은 공백으로 시작하거나 끝날 수 없습니다.', unique: false, formatted: false });
+            else if (input.length < 1 || input.length > 20) props.setValidity({ message: '별명은 1자 이상 20자 이하이어야합니다.', unique: false, formatted: false });
+            else props.setValidity({ message: '', unique: false, formatted: true });
         };
 
         return (
@@ -55,7 +59,7 @@ export const Group = {
                     <PillInputWrapper><PillInput width="100%" placeholder="별명" value={props.nickname} onChange={onNicknameChanged}/></PillInputWrapper>
                     <PillButton width="100px" onClick={props.checkNicknameDuplicated}>중복 확인</PillButton>
                 </SemiSection>
-                <Alert checked={props.duplicateState.checked}>{props.duplicateState.message}</Alert>
+                <Alert checked={props.validity.formatted && props.validity.unique}>{props.validity.message}</Alert>
             </Section>
         );
     },
