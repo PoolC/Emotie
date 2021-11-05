@@ -14,10 +14,6 @@ import * as api from "../../../utils/api";
 const emotions = [{color:"#FFF27D", tag:"기쁨"}, {color:"#FF855E", tag:"화남"}, {color:"#9FA7EF", tag:"슬픔"}, {color:"#AEE477", tag:"놀람"}, {color:"#9431A4", tag:"질투"}, {color:"#F29CB6", tag:"설렘"}, {color:"#FFFFFF", tag:"무난"}, {color:"#ADADAD", tag:"지침"}];
 
 function FeedPage(props) {
-    window.onbeforeunload = function (e) {
-        window.localStorage.clear();
-    };
-
     const [loading, setLoading] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     // const [feeds, setFeeds] = useState(() => JSON.parse(window.localStorage.getItem("feeds")) || []);
