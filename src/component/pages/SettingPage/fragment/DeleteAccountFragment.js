@@ -39,9 +39,8 @@ function DeleteAccountFragment(props) {
             dispatch(saga.logout());
         })
         .catch(error => {
-            if (error.response && error.response.status === 403) props.showErrorAlert('탈퇴 권한이 없습니다.');
-            else if (error.response && error.response.status === 404) props.showErrorAlert('존재하지 않는 계정입니다.');
-            else if (error.response && error.response.status === 409) props.showErrorAlert('이미 탈퇴 처리가 된 계정입니다.');
+            if (error.response && error.response.status === 403) props.showErrorAlert('기존 비밀번호가 일치하지 않습니다.');
+            else if (error.response && error.response.status === 409) props.showErrorAlert('이미 탈퇴 처리된 계정입니다.');
             else props.showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.')
         });
     };

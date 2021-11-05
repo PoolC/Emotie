@@ -21,6 +21,7 @@ function ChangePasswordFragment(props) {
         })
         .catch(error => {
             if (error.response && error.response.status === 400) props.showErrorAlert('새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.');
+            else if (error.response && error.response.status === 403) props.showErrorAlert('현재 비밀번호가 일치하지 않습니다.');
             else props.showErrorAlert('서버와의 통신 중 오류가 발생하였습니다.');
         });
     };
