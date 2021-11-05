@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import * as saga from "../../../store/actions/_saga";
+import * as auth from "../../../store/actions/auth";
 
 import Header from "../../common/Header";
 import logo from "../../../image/logo_img.svg";
@@ -95,7 +96,7 @@ function LoginPage(props) {
             <PillButton width="260px" onClick={detectInput}>로그인</PillButton>
             <ButtonText onClick={goFindPage}>비밀번호를 잊으셨나요?</ButtonText>
             <Switch onClick={goRegisterPage}>계정이 없으신가요? 가입하기</Switch>
-            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
+            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen} firstButtonFunc={() => dispatch(auth.updateStatus('UNAUTHORIZED'))}></Alert>
         </Container>
     );
 }
