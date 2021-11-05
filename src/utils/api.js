@@ -21,6 +21,8 @@ export const blur = (id) => server.post(`/diaries/blind/${id}`); // api 구현 �
 export const reportDiary = (id, reason) => server.post(`/diaries/report/${id}`, { reason: reason });
 export const deleteDiary = (id) => server.delete('/diaries', { id: [id] });
 export const getFeeds = (pageNumber) => server.get(`/feed?page=${pageNumber}`);
+export const getDiary = (id) => server.get(`/diaries/${id}`);
+
 
 // 방명록
 export const reportGuestbook = (id, reason) => server.post(`/guestbooks/report/${id}`, { reason: reason });
