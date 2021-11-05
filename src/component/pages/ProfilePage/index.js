@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import useProfileInfo from "../../../hooks/useProfileInfo";
+import useProfileDiaries from "../../../hooks/useProfileDiaries";
+import useProfileGuestbooks from "../../../hooks/useProfileGuestbooks";
 
 import * as api from "../../../utils/api";
 
@@ -13,10 +15,12 @@ function ProfilePage(props) {
     const { memberId } = useParams();
 
     const { profileInfo, isProfileMine, setProfileInfo } = useProfileInfo(memberId);
+    const profileDiaries = useProfileDiaries(memberId);
+    const profileGuestbooks = useProfileGuestbooks(memberId);
 
     // 수정할 수 있는 데이터
     const [tempIntroduction, setTempIntroduction] = useState('');
-    const [tempMotieItems, setTempMotieItems] = useState(profileInfo.motieItems);
+    const [tempMotieItems, setTempMotieItems] = useState();
     useEffect(() => setTempIntroduction(profileInfo.introduction), [profileInfo.introduction]);
     useEffect(() => setTempMotieItems(profileInfo.motieItems), [profileInfo.motieItems]);
 
@@ -33,6 +37,7 @@ function ProfilePage(props) {
             await api.editIntroduction(tempIntroduction);
             // await api.editMotieItems(tempMotieItems);
             setProfileInfo({ ...profileInfo, introduction: tempIntroduction, motieItems: tempMotieItems });
+            setEditable(false);
         }
         catch(error) {
             showErrorAlert();
@@ -47,9 +52,9 @@ function ProfilePage(props) {
     const write = () => props.history.push(`/write`);
 
     // 클릭 이벤트 (타인 프로필)
-    const follow = () => {
-        api.follow(memberId, !profileInfo.followed)
-        .then(response => setProfileInfo({ ...profileInfo, followed: !profileInfo.followed }))
+    const toggleFollow = () => {
+        api.toggleFollow(memberId)
+        .then(response => setProfileInfo({ ...profileInfo, followed: response.data.isFollowing }))
         .catch(error => showErrorAlert());
     }
 
@@ -58,7 +63,7 @@ function ProfilePage(props) {
     const showCancelAlert = () => setCancelAlertOpen(true);
     
     return (
-        <Container.Base backgroundColor={profileInfo.bgcolor[0]}>
+        <Container.Base backgroundColor={profileInfo.allEmotion.color}>
             {/* 헤더 */}
             <Element.Header/>
             {/* 모티 */}
@@ -68,17 +73,17 @@ function ProfilePage(props) {
                 isEditable={isEditable}/>
             {/* 내용 */}
             <Container.Content>
-                <Container.Profile backgroundColor={profileInfo.bgcolor[0]}>
+                <Container.Profile backgroundColor={profileInfo.allEmotion.color}>
                     <Group.Info 
                         nickname={profileInfo.nickname} introduction={tempIntroduction}
                         setTempIntroduction={setTempIntroduction} 
                         isEditable={isEditable}/>
                     <Group.State 
-                        follower={profileInfo.followers} followee={profileInfo.followers}
+                        follower={profileInfo.followers} followee={profileInfo.followees}
                         isProfileMine={isProfileMine} isEditable={isEditable}/>
                     <Group.Menu 
                         startEdit={startEdit} saveEdit={saveEdit} cancelEdit={showCancelAlert}
-                        write={write} follow={follow} 
+                        write={write} toggleFollow={toggleFollow} 
                         isProfileMine={isProfileMine} isFollowed={profileInfo.followed} isEditable={isEditable}/>
                     <Group.Category 
                         category={category} setCategory={setCategory} 
@@ -89,12 +94,12 @@ function ProfilePage(props) {
                 </Container.Profile>
                 <Group.Post 
                     category={category} 
-                    diaries={profileInfo.diaries} guestbooks={profileInfo.guestbooks} 
+                    diaries={profileDiaries.diaries} guestbooks={profileGuestbooks.guestbooks} 
                     isProfileMine={isProfileMine} isEditable={isEditable}/>
             </Container.Content>
             {/* 바운더리 */}
-            <Element.Boundary backgroundColor={profileInfo.bgcolor[0]} top/>
-            <Element.Boundary backgroundColor={profileInfo.bgcolor[0]} bottom/>
+            <Element.Boundary backgroundColor={profileInfo.allEmotion.color} top/>
+            <Element.Boundary backgroundColor={profileInfo.allEmotion.color} bottom/>
             {/* 모달 */}
             <Alert
                 title="프로필 수정 취소"
