@@ -1,6 +1,6 @@
 import { Redirect } from "react-router-dom";
 
-const isMaster = true;  // Master Condition
+const isMaster = false;  // Master Condition
 
 export const forAuthorized = (requiredPage, currentAuthState) => {
     const isAuthUnknown = (currentAuthState === '');

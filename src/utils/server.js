@@ -4,7 +4,7 @@ import { store } from "../index";
 import { expire } from "../store/actions/_saga";
 
 const server = axios.create();
-server.defaults.baseURL = "localhost:8080";
+server.defaults.baseURL = "http://54.180.165.50:8080";
 server.interceptors.request.use(
     function (config) {
         const accessToken = localStorage.getItem('accessToken');
