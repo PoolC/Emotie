@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import Alert from "../../common/modal/Alert"
+import queryString from "query-string";
+
+
 import {
     Container, Title, Text
 } from "./style";
@@ -20,12 +23,21 @@ function AuthPage(props) {
 
     const [step, setStep] = useState(false);
 
-    const url = window.location.href;
-    const split=url.split("=");
-    const token=split[2];
-    const email=(split[1].split("&"))[0];
+    const [email, setEmail] = useState('');
+    const [token, setToken] = useState('');
+
+    // const url = window.location.href;
+    // const split=url.split("=");
+    // const token=split[2];
+    // const email=(split[1].split("&"))[0];
+
 
     const tokenRequest = () => {
+        const query = queryString.parse(props.location.search);
+        setEmail(query.email);
+        setToken(query.authorizationCode);
+    
+
         api.activateAccount(email, token)
             .then(() => {
                 setStep(true);
@@ -65,10 +77,14 @@ function AuthPage(props) {
             });
 
     }
-    window.onload = () => tokenRequest();
+
+    useEffect(() => {
+        tokenRequest();
+    }, []);
+
     return (
         <Container>
-            {step === true &&
+            {step &&
                 <>
                     <Header />
                     <Title>이메일 인증이 완료되었습니다</Title>
@@ -76,7 +92,7 @@ function AuthPage(props) {
                     <PillButton onClick={() => goLoginPage()}>로그인 페이지로</PillButton>
                 </>
             }
-            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
+            <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen} firstButtonFunc={goLoginPage}></Alert>
         </Container>
     );
 }

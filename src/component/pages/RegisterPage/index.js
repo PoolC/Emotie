@@ -186,11 +186,11 @@ function RegisterPage(props) {
             })
             .catch(error => {
                 if (error.response===400) {
-                    setAlertTitle(error.response);
+                    setAlertTitle(error.response.status);
                     setAlertMsg('올바르지 않은 별명 형식입니다');
                     setOpen(true);
                 }else{
-                    setAlertTitle(error.response);
+                    setAlertTitle(error.response.status);
                     setAlertMsg('서버 오류입니다');
                     setOpen(true);
                 }
