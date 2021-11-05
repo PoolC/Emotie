@@ -49,18 +49,14 @@ function WritePage(props) {
             setSelectEmotionOpen(true);
         }
         else {
-            // api.uploadPost(tagId, content, isPrivate)
-            // .then(response => {
-            //     console.log(response.data);
-            //     setSubmitOpen(true);
-            // })
-            // .catch(error => {
-            //     error.response && console.log(error.response.status);
-            // });
-            
-            console.log(tagId);
-            console.log(content);
-            console.log(isPrivate);
+            api.uploadPost(tagId, content, isPrivate)
+            .then(response => {
+                console.log(response.data);
+                setSubmitOpen(true);
+            })
+            .catch(error => {
+                error.response && console.log(error.response.status);
+            });
         }
     };
 
