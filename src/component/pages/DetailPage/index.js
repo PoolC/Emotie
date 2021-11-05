@@ -1,34 +1,113 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Container, Profile, Post, ProfileWrapper, ProfileButton, Wrapper, Info, Nickname, Date, Content} from "./style";
+import { Container, Profile, Post, ProfileWrapper, ProfileButton, Wrapper, Info, Nickname, Date, Content } from "./style";
 import Header from "../../common/Header";
 import EmotionTag from '../../common/EmotionTag';
 import IconButton from '../../common/IconButton';
-import { AiOutlineShareAlt} from "react-icons/ai";
+import { AiOutlineShareAlt } from "react-icons/ai";
+import Alert from "../../common/modal/Alert";
+import Progress from "../../common/modal/Progress";
+
+import * as api from "../../../utils/api";
 
 function DetailPage(props) {
-    const { id, postId } = useParams();
-    
+    const { postId } = useParams();
+    const [loading, setLoading] = useState(false);
+    const [fullscreen, setFullscreen] = useState(false);
+
+    // const [diary, setDiary] = useState(true);
+    const [diary, setDiary] = useState(false);
+
+    const [nickname, setNickname] = useState('공릉동 공룡');
+    const [date, setDate] = useState('1999-09-03');
+    const [content, setContent] = useState('기본 콘텐츠 내용');
+    const [emotion, setEmotion] = useState('');
+
+    const [isOpen, setOpen] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
+    const [alertTitle, setAlertTitle] = useState('경고');
+
+    const goFeedPage = () => props.history.push('/feed');
+
+
+    async function FetchDiary(postId) {
+        try {
+            setLoading(true);
+            setFullscreen(true);
+            const response = await api.getDiary(postId);
+            setNickname(response.data.nickname);
+            setEmotion(response.data.emotion);
+            setContent(response.data.content);
+            const datetime = response.data.date;
+            const datesplit = datetime.split[' '];
+            setDate(datesplit[0]);
+            setLoading(false);
+            setFullscreen(false);
+            setDiary(true);
+        }
+        catch (error) {
+            setLoading(false);
+            setFullscreen(false);
+            if (error.response) {
+                // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
+                if (error.response.status === 403) {
+                    setAlertTitle(error.response.status);
+                    setAlertMsg('비공개 게시물입니다');
+                    setOpen(true);
+                } else if (error.response.status === 404) {
+                    setAlertTitle(error.response.status);
+                    setAlertMsg('존재하지 않는 게시물입니다');
+                    setOpen(true);
+                } else {
+                    setAlertTitle(error.response.status);
+                    setAlertMsg('알 수 없는 에러가 발생했습니다.');
+                    setOpen(true);
+                }
+            }
+            else if (error.request) {
+                // 요청이 이루어 졌으나 응답을 받지 못함
+                setAlertTitle('에러');
+                setAlertMsg('서버에서 응답이 오지 않습니다.')
+                setOpen(true);
+            }
+            else {
+                setAlertTitle('에러');
+                setAlertMsg('가입 요청에 문제가 발생했습니다')
+                setOpen(true);
+            }
+
+        }
+    }
+    useEffect(() => {
+        FetchDiary(postId);
+    }, []);
+
     return (
         <Container>
             <Header></Header>
-            <Profile>
-                <ProfileWrapper>
-                    <ProfileButton children="프로필 가기"></ProfileButton>
-                </ProfileWrapper>
-            </Profile>
-            <Wrapper>
-                <Post>
-                    <Info>
-                        <EmotionTag emotion={props.emotion}/>
-                        <Nickname>{id}</Nickname>
-                        <Date>2021.07.20</Date>
-                    </Info>
-                    <Content>그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건.그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건.그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건.그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건.</Content>
-                    <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>
-                </Post>
-            </Wrapper>
+            {diary &&
+                <>
+                    <Profile>
+                        <ProfileWrapper>
+                            <ProfileButton children="프로필 가기"></ProfileButton>
+                        </ProfileWrapper>
+                    </Profile>
+                    <Wrapper>
+                        <Post>
+                            <Info>
+                                <EmotionTag emotion={emotion} />
+                                <Nickname>{nickname}</Nickname>
+                                <Date>{date}</Date>
+                            </Info>
+                            <Content>{content}</Content>
+                            <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare} />
+                        </Post>
+                    </Wrapper>
+                </>
+            }
+            <Progress isInProgress={loading} fullscreen={fullscreen} />
+            <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen} firstButtonFunc={goFeedPage}></Alert>
         </Container>
     );
     function onShare(event) {
