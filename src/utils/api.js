@@ -3,7 +3,7 @@ import server from "./server";
 // 회원
 export const register = (nickname, password, rePassword, gender, dateOfBirth, email) => server.post('/members', {nickname: nickname, password: password, passwordCheck: rePassword, gender: gender, dateOfBirth: dateOfBirth, email: email});
 export const getUserInfo = () => server.get('/members/me');
-export const checkNicknameDuplicated = (nickname) => server.get('/members/nickname', { nickname: nickname });
+export const checkNicknameDuplicated = (nickname) => server.post('/members/nickname', { nickname: nickname });
 export const updateUserInfo = (nickname, gender, birth) => server.put('/members', { nickname: nickname, gender: gender, dateOfBirth: birth });
 export const changePassword = (currentPassword, password, passwordCheck) => server.put('/members/password', { currentPassword: currentPassword, password: password, passwordCheck: passwordCheck });
 export const deleteAccount = (currentPassword, reason) => server.delete('/members', { currentPassword: currentPassword, reason: reason });

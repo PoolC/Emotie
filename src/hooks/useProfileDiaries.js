@@ -9,7 +9,7 @@ function useProfileDiaries(memberId) {
     // 프로필 마음글 불러오기
     const getProfileDiaries = async () => {
         try {
-            const response = await api.getProfileDiaries(memberId, 1);
+            const response = await api.getProfileDiaries(memberId, 0);
             setProfileDiaries(response.data);
         }
         catch(error) {
