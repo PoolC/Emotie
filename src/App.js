@@ -36,6 +36,7 @@ function App() {
             case 'FAILED':
             case 'EXPIRED':
                 dispatch(user.resetInfo());
+                localStorage.clear();
                 break;
             default:
                 break;
