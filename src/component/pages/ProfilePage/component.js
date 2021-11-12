@@ -1,4 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useState, useCallback } from "react";
+
+import * as api from "../../../utils/api";
 
 import { 
     BaseLayout,
@@ -91,10 +93,21 @@ export const Group = {
         );
     },
     GuestbookInput: function(props) {
+        const [input, setInput] = useState('');
+        const onInputChange = useCallback(event => setInput(event.target.value));
+        const uploadGuestbook = () => {
+            api.uploadGuestbook(props.memberId, input)
+            .then(response => {
+                // TODO : update
+                setInput('');
+            })
+            .catch(error => props.showErrorAlert());
+        }
+
         return (props.category === 1 && !props.isProfileMine && 
             <InputLayout isEditable={props.isEditable}>
-                <Input width="100%" placeholder="방명록을 남기세요" disabled={props.isEditable}/>
-                <IconButton icon={IoPencil} color="white" size="1rem"/>
+                <Input width="100%" placeholder="방명록을 남기세요" value={input} onChange={onInputChange} disabled={props.isEditable}/>
+                <IconButton icon={IoPencil} color="white" size="1rem" onClick={uploadGuestbook}/>
             </InputLayout>
         );
     },
