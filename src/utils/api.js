@@ -27,6 +27,7 @@ export const getDiary = (id) => server.get(`/diaries/${id}`);
 
 // 방명록
 export const getProfileGuestbooks = (memberId, pageNum) => server.get(`/guestbooks/user/${memberId}?page=${pageNum}`);
+export const uploadGuestbook = (memberId, content) => server.post(`/guestbooks/user/${memberId}`, { content: content });
 export const reportGuestbook = (id, reason) => server.post(`/guestbooks/report/${id}`, { reason: reason });
 export const deleteGuestbook = (id) => server.delete(`/guestbooks/${id}`);
 

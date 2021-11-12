@@ -89,8 +89,9 @@ function ProfilePage(props) {
                         category={category} setCategory={setCategory} 
                         isEditable={isEditable}/>
                     <Group.GuestbookInput 
-                        category={category} 
-                        isProfileMine={isProfileMine} isEditable={isEditable}/>
+                        category={category} memberId={memberId}
+                        isProfileMine={isProfileMine} isEditable={isEditable}
+                        showErrorAlert={showErrorAlert}/>
                 </Container.Profile>
                 <Group.Post 
                     category={category} 
