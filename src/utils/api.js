@@ -21,7 +21,7 @@ export const uploadPost = (emotion, content, isPrivate) => server.post('/diaries
 export const blur = (id) => server.post(`/diaries/blind/${id}`); // api 구현 후 수정 필요
 export const reportDiary = (id, reason) => server.post(`/diaries/report/${id}`, { reason: reason });
 export const deleteDiary = (id) => server.delete('/diaries', { id: [id] });
-export const getFeeds = (pageNumber) => server.get(`/feed?page=${pageNumber}`);
+export const getFeeds = (pageNumber) => server.get(`/diaries/feed?page=${pageNumber}`);
 export const getDiary = (id) => server.get(`/diaries/${id}`);
 
 

@@ -28,7 +28,7 @@ else
 
 // 리로드 시 특정값 초기화
 window.onbeforeunload = function (e) {
-    window.localStorage.setItem("page", 1);
+    window.localStorage.setItem("page", 0);
 };
 
 // 렌더

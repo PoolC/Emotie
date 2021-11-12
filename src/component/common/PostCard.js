@@ -214,13 +214,14 @@ function PostCard(props) {
 
     return (
         <Wrapper>
-            <Container borderColor={props.emotion?.color} onClick={props.onClick}>
+            {props.feed &&
+            <Container borderColor={props.feed.emotion.color} onClick={props.onClick}>
                 <Info>
-                    {props.emotion && <EmotionTag emotion={props.emotion}/>}
-                    <Nickname hideEmotion={props.emotion ? false : true}>{props.nickname || "공릉동 공룡"}</Nickname>
-                    <Date>{props.date || "2021.07.20"}</Date>
+                    {props.feed && <EmotionTag emotion={props.feed.emotion}/>}
+                    <Nickname hideEmotion={props.feed.emotion ? false : true}>{props.feed.nickname}</Nickname>
+                    <Date>{props.feed.date}</Date>
                 </Info>
-                <Content>{props.content || "그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다. 그 자식한테 화가 나는 건지 나 자신한테 화가 나는건지 잘 모르겠다. 내가 뭘 잘못 했다고 나한테 이런 일이 일어나는 건지 모르겠다. 집에 가고 싶다."}</Content>
+                <Content>{props.feed.content}</Content>
                 <Icons>
                     {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>}
                     {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E" onClick={onBlur}/>}
@@ -228,8 +229,9 @@ function PostCard(props) {
                     {props.delete && <IconButton icon={RiDeleteBinLine} size="1.2rem" color="#7E7E7E" onClick={onDelete}/>}
                 </Icons>
             </Container>
+            }
             {/* 모달 */}
-            {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.id}/></DropDownContainer>}
+            {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.feed?.diaryId}/></DropDownContainer>}
             <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButtonFunc={alertInfo.firstButtonFunc}/>
             <Reasons title={reportInfo.title} options={reportInfo.options} isOpen={reportInfo.isOpen} setOpen={setReportOpen} firstButton={reportInfo.firstButton} firstButtonFunc={reportInfo.firstButtonFunc} secondButton={reportInfo.secondButton} reportReason={reportReason} setReportReason={setReportReason}/>
         </Wrapper>
@@ -240,6 +242,7 @@ export default PostCard;
 
 const Wrapper = styled.div`
     position: relative;
+    width: 100%;
 `
 
 const Container = styled.div`
@@ -275,21 +278,21 @@ const Info = styled.div`
 const Nickname = styled.span`
     flex: 1 0 0;
     margin-left: ${props => props.hideEmotion ? `0` : `20px`};
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
 `
 
 const Date = styled.span`
-    font-size: 0.6rem;
+    font-size: 0.9rem;
     color: #ffffff;
 `
 
 const Content = styled.p`
     display: -webkit-box;
     margin: 0;
-    width: 70%;
-    font-size: 0.6rem;
+    width: 80%;
+    font-size: 1rem;
     color: #ffffff;
     line-height: 2;
     height: 6em;

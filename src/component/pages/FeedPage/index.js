@@ -16,45 +16,45 @@ const emotions = [{color:"#FFF27D", tag:"기쁨"}, {color:"#FF855E", tag:"화남
 function FeedPage(props) {
     const [loading, setLoading] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
-    // const [feeds, setFeeds] = useState(() => JSON.parse(window.localStorage.getItem("feeds")) || []);
-    const [ page, setPage ] = useState(() => JSON.parse(window.localStorage.getItem("page")) || 1);
+    const [feeds, setFeeds] = useState(() => JSON.parse(window.localStorage.getItem("feeds")) || []);
+    const [page, setPage] = useState(() => JSON.parse(window.localStorage.getItem("page")) || 0);
 
     const goDetailPage = () => props.history.push('/profile/post/:1');
     const goToTop = () => window.scrollTo(0, 0);
     const goWritePage = () => props.history.push('/write');
 
-    const feeds =  emotions.map((emotion, index) => 
-        <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} category="diary" id={index}/>
-    );
+    // const feeds =  emotions.map((emotion, index) => 
+    //     <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} category="diary" id={index}/>
+    // );
 
     async function fetchFeeds() {
         setLoading(true);
         setFullscreen(true);
-        console.log(page);
-        // const response = await api.getFeeds(page);
-        // setFeeds(response.data);
+        const response = await api.getFeeds(page);
+        setFeeds(response.data.diaries);
         setLoading(false);
         setFullscreen(false);
+        console.log(feeds);
     }
     useEffect(() => {
-        if(page === 1) {
+        if(page === 0) {
             fetchFeeds();
         }
     }, []);
     useEffect(() => {
         window.localStorage.setItem("page", JSON.stringify(page));
-        // window.localStorage.setItem("feeds", JSON.stringify(feeds));
+        window.localStorage.setItem("feeds", JSON.stringify(feeds));
     }, [page, feeds]);
     
     async function detectScroll() {
         setLoading(true);
         setFullscreen(false);
-        setPage(page + 1);
+        const response = await api.getFeeds(page + 1);
+        if(response.data.diaries.length > 0) setPage(page + 1);
+        setFeeds([...feeds, ...response.data.diaries]);
+        setLoading(false);
+        setFullscreen(false);
         console.log(page);
-        // const response = await api.getFeeds(page);
-        // setFeeds([...feeds, response.data]);
-        // setLoading(false);
-        // setFullscreen(false);
     }
 
     useBottomScrollListener(detectScroll);
@@ -63,7 +63,10 @@ function FeedPage(props) {
         <Container>
             <Header search recommend/>
             <PostList>
-                {feeds}
+                {feeds.map((feed, index) => 
+                    <PostCard key={index} feed={feed} share blur report onClick={goDetailPage} category="diary"/>
+                )}
+                {/* {feeds} */}
             </PostList>
             <FloatingButton icon={MdKeyboardArrowUp} onClick={goToTop} bottom="90"/>
             <FloatingButton icon={GiPencil} onClick={goWritePage}/>
