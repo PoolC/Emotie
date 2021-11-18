@@ -76,7 +76,6 @@ function RegisterPage(props) {
                 (password === value) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호가 일치하지 않습니다' });
                 break;
             default:
-                setAlertMsg('입력값 에러입니다');
         }
     }
 
@@ -205,23 +204,23 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="email" value={email} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="이메일" type="text"></PillInput>
+                        <PillInput name="email" value={email} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="이메일" type="text"></PillInput>
                     </FlexBox>
                     <InputAlert>{emailAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="password" value={password} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="비밀번호" type="password">
+                    <PillInput name="password" value={password} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="비밀번호" type="password">
                     </PillInput>
                     <InputAlert>{passwordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="rePassword" value={rePassword} onInput={inputChange} onBlur={inputCheck} width="200px" placeholder="비밀번호 재입력" type="password">
+                    <PillInput name="rePassword" value={rePassword} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="비밀번호 재입력" type="password">
                     </PillInput>
                     <InputAlert>{rePasswordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="nickname" value={nickname} onInput={inputChange} onBlur={inputCheck} width="140px" placeholder="별명" type="text"></PillInput>
+                        <PillInput name="nickname" value={nickname} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="140px" placeholder="별명" type="text"></PillInput>
                         <CertButton onClick={() => nicknameCheck()}>중복 확인</CertButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
