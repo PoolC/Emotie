@@ -14,9 +14,10 @@ function DetailPopup(props, ref) {
     const slidePost = (neigh) => setIdx(idx + neigh);
 
     return (
+        props.details.length !== 0 &&
         <Container isOpen={props.isOpen} onClick={() => props.setOpen(false)}>
             <PostContainer>
-                <LeftContainer start={idx === 0}>
+                <LeftContainer $start={idx === 0}>
                     <BsChevronCompactLeft fontSize="5rem" onClick={(e) => {e.stopPropagation(); slidePost(-1);}}/>
                 </LeftContainer>
                 <DetailContainer onClick={(e) => e.stopPropagation()}>
@@ -29,7 +30,7 @@ function DetailPopup(props, ref) {
                         <Content>{props.details[idx].content}</Content>
                     </DetailCard>
                 </DetailContainer>
-                <RightContainer end={idx === (props.details.length - 1)}>
+                <RightContainer $end={idx === (props.details.length - 1)}>
                     <BsChevronCompactRight fontSize="5rem" onClick={(e) => {e.stopPropagation(); slidePost(1);}}/>
                 </RightContainer>
             </PostContainer>
@@ -45,10 +46,11 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     position: fixed;
-    top: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #b6b6b635;
+    background-color: #00000050;
     opacity: ${props => props.isOpen ? "1" : "0"};
     visibility: ${props => props.isOpen ? "visible" : "hidden"};
     transition: 200ms all;
@@ -72,7 +74,7 @@ const DetailContainer = styled.div`
 `
 
 const LeftContainer = styled.div`
-    visibility: ${props => props.start ? 'hidden' : 'visible'};
+    visibility: ${props => props.$start ? 'hidden' : 'visible'};
     margin-left: -20px;
     color: white;
 
@@ -86,7 +88,7 @@ const LeftContainer = styled.div`
 `
 
 const RightContainer = styled.div`
-    visibility: ${props => props.end ? 'hidden' : 'visible'};
+    visibility: ${props => props.$end ? 'hidden' : 'visible'};
     margin-right: -20px;
     color: white;
 

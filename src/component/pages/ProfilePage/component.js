@@ -121,8 +121,8 @@ export const Group = {
         return (
             <PostList category={props.category} isEditable={props.isEditable}>
                 {props.category === 0 
-                ? props.diaries.map((post, index) => <PostCard key={index} category="diary" post={post} {...options}/>)
-                : props.guestbooks.map((post, index) => <PostCard key={index} category="guestbook" post={post} {...options}/>)}
+                ? props.diaries.map((post, index) => <PostCard key={index} category="diary" post={post} onClick={() => props.showDiaryPopup(index)} {...options}/>)
+                : props.guestbooks.map((post, index) => <PostCard key={index} category="guestbook" post={post} onClick={() => props.showGuestbookPopup(index)} {...options}/>)}
             </PostList>
         );
     },

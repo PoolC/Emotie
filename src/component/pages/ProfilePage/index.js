@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import useProfileInfo from "../../../hooks/useProfileInfo";
@@ -9,6 +9,7 @@ import * as api from "../../../utils/api";
 
 import { Container, Group, Element } from "./component";
 import Alert from "../../common/modal/Alert";
+import DetailPopup from "../../common/DetailPopup";
 
 function ProfilePage(props) {
     // 프로필 정보
@@ -29,6 +30,10 @@ function ProfilePage(props) {
     const [isEditable, setEditable] = useState(false);
     const [isCancelAlertOpen, setCancelAlertOpen] = useState(false);
     const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
+    const [isDiaryPopupOpen, setDiaryPopupOpen] = useState(false);
+    const [isGuestbookPopupOpen, setGuestbookPopupOpen] = useState(false);
+    const diaryPopup = useRef();
+    const guestbookPopup = useRef();
 
     // 클릭 이벤트 (본인 프로필)
     const startEdit = () => setEditable(true);
@@ -56,6 +61,16 @@ function ProfilePage(props) {
         api.toggleFollow(memberId)
         .then(response => setProfileInfo({ ...profileInfo, followed: response.data.isFollowing }))
         .catch(error => showErrorAlert());
+    }
+
+    // 클릭 이벤트 (공통)
+    const showDiaryPopup = (index) => {
+        setDiaryPopupOpen(true);
+        diaryPopup.current.setIdx(index);
+    }
+    const showGuestbookPopup = (index) => {
+        setGuestbookPopupOpen(true);
+        guestbookPopup.current.setIdx(index);
     }
 
     // 알림
@@ -96,12 +111,15 @@ function ProfilePage(props) {
                 <Group.Post 
                     category={category} 
                     diaries={profileDiaries.diaries} guestbooks={profileGuestbooks.guestbooks} 
+                    showDiaryPopup={showDiaryPopup} showGuestbookPopup={showGuestbookPopup}
                     isProfileMine={isProfileMine} isEditable={isEditable}/>
             </Container.Content>
             {/* 바운더리 */}
             <Element.Boundary backgroundColor={profileInfo.allEmotion.color} top/>
             <Element.Boundary backgroundColor={profileInfo.allEmotion.color} bottom/>
             {/* 모달 */}
+            <DetailPopup ref={diaryPopup} isOpen={isDiaryPopupOpen} setOpen={setDiaryPopupOpen} history={props.history} details={profileDiaries.diaries}/>
+            <DetailPopup ref={guestbookPopup} isOpen={isGuestbookPopupOpen} setOpen={setGuestbookPopupOpen} history={props.history} details={profileGuestbooks.guestbooks}/>
             <Alert
                 title="프로필 수정 취소"
                 message="모티 및 소개글 수정 내역이 저장되지 않습니다."
