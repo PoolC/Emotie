@@ -54,7 +54,7 @@ const Container = styled.div`
     opacity: ${props => props.isOpen ? "1" : "0"};
     visibility: ${props => props.isOpen ? "visible" : "hidden"};
     transition: 200ms all;
-    z-index: 10;
+    z-index: 15;
 `
 
 const PostContainer = styled.div`
