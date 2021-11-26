@@ -31,7 +31,7 @@ function DetailPage(props) {
     const goFeedPage = () => props.history.push('/feed');
 
 
-    async function FetchDiary(postId) {
+    async function FetchDiary() {
         try {
             setLoading(true);
             setFullscreen(true);
