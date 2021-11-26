@@ -35,7 +35,7 @@ function AuthPage(props) {
     const tokenRequest = () => {
         const query = queryString.parse(props.location.search);
         setEmail(query.email);
-        setToken(query.authorizationCode);
+        setToken(query.authorizationToken);
     
 
         api.activateAccount(email, token)
