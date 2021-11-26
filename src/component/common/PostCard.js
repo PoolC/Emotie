@@ -260,11 +260,16 @@ const Container = styled.div`
     border-radius: 5px;
     transition: border 300ms, opacity 300ms;
     cursor: default;
+    
     &:hover {
         border: 1px solid ${props => props.borderColor || "#ffffff"};
     }
     &:active {
         opacity: 0.7;
+    }
+
+    @media only screen and (max-width: 768px) {
+        padding: 20px 25px;
     }
 `
 
@@ -273,6 +278,12 @@ const Info = styled.div`
     flex-flow: row nowrap;
     align-items: center;
     width: 100%;
+
+    @media only screen and (max-width: 768px) {
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        gap: 5px;
+    }
 `
 
 const Nickname = styled.span`
@@ -281,10 +292,14 @@ const Nickname = styled.span`
     font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
+
+    @media only screen and (max-width: 768px) {
+        margin-left: unset;
+    }
 `
 
 const Date = styled.span`
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #ffffff;
 `
 
@@ -292,7 +307,7 @@ const Content = styled.p`
     display: -webkit-box;
     margin: 0;
     width: 80%;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #ffffff;
     line-height: 2;
     height: 6em;

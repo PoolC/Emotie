@@ -11,7 +11,6 @@ function useProfileDiaries(memberId) {
         try {
             const response = await api.getProfileDiaries(memberId, 0);
             setProfileDiaries(response.data);
-            console.log(response.data);
         }
         catch(error) {
             setProfileDiaries(defaultData.diaries);

@@ -19,14 +19,14 @@ const Container = styled.div`
 `
 
 const Circle = styled.div`
-    width: ${props => props.write ? `20px` : `15px`};
-    height: ${props => props.write ? `20px` : `15px`};
+    width: ${props => props.write ? `20px` : `10px`};
+    height: ${props => props.write ? `20px` : `10px`};
     border: ${props => props.write ? `5px` : `3px`} solid ${props => props.color || "#FFFFFF"};
     border-radius: 50%;
 
     @media only screen and (max-width: 768px) {
-        width: ${props => props.write ? `15px` : `12px`};
-        height: ${props => props.write ? `15px` : `12px`};
+        width: ${props => props.write ? `15px` : `10px`};
+        height: ${props => props.write ? `15px` : `10px`};
         border: ${props => props.write ? `4px` : `3px`} solid ${props => props.color || "#FFFFFF"};
     }
 `
