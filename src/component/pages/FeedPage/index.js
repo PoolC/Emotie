@@ -64,7 +64,7 @@ function FeedPage(props) {
             <Header search recommend/>
             <PostList>
                 {feeds.map((feed, index) => 
-                    <PostCard key={index} feed={feed} share blur report onClick={goDetailPage} category="diary"/>
+                    <PostCard key={index} post={feed} share blur report onClick={goDetailPage} category="diary"/>
                 )}
                 {/* {feeds} */}
             </PostList>
