@@ -11,6 +11,7 @@ import Term from "./component"
 
 import * as api from "../../../utils/api";
 import * as reg from "../../../utils/regex";
+import * as conv from "../../../utils/converter";
 
 import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link, CertButton
@@ -28,7 +29,7 @@ function RegisterPage(props) {
     const [year, setYear] = useState("2000");
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
-    const dateOfBirth = year + "-" + month + "-" + day;
+    const dateOfBirth = year + "-" + conv.numberToTwoString(month) + "-" + conv.numberToTwoString(day);
 
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
@@ -122,6 +123,7 @@ function RegisterPage(props) {
     }
 
     const registIn = () => {
+        console.log(dateOfBirth);
         api.register(nickname, password, rePassword, gender, dateOfBirth, email)
             .then(() => {
                 setSubmitOpen(true);
