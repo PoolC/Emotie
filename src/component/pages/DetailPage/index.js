@@ -31,7 +31,8 @@ function DetailPage(props) {
     const goFeedPage = () => props.history.push('/feed');
 
 
-    async function FetchDiary(postId) {
+    async function FetchDiary() {
+        console.log(postId);
         try {
             setLoading(true);
             setFullscreen(true);
@@ -68,15 +69,14 @@ function DetailPage(props) {
             else if (error.request) {
                 // 요청이 이루어 졌으나 응답을 받지 못함
                 setAlertTitle('에러');
-                setAlertMsg('서버에서 응답이 오지 않습니다.')
+                setAlertMsg('서버에서 응답이 오지 않습니다.');
                 setOpen(true);
             }
             else {
                 setAlertTitle('에러');
-                setAlertMsg('가입 요청에 문제가 발생했습니다')
+                setAlertMsg('알 수 없는 에러가 발생했습니다.');
                 setOpen(true);
             }
-
         }
     }
     useEffect(() => {

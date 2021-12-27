@@ -214,14 +214,14 @@ function PostCard(props) {
 
     return (
         <Wrapper>
-            {props.feed &&
-            <Container borderColor={props.feed.emotion.color} onClick={props.onClick}>
+            {props.post &&
+            <Container borderColor={props.post.emotion?.color || "#FFFFFF"} onClick={props.onClick}>
                 <Info>
-                    {props.feed && <EmotionTag emotion={props.feed.emotion}/>}
-                    <Nickname hideEmotion={props.feed.emotion ? false : true}>{props.feed.nickname}</Nickname>
-                    <Date>{props.feed.date}</Date>
+                    {props.post.emotion && <EmotionTag emotion={props.post.emotion}/>}
+                    <Nickname hideEmotion={!props.post.emotion}>{props.post.nickname}</Nickname>
+                    <Date>{props.post.date}</Date>
                 </Info>
-                <Content>{props.feed.content}</Content>
+                <Content>{props.post.content}</Content>
                 <Icons>
                     {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>}
                     {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E" onClick={onBlur}/>}
@@ -231,7 +231,7 @@ function PostCard(props) {
             </Container>
             }
             {/* 모달 */}
-            {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.feed?.diaryId}/></DropDownContainer>}
+            {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.post?.diaryId}/></DropDownContainer>}
             <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButtonFunc={alertInfo.firstButtonFunc}/>
             <Reasons title={reportInfo.title} options={reportInfo.options} isOpen={reportInfo.isOpen} setOpen={setReportOpen} firstButton={reportInfo.firstButton} firstButtonFunc={reportInfo.firstButtonFunc} secondButton={reportInfo.secondButton} reportReason={reportReason} setReportReason={setReportReason}/>
         </Wrapper>
@@ -260,11 +260,16 @@ const Container = styled.div`
     border-radius: 5px;
     transition: border 300ms, opacity 300ms;
     cursor: default;
+    
     &:hover {
         border: 1px solid ${props => props.borderColor || "#ffffff"};
     }
     &:active {
         opacity: 0.7;
+    }
+
+    @media only screen and (max-width: 768px) {
+        padding: 20px 25px;
     }
 `
 
@@ -273,6 +278,12 @@ const Info = styled.div`
     flex-flow: row nowrap;
     align-items: center;
     width: 100%;
+
+    @media only screen and (max-width: 768px) {
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        gap: 5px;
+    }
 `
 
 const Nickname = styled.span`
@@ -281,10 +292,14 @@ const Nickname = styled.span`
     font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
+
+    @media only screen and (max-width: 768px) {
+        margin-left: unset;
+    }
 `
 
 const Date = styled.span`
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #ffffff;
 `
 
@@ -292,7 +307,7 @@ const Content = styled.p`
     display: -webkit-box;
     margin: 0;
     width: 80%;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #ffffff;
     line-height: 2;
     height: 6em;

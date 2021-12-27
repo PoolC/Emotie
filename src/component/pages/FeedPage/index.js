@@ -19,7 +19,7 @@ function FeedPage(props) {
     const [feeds, setFeeds] = useState(() => JSON.parse(window.localStorage.getItem("feeds")) || []);
     const [page, setPage] = useState(() => JSON.parse(window.localStorage.getItem("page")) || 0);
 
-    const goDetailPage = () => props.history.push('/profile/post/:1');
+    const goDetailPage = (diaryId) => props.history.push(`/profile/post/${diaryId}`);
     const goToTop = () => window.scrollTo(0, 0);
     const goWritePage = () => props.history.push('/write');
 
@@ -64,7 +64,7 @@ function FeedPage(props) {
             <Header search recommend/>
             <PostList>
                 {feeds.map((feed, index) => 
-                    <PostCard key={index} feed={feed} share blur report onClick={goDetailPage} category="diary"/>
+                    <PostCard key={index} post={feed} share blur report onClick={() => goDetailPage(feed.diaryId)} category="diary"/>
                 )}
                 {/* {feeds} */}
             </PostList>

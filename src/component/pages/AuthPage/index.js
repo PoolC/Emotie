@@ -23,21 +23,12 @@ function AuthPage(props) {
 
     const [step, setStep] = useState(false);
 
-    const [email, setEmail] = useState('');
-    const [token, setToken] = useState('');
+    const query = queryString.parse(props.location.search);
 
-    // const url = window.location.href;
-    // const split=url.split("=");
-    // const token=split[2];
-    // const email=(split[1].split("&"))[0];
+    const [email, setEmail] = useState(query.email);
+    const [token, setToken] = useState(query.authorizationToken);
 
-
-    const tokenRequest = () => {
-        const query = queryString.parse(props.location.search);
-        setEmail(query.email);
-        setToken(query.authorizationCode);
-    
-
+    const tokenRequest = () => {    
         api.activateAccount(email, token)
             .then(() => {
                 setStep(true);
@@ -77,6 +68,8 @@ function AuthPage(props) {
             });
 
     }
+
+    window.onload=tokenRequest();
 
     useEffect(() => {
         tokenRequest();
