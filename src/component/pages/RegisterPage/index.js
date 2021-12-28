@@ -7,6 +7,7 @@ import PillInput from "../../common/PillInput";
 import CheckBox from "../../common/CheckBox";
 import SelectGroup from "../../common/SelectGroup";
 import Alert from "../../common/modal/Alert";
+import Progress from "../../common/modal/Progress";
 import Term from "./component"
 
 import * as api from "../../../utils/api";
@@ -38,6 +39,9 @@ function RegisterPage(props) {
     const [isSubmitOpen, setSubmitOpen] = useState(false);
 
     const [isTermOpen, setTermOpen] = useState(false);
+
+    const [fullscreen, setFullscreen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -122,12 +126,14 @@ function RegisterPage(props) {
     }
 
     const registIn = () => {
-        console.log(dateOfBirth);
+        setLoading(true);
         api.register(nickname, password, rePassword, gender, dateOfBirth, email)
             .then(() => {
+                setLoading(false);
                 setSubmitOpen(true);
             })
             .catch(error => {
+                setLoading(false);
                 if (error.response) {
                     // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
                     if (error.response && error.response.status === 401) {
@@ -172,8 +178,15 @@ function RegisterPage(props) {
     }
 
     const duplicateCheck = () => {
+        if (nickname.length === 0) {
+            setAlertMsg('별명을 입력하세요');
+            setOpen(true);
+            return;
+        }
+        setLoading(true);
         api.checkNicknameDuplicated(nickname)
             .then(response => {
+                setLoading(false);
                 if (response.data.checkNickname === true) {
                     setNicknameChecked(true);
                     setAlertTitle('알림');
@@ -186,6 +199,7 @@ function RegisterPage(props) {
                 }
             })
             .catch(error => {
+                setLoading(false);
                 if (error.response===400) {
                     setAlertTitle(error.response.status);
                     setAlertMsg('올바르지 않은 별명 형식입니다');
@@ -266,6 +280,7 @@ function RegisterPage(props) {
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen}></Alert>
             <Alert message={alertMsg} title={alertTitle} isOpen={isOpen} setOpen={setOpen}></Alert>
             <Alert title="인증 메일 발송" message="해당 이메일로 인증 메일이 발송되었습니다. 인증 후 계정이 활성화 됩니다" isOpen={isSubmitOpen} setOpen={setSubmitOpen} firstButtonFunc={() => goLoginPage()} />
+            <Progress isInProgress={loading} fullscreen={true}></Progress>
             <Term isOpen={isTermOpen} setOpen={setTermOpen}></Term>
         </Container>
     );
