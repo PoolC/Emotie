@@ -48,7 +48,7 @@ function WritePage(props) {
             setSelectEmotionOpen(true);
         }
         else {
-            api.uploadPost(emotions[tagId].key, content, !isPrivate)
+            api.uploadPost(emotions[tagId].tag, content, !isPrivate)
             .then(response => {
                 console.log(response.data);
                 setSubmitOpen(true);
