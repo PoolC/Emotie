@@ -11,6 +11,7 @@ import Alert from './modal/Alert';
 import Reasons from './modal/Reasons';
 
 import * as api from "../../utils/api";
+import server from '../../utils/server';
 
 function PostCard(props) {
     const options = [
@@ -66,56 +67,54 @@ function PostCard(props) {
 
     function reportAlert() {
         console.log("신고성공");
-        // if(props.category === "diary") {
-        //     api.reportDiary(props.id, reportInfo.options[reportReason])
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "마음글 신고 성공",
-        //             message: "신고가 완료되었습니다.",
-        //             firstButtonFunc: window.location.reload
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "마음글 신고 실패",
-        //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: window.location.reload
-        //             });     
-        //         }   
-        //     });
-        // }
-        // else if(props.category === "guestbook") {
-        //     api.reportGuestbook(props.id, reportInfo.options[reportReason])
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "방명록 신고 성공",
-        //             message: "신고가 완료되었습니다.",
-        //             firstButtonFunc: window.location.reload
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "방명록 신고 실패",
-        //                 message: "해당 방명록이 존재하지 않습니다.",
-        //                 firstButtonFunc: window.location.reload
-        //             });
-        //         }
-        //     });
-        // }
+        if(props.category === "diary") {
+            api.reportDiary(props.post.diaryId, reportInfo.options[reportReason])
+            .then(response => {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "마음글 신고 성공",
+                    message: "신고가 완료되었습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                });
+            })
+            .catch(error => {
+                if(error.response && error.response.status === 404) {
+                    setAlertInfo({
+                        isOpen: true,
+                        title: "마음글 신고 실패",
+                        message: "해당 마음글이 존재하지 않습니다.",
+                        firstButtonFunc: () => window.location.reload()
+                    });     
+                }   
+            });
+        }
+        else if(props.category === "guestbook") {
+            api.reportGuestbook(props.post.guestbookId, reportInfo.options[reportReason])
+            .then(response => {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "방명록 신고 성공",
+                    message: "신고가 완료되었습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                });
+            })
+            .catch(error => {
+                if(error.response && error.response.status === 404) {
+                    setAlertInfo({
+                        isOpen: true,
+                        title: "방명록 신고 실패",
+                        message: "해당 방명록이 존재하지 않습니다.",
+                        firstButtonFunc: () => window.location.reload()
+                    });
+                }
+            });
+        }
     };
 
     function onShare(event) {
         event.stopPropagation();
        
-        const url = `http://localhost:3000/profile/${1}/post/${props.id}`
+        const url = `${server.defaults.baseURL}/profile/post/${props.post.diaryId}`
         navigator.clipboard.writeText(url);
         setAlertInfo({
             isOpen: true,
@@ -129,28 +128,27 @@ function PostCard(props) {
 
     function onBlur(event) {
         event.stopPropagation();
-        // if(props.category === "diary") {
-        //     api.blur(props.id)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "마음글 숨기기 성공",
-        //             message: "숨기기가 완료되었습니다.",
-        //             firstButtonFunc: window.location.reload
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "마음글 숨기기 실패",
-        //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: window.location.reload
-        //             }); 
-        //         }   
-        //     });
-        // }
+        if(props.category === "diary") {
+            api.blur(props.post.diaryId)
+            .then(response => {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "마음글 숨기기 성공",
+                    message: "숨기기가 완료되었습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                });
+            })
+            .catch(error => {
+                if(error.response && error.response.status === 404) {
+                    setAlertInfo({
+                        isOpen: true,
+                        title: "마음글 숨기기 실패",
+                        message: "해당 마음글이 존재하지 않습니다.",
+                        firstButtonFunc: () => window.location.reload()
+                    }); 
+                }   
+            });
+        }
 
         console.log("blur");
     }
@@ -164,50 +162,48 @@ function PostCard(props) {
 
     function onDelete(event) {
         event.stopPropagation();
-        // if(props.category === "diary") {
-        //     api.deleteDiary(props.id)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "마음글 삭제 성공",
-        //             message: "삭제가 완료되었습니다.",
-        //             firstButtonFunc: window.location.reload
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "마음글 삭제 실패",
-        //                 message: "해당 마음글이 존재하지 않습니다.",
-        //                 firstButtonFunc: window.location.reload
-        //             });       
-        //         }   
-        //     });
-        // }
-        // else if(props.category === "guestbook") {
-        //     api.deleteGuestbook(props.id)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         setAlertInfo({
-        //             isOpen: true,
-        //             title: "방명록 삭제 성공",
-        //             message: "삭제가 완료되었습니다.",
-        //             firstButtonFunc: window.location.reload
-        //         });
-        //     })
-        //     .catch(error => {
-        //         if(error.response && error.response.status === 404) {
-        //             setAlertInfo({
-        //                 isOpen: true,
-        //                 title: "방명록 삭제 실패",
-        //                 message: "해당 방명록이 존재하지 않습니다.",
-        //                 firstButtonFunc: window.location.reload
-        //             });
-        //         }
-        //     });
-        // }
+        if(props.category === "diary") {
+            api.deleteDiary(props.post.diaryId)
+            .then(response => {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "마음글 삭제 성공",
+                    message: "삭제가 완료되었습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                });
+            })
+            .catch(error => {
+                if(error.response && error.response.status === 404) {
+                    setAlertInfo({
+                        isOpen: true,
+                        title: "마음글 삭제 실패",
+                        message: "해당 마음글이 존재하지 않습니다.",
+                        firstButtonFunc: () => window.location.reload()
+                    });       
+                }   
+            });
+        }
+        else if(props.category === "guestbook") {
+            api.deleteGuestbook(props.post.guestbookId)
+            .then(response => {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "방명록 삭제 성공",
+                    message: "삭제가 완료되었습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                });
+            })
+            .catch(error => {
+                if(error.response && error.response.status === 404) {
+                    setAlertInfo({
+                        isOpen: true,
+                        title: "방명록 삭제 실패",
+                        message: "해당 방명록이 존재하지 않습니다.",
+                        firstButtonFunc: () => window.location.reload()
+                    });
+                }
+            });
+        }
 
         console.log("delete");
     }
