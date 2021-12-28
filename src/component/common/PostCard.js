@@ -37,7 +37,6 @@ function PostCard(props) {
         isOpen: false,
         title: "Alert",
         message: "alert message",
-        firstButtonFunc: null
     });
 
     const [reportInfo, setReportInfo] = useState({
@@ -66,7 +65,6 @@ function PostCard(props) {
     }
 
     function reportAlert() {
-        console.log("신고성공");
         if(props.category === "diary") {
             api.reportDiary(props.post.diaryId, reportInfo.options[reportReason])
             .then(response => {
@@ -119,93 +117,117 @@ function PostCard(props) {
         setAlertInfo({
             isOpen: true,
             title: "마음글 공유 성공",
-            message: "마음글 공유 url을 복사하였습니다.",
-            firstButtonFunc: null
+            message: "마음글 공유 url을 복사하였습니다."
         });
-
-        console.log("share");
     }
 
     function onBlur(event) {
         event.stopPropagation();
         if(props.category === "diary") {
-            api.blur(props.post.diaryId)
-            .then(response => {
-                setAlertInfo({
-                    isOpen: true,
-                    title: "마음글 숨기기 성공",
-                    message: "숨기기가 완료되었습니다.",
-                    firstButtonFunc: () => window.location.reload()
-                });
-            })
-            .catch(error => {
-                if(error.response && error.response.status === 404) {
-                    setAlertInfo({
-                        isOpen: true,
-                        title: "마음글 숨기기 실패",
-                        message: "해당 마음글이 존재하지 않습니다.",
-                        firstButtonFunc: () => window.location.reload()
-                    }); 
-                }   
+            setAlertInfo({
+                isOpen: true,
+                title: "마음글 숨기기",
+                message: "정말 해당 마음글을 숨기시겠습니까?",
+                firstButton: "숨기기",
+                firstButtonFunc: blurAlert,
+                secondButton: "취소"
             });
         }
+    }
 
-        console.log("blur");
+    function blurAlert() {
+        api.blur(props.post.diaryId)
+        .then(response => {
+            setAlertInfo({
+                isOpen: true,
+                title: "마음글 숨기기 성공",
+                message: "숨기기가 완료되었습니다.",
+                firstButtonFunc: () => window.location.reload()
+            });
+        })
+        .catch(error => {
+            if(error.response && error.response.status === 404) {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "마음글 숨기기 실패",
+                    message: "해당 마음글이 존재하지 않습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                }); 
+            }   
+        });
     }
 
     function onReport(event) {
         event.stopPropagation();
         setReportOpen(true);
-
-        console.log("report");
     }
 
     function onDelete(event) {
         event.stopPropagation();
         if(props.category === "diary") {
-            api.deleteDiary(props.post.diaryId)
-            .then(response => {
-                setAlertInfo({
-                    isOpen: true,
-                    title: "마음글 삭제 성공",
-                    message: "삭제가 완료되었습니다.",
-                    firstButtonFunc: () => window.location.reload()
-                });
-            })
-            .catch(error => {
-                if(error.response && error.response.status === 404) {
-                    setAlertInfo({
-                        isOpen: true,
-                        title: "마음글 삭제 실패",
-                        message: "해당 마음글이 존재하지 않습니다.",
-                        firstButtonFunc: () => window.location.reload()
-                    });       
-                }   
+            setAlertInfo({
+                isOpen: true,
+                title: "마음글 삭제",
+                message: "정말 해당 마음글을 삭제하시겠습니까?",
+                firstButton: "삭제",
+                firstButtonFunc: deleteDiaryAlert,
+                secondButton: "취소"
             });
         }
         else if(props.category === "guestbook") {
-            api.deleteGuestbook(props.post.guestbookId)
-            .then(response => {
-                setAlertInfo({
-                    isOpen: true,
-                    title: "방명록 삭제 성공",
-                    message: "삭제가 완료되었습니다.",
-                    firstButtonFunc: () => window.location.reload()
-                });
-            })
-            .catch(error => {
-                if(error.response && error.response.status === 404) {
-                    setAlertInfo({
-                        isOpen: true,
-                        title: "방명록 삭제 실패",
-                        message: "해당 방명록이 존재하지 않습니다.",
-                        firstButtonFunc: () => window.location.reload()
-                    });
-                }
+            setAlertInfo({
+                isOpen: true,
+                title: "방명록 삭제",
+                message: "정말 해당 방명록을 삭제하시겠습니까?",
+                firstButton: "삭제",
+                firstButtonFunc: deleteGuestbookAlert,
+                secondButton: "취소"
             });
         }
+    }
 
-        console.log("delete");
+    function deleteDiaryAlert() {
+        api.deleteDiary(props.post.diaryId)
+        .then(response => {
+            setAlertInfo({
+                isOpen: true,
+                title: "마음글 삭제 성공",
+                message: "삭제가 완료되었습니다.",
+                firstButtonFunc: () => window.location.reload()
+            });
+        })
+        .catch(error => {
+            if(error.response && error.response.status === 404) {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "마음글 삭제 실패",
+                    message: "해당 마음글이 존재하지 않습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                });       
+            }   
+        });
+    }
+
+    function deleteGuestbookAlert() {
+        api.deleteGuestbook(props.post.guestbookId)
+        .then(response => {
+            setAlertInfo({
+                isOpen: true,
+                title: "방명록 삭제 성공",
+                message: "삭제가 완료되었습니다.",
+                firstButtonFunc: () => window.location.reload()
+            });
+        })
+        .catch(error => {
+            if(error.response && error.response.status === 404) {
+                setAlertInfo({
+                    isOpen: true,
+                    title: "방명록 삭제 실패",
+                    message: "해당 방명록이 존재하지 않습니다.",
+                    firstButtonFunc: () => window.location.reload()
+                });
+            }
+        });
     }
 
     return (
@@ -228,7 +250,7 @@ function PostCard(props) {
             }
             {/* 모달 */}
             {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.post?.diaryId}/></DropDownContainer>}
-            <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButtonFunc={alertInfo.firstButtonFunc}/>
+            <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButton={alertInfo.firstButton} firstButtonFunc={alertInfo.firstButtonFunc} secondButton={alertInfo.secondButton} secondButtonInfo={alertInfo.secondButtonFunc}/>
             <Reasons title={reportInfo.title} options={reportInfo.options} isOpen={reportInfo.isOpen} setOpen={setReportOpen} firstButton={reportInfo.firstButton} firstButtonFunc={reportInfo.firstButtonFunc} secondButton={reportInfo.secondButton} reportReason={reportReason} setReportReason={setReportReason}/>
         </Wrapper>
     );
