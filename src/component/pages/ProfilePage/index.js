@@ -21,9 +21,9 @@ function ProfilePage(props) {
 
     // 수정할 수 있는 데이터
     const [tempIntroduction, setTempIntroduction] = useState('');
-    const [tempMotieItems, setTempMotieItems] = useState();
+    const [tempMotie, setTempMotie] = useState('dust');
     useEffect(() => setTempIntroduction(profileInfo.introduction), [profileInfo.introduction]);
-    useEffect(() => setTempMotieItems(profileInfo.motieItems), [profileInfo.motieItems]);
+    useEffect(() => setTempMotie(profileInfo.motie), [profileInfo.motie]);
 
     // 인터페이스
     const [category, setCategory] = useState(0);
@@ -41,7 +41,7 @@ function ProfilePage(props) {
         try {
             await api.editIntroduction(tempIntroduction);
             // await api.editMotieItems(tempMotieItems);
-            setProfileInfo({ ...profileInfo, introduction: tempIntroduction, motieItems: tempMotieItems });
+            setProfileInfo({ ...profileInfo, introduction: tempIntroduction, motie: tempMotie });
             setEditable(false);
         }
         catch(error) {
@@ -51,7 +51,7 @@ function ProfilePage(props) {
     };
     const cancelEdit = () => {
         setTempIntroduction(profileInfo.introduction);
-        setTempMotieItems(profileInfo.motieItems);
+        setTempMotie(profileInfo.motie);
         setEditable(false);
     }
     const write = () => props.history.push(`/write`);
@@ -83,8 +83,7 @@ function ProfilePage(props) {
             <Element.Header/>
             {/* 모티 */}
             <Group.Motie 
-                motie={profileInfo.motie} motieItems={tempMotieItems} 
-                setTempMotieItems={setTempMotieItems}
+                motie={tempMotie} setTempMotie={setTempMotie}
                 isEditable={isEditable}/>
             {/* 내용 */}
             <Container.Content>

@@ -18,8 +18,6 @@ export const MotieLayout = styled.div`
     position: relative;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
     width: 35%;
     margin: 90px 0;
     z-index: 15;
@@ -30,9 +28,26 @@ export const MotieLayout = styled.div`
         margin: 60px 0 0 0;
     }
 `
-export const MotieEditWrapper = styled.div`
-    position: absolute;
-    bottom: 0;
+export const MotieFrameFlex = styled.div`
+    display: flex;
+    flex: 1 1 0;
+    justify-content: center;
+    align-items: center;
+`
+export const MotieSelector = styled.div`
+    display: flex;
+    height: ${props => props.isEditable ? "130px" : "0px"};
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    transition: height ease 300ms;
+
+    @media only screen and (max-width: 768px) {
+        height: ${props => props.isEditable ? "100px" : "0px"};
+        padding: 0 30px;
+    }
 `
 
 export const ContentLayout = styled.div`
