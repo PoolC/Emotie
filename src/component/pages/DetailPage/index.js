@@ -14,7 +14,6 @@ import * as api from "../../../utils/api";
 function DetailPage(props) {
     const { postId } = useParams();
     const [loading, setLoading] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
 
     // const [diary, setDiary] = useState(true);
     const [diary, setDiary] = useState(false);
@@ -31,12 +30,59 @@ function DetailPage(props) {
     const goFeedPage = () => props.history.push('/feed');
 
 
-    async function FetchDiary() {
+    // async function FetchDiary() {
+    //     console.log(postId);
+    //     try {
+    //         setLoading(true);
+    //         setFullscreen(true);
+    //         const response = await api.getDiary(postId);
+    //         setNickname(response.data.nickname);
+    //         setEmotion(response.data.emotion);
+    //         setContent(response.data.content);
+    //         const datetime = response.data.date;
+    //         const datesplit = datetime.split[' '];
+    //         setDate(datesplit[0]);
+    //         setLoading(false);
+    //         setFullscreen(false);
+    //         setDiary(true);
+    //     }
+    //     catch (error) {
+    //         setLoading(false);
+    //         setFullscreen(false);
+    //         if (error.response) {
+    //             // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
+    //             if (error.response.status === 403) {
+    //                 setAlertTitle(error.response.status);
+    //                 setAlertMsg('비공개 게시물입니다');
+    //                 setOpen(true);
+    //             } else if (error.response.status === 404) {
+    //                 setAlertTitle(error.response.status);
+    //                 setAlertMsg('존재하지 않는 게시물입니다');
+    //                 setOpen(true);
+    //             } else {
+    //                 setAlertTitle(error.response.status);
+    //                 setAlertMsg('알 수 없는 에러가 발생했습니다.');
+    //                 setOpen(true);
+    //             }
+    //         }
+    //         else if (error.request) {
+    //             // 요청이 이루어 졌으나 응답을 받지 못함
+    //             setAlertTitle('에러');
+    //             setAlertMsg('서버에서 응답이 오지 않습니다.');
+    //             setOpen(true);
+    //         }
+    //         else {
+    //             setAlertTitle('에러');
+    //             setAlertMsg('알 수 없는 에러가 발생했습니다.');
+    //             setOpen(true);
+    //         }
+    //     }
+    // }
+        const FetchDiary=()=> {
         console.log(postId);
-        try {
-            setLoading(true);
-            setFullscreen(true);
-            const response = await api.getDiary(postId);
+        setLoading(true);
+        api.getDiary(postId)
+        .then((response)=>{
             setNickname(response.data.nickname);
             setEmotion(response.data.emotion);
             setContent(response.data.content);
@@ -44,12 +90,10 @@ function DetailPage(props) {
             const datesplit = datetime.split[' '];
             setDate(datesplit[0]);
             setLoading(false);
-            setFullscreen(false);
             setDiary(true);
-        }
-        catch (error) {
+        })
+        .catch (error=> {
             setLoading(false);
-            setFullscreen(false);
             if (error.response) {
                 // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
                 if (error.response.status === 403) {
@@ -77,7 +121,7 @@ function DetailPage(props) {
                 setAlertMsg('알 수 없는 에러가 발생했습니다.');
                 setOpen(true);
             }
-        }
+        });
     }
     useEffect(() => {
         FetchDiary(postId);
@@ -106,7 +150,7 @@ function DetailPage(props) {
                     </Wrapper>
                 </>
             }
-            <Progress isInProgress={loading} fullscreen={fullscreen} />
+            <Progress isInProgress={loading} fullscreen={true} />
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen} firstButtonFunc={goFeedPage}></Alert>
         </Container>
     );
