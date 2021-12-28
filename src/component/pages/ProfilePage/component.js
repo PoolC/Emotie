@@ -4,7 +4,7 @@ import * as api from "../../../utils/api";
 
 import { 
     BaseLayout,
-    MotieLayout, MotieEditWrapper, 
+    MotieLayout, MotieFrameFlex, MotieSelector,
     ContentLayout, ProfileLayout, 
     InfoLayout, Nickname, DescriptionWrapper, Description, DescriptionCount, 
     MenuLayout, StateLayout, State,
@@ -19,6 +19,9 @@ import PillShadowButton from "../../common/PillShadowButton";
 import PostCard from "../../common/PostCard";
 import IconButton from "../../common/IconButton";
 import { IoPencil } from "react-icons/io5";
+
+import defaultMotie from "../../../image/CharacterImg/dust.png";
+import MotieCard from "../../common/card/MotieCard";
 
 export const Container = {
     Base: function(props) {
@@ -36,8 +39,17 @@ export const Group = {
     Motie: function(props) {
         return (
             <MotieLayout>
-                {props.isEditable && <MotieEditWrapper><PillShadowButton>모티 꾸미기</PillShadowButton></MotieEditWrapper>}
-                <MotieFrame motie={props.motie} motieItems={props.motieItems}/>
+                <MotieFrameFlex>
+                    <img width="200px" height="200px" src={defaultMotie}/>
+                    {/* <MotieFrame motie={props.motie} motieItems={props.motieItems}/> */}
+                </MotieFrameFlex>
+                <MotieSelector isEditable={props.isEditable}>
+                    <MotieCard motie="dust" selected/>
+                    <MotieCard motie="dust"/>
+                    <MotieCard motie="dust"/>
+                    <MotieCard motie="dust"/>
+                    <MotieCard motie="dust"/>
+                </MotieSelector>
             </MotieLayout>
         );
     },
