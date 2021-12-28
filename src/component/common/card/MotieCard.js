@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
 import dust from "../../../image/CharacterImg/dust.png";
+import dust2 from "../../../image/CharacterImg/dust.png";
+import bear from "../../../image/CharacterImg/dust.png";
+import cat from "../../../image/CharacterImg/dust.png";
+import dog from "../../../image/CharacterImg/dust.png";
+import heart from "../../../image/CharacterImg/dust.png";
+import slime from "../../../image/CharacterImg/dust.png";
 
 function MotieCard(props) {
     let motieImage = dust;
@@ -9,6 +15,24 @@ function MotieCard(props) {
     switch (motieName) {
         case "dust":
             motieImage = dust;
+            break;
+        case "dust2":
+            motieImage = dust2;
+            break;
+        case "bear":
+            motieImage = bear;
+            break;
+        case "cat":
+            motieImage = cat;
+            break;
+        case "dog":
+            motieImage = dog;
+            break;
+        case "heart":
+            motieImage = heart;
+            break;
+        case "slime":
+            motieImage = slime;
             break;
     }
 
@@ -24,21 +48,26 @@ export default MotieCard;
 const Container = styled.div`
     display: flex;
     flex: 0 0 auto;
-    width: 148px;
-    height: 148px;
-    padding: 20px;
+    width: 128px;
+    height: 128px;
+    padding: 15px;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    border: 1px solid ${props => props.selected ? "white" : "transparent"};
+    border: 1px solid ${props => props.selected ? "black" : "transparent"};
     border-radius: 10px;
 
     &:hover {
-        border: 1px solid white;
+        border: 1px solid gray;
     }
-
     &:active {
         opacity: 0.6;
+    }
+
+    @media only screen and (max-width: 768px) {
+        width: 98px;
+        height: 98px;
+        padding: 10px;
     }
 `
 const Image = styled.img`

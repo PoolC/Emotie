@@ -20,7 +20,6 @@ import PostCard from "../../common/PostCard";
 import IconButton from "../../common/IconButton";
 import { IoPencil } from "react-icons/io5";
 
-import defaultMotie from "../../../image/CharacterImg/dust.png";
 import MotieCard from "../../common/card/MotieCard";
 
 export const Container = {
@@ -40,15 +39,16 @@ export const Group = {
         return (
             <MotieLayout>
                 <MotieFrameFlex>
-                    <img width="200px" height="200px" src={defaultMotie}/>
-                    {/* <MotieFrame motie={props.motie} motieItems={props.motieItems}/> */}
+                    <MotieFrame motie={props.motie}/>
                 </MotieFrameFlex>
                 <MotieSelector isEditable={props.isEditable}>
-                    <MotieCard motie="dust" selected/>
-                    <MotieCard motie="dust"/>
-                    <MotieCard motie="dust"/>
-                    <MotieCard motie="dust"/>
-                    <MotieCard motie="dust"/>
+                    <MotieCard motie="dust" selected={props.motie === "dust"} onClick={() => props.setTempMotie("dust")}/>
+                    <MotieCard motie="dust2" selected={props.motie === "dust2"} onClick={() => props.setTempMotie("dust2")}/>
+                    <MotieCard motie="bear" selected={props.motie === "bear"} onClick={() => props.setTempMotie("bear")}/>
+                    <MotieCard motie="cat" selected={props.motie === "cat"} onClick={() => props.setTempMotie("cat")}/>
+                    <MotieCard motie="dog" selected={props.motie === "dog"} onClick={() => props.setTempMotie("dog")}/>
+                    <MotieCard motie="heart" selected={props.motie === "heart"} onClick={() => props.setTempMotie("heart")}/>
+                    <MotieCard motie="slime" selected={props.motie === "slime"} onClick={() => props.setTempMotie("slime")}/>
                 </MotieSelector>
             </MotieLayout>
         );

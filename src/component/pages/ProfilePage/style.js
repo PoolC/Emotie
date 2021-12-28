@@ -36,12 +36,18 @@ export const MotieFrameFlex = styled.div`
 `
 export const MotieSelector = styled.div`
     display: flex;
+    height: ${props => props.isEditable ? "130px" : "0px"};
     flex-flow: row nowrap;
     justify-content: flex-start;
     overflow-x: scroll;
     overflow-y: hidden;
-    height: ${props => props.isEditable ? "150px" : "0px"};
+    box-sizing: border-box;
     transition: height ease 300ms;
+
+    @media only screen and (max-width: 768px) {
+        height: ${props => props.isEditable ? "100px" : "0px"};
+        padding: 0 30px;
+    }
 `
 
 export const ContentLayout = styled.div`
