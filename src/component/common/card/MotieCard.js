@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 import dust from "../../../image/CharacterImg/dust.png";
-import dust2 from "../../../image/CharacterImg/dust.png";
-import bear from "../../../image/CharacterImg/dust.png";
-import cat from "../../../image/CharacterImg/dust.png";
-import dog from "../../../image/CharacterImg/dust.png";
-import heart from "../../../image/CharacterImg/dust.png";
-import slime from "../../../image/CharacterImg/dust.png";
+import dust2 from "../../../image/CharacterImg/dust2.png";
+import bear from "../../../image/CharacterImg/bear.png";
+import cat from "../../../image/CharacterImg/cat.png";
+import dog from "../../../image/CharacterImg/dog.png";
+import heart from "../../../image/CharacterImg/heart.png";
+import slime from "../../../image/CharacterImg/slime.png";
 
 function MotieCard(props) {
     let motieImage = dust;
