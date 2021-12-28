@@ -39,8 +39,7 @@ function ProfilePage(props) {
     const startEdit = () => setEditable(true);
     const saveEdit = async () => {
         try {
-            await api.editIntroduction(tempIntroduction);
-            // await api.editMotieItems(tempMotieItems);
+            await api.editProfile(tempIntroduction, tempMotie);
             setProfileInfo({ ...profileInfo, introduction: tempIntroduction, motie: tempMotie });
             setEditable(false);
         }
