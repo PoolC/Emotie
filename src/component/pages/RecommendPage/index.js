@@ -13,7 +13,7 @@ const emotions = [{color:"#FFF27D", tag:"기쁨"}, {color:"#FF855E", tag:"화남
 
 function RecommendPage(props) {
     const [loading, setLoading] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
+    const [fullscreen, setFullscreen] = useState(true);
     // const [recommends, setRecommends] = useState(null);
 
     const goProfilePage = (index) => props.history.push(`/profile/:${index}`);

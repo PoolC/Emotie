@@ -15,8 +15,6 @@ export const Container = styled.div`
 `
 export const Gap = styled.div`
     gap:10px;
-    @media only screen and (max-width: 768px) {
-    }
 `
 
 export const InputGroup = styled.div`
