@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import { Container, Profile, Post, ProfileWrapper, ProfileButton, Wrapper, Info, Nickname, Date, Content } from "./style";
+import { Container, Profile, Post, ProfileWrapper, ProfileButton, Wrapper, Info, Nickname, Date, Content, UrlArea} from "./style";
 import Header from "../../common/Header";
 import EmotionTag from '../../common/EmotionTag';
 import IconButton from '../../common/IconButton';
@@ -27,22 +27,27 @@ function DetailPage(props) {
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
+    const [copyOpen, setCopyOpen] = useState(false);
+
+    const [share, setShare] = useState(false);
 
     const goFeedPage = () => props.history.push('/feed');
 
+    const url = React.useRef();
 
     async function FetchDiary() {
+        console.log("what");
         console.log(postId);
         try {
             setLoading(true);
             setFullscreen(true);
             const response = await api.getDiary(postId);
+            console.log(response);
             setNickname(response.data.nickname);
             setEmotion(response.data.emotion);
             setContent(response.data.content);
-            const datetime = response.data.date;
-            const datesplit = datetime.split[' '];
-            setDate(datesplit[0]);
+            setDate(response.data.date);
+
             setLoading(false);
             setFullscreen(false);
             setDiary(true);
@@ -51,7 +56,6 @@ function DetailPage(props) {
             setLoading(false);
             setFullscreen(false);
             if (error.response) {
-                // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
                 if (error.response.status === 403) {
                     setAlertTitle(error.response.status);
                     setAlertMsg('비공개 게시물입니다');
@@ -108,13 +112,17 @@ function DetailPage(props) {
             }
             <Progress isInProgress={loading} fullscreen={fullscreen} />
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen} firstButtonFunc={goFeedPage}></Alert>
+            <Alert isOpen={copyOpen} message="게시물 링크가 클립보드에 복사되었습니다" setOpen={setCopyOpen}></Alert>
+            {share&&<UrlArea ref={url} value={window.document.location.href}></UrlArea>}
         </Container>
     );
-    function onShare(event) {
-        event.stopPropagation();
-        console.log("share");
+    async function onShare() {
+        await setShare(true);
+        url.current.select();
+        document.execCommand('copy');
+        url.current.blur();
+
+        setCopyOpen(true);
     }
-
 }
-
 export default DetailPage;

@@ -98,3 +98,8 @@ export const Content = styled.p`
     line-height: 2;
     word-wrap: break-word;
 `
+
+export const UrlArea = styled.textarea`
+    position:absolute;
+    z-index:-1;    
+`
