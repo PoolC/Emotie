@@ -59,8 +59,8 @@ const Frame = styled.div`
 
 const Character = styled.img`
     position: absolute;
-    width: 90%;
-    aspect-ratio: 1/1;
+    max-width: 90%;
+    max-height: 90%;
 `
 
 const Eyes = styled.img`
