@@ -100,5 +100,6 @@ export const Content = styled.p`
 `
 
 export const UrlArea = styled.textarea`
-    display: none;
+    position:absolute;
+    z-index:-1;    
 `

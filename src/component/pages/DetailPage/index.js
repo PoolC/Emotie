@@ -27,8 +27,9 @@ function DetailPage(props) {
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
-
     const [copyOpen, setCopyOpen] = useState(false);
+
+    const [share, setShare] = useState(false);
 
     const goFeedPage = () => props.history.push('/feed');
 
@@ -112,10 +113,11 @@ function DetailPage(props) {
             <Progress isInProgress={loading} fullscreen={fullscreen} />
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen} firstButtonFunc={goFeedPage}></Alert>
             <Alert isOpen={copyOpen} message="게시물 링크가 클립보드에 복사되었습니다" setOpen={setCopyOpen}></Alert>
-            <UrlArea ref={url} value={window.document.location.href}></UrlArea>
+            {share&&<UrlArea ref={url} value={window.document.location.href}></UrlArea>}
         </Container>
     );
-    function onShare() {
+    async function onShare() {
+        await setShare(true);
         url.current.select();
         document.execCommand('copy');
         url.current.blur();
