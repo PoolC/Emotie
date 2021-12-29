@@ -107,19 +107,18 @@ export const Group = {
     GuestbookInput: function(props) {
         const [input, setInput] = useState('');
         const onInputChange = useCallback(event => setInput(event.target.value));
-        const uploadGuestbook = () => {
-            api.uploadGuestbook(props.memberId, input)
-            .then(response => {
-                // TODO : update
-                setInput('');
-            })
-            .catch(error => props.showErrorAlert());
-        }
+
+        const writeGuestbook = () => {
+            if (input === '') return;
+            
+            props.uploadGuestbook(input);
+            setInput('');
+        };
 
         return (props.category === 1 && !props.isProfileMine && 
             <InputLayout isEditable={props.isEditable}>
                 <Input width="100%" placeholder="방명록을 남기세요" value={input} onChange={onInputChange} disabled={props.isEditable}/>
-                <IconButton icon={IoPencil} color="white" size="1rem" onClick={uploadGuestbook}/>
+                <IconButton icon={IoPencil} color="white" size="1rem" onClick={writeGuestbook}/>
             </InputLayout>
         );
     },

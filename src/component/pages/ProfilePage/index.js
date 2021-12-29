@@ -61,6 +61,11 @@ function ProfilePage(props) {
         .then(response => setProfileInfo({ ...profileInfo, followed: response.data.isFollowing }))
         .catch(error => showErrorAlert());
     }
+    const uploadGuestbook = (content) => {
+        api.uploadGuestbook(memberId, content)
+        .then(response => {})
+        .catch(error => showErrorAlert());
+    }
 
     // 클릭 이벤트 (공통)
     const showDiaryPopup = (index) => {
@@ -103,7 +108,8 @@ function ProfilePage(props) {
                         category={category} setCategory={setCategory} 
                         isEditable={isEditable}/>
                     <Group.GuestbookInput 
-                        category={category} memberId={memberId}
+                        category={category}
+                        uploadGuestbook={uploadGuestbook}
                         isProfileMine={isProfileMine} isEditable={isEditable}
                         showErrorAlert={showErrorAlert}/>
                 </Container.Profile>
