@@ -19,7 +19,7 @@ function useProfileGuestbooks(memberId) {
     useEffect(() => {
         getProfileGuestbooks();
         // eslint-disable-next-line
-    }, []);
+    }, [memberId]);
 
     return profileGuestbooks;
 }

@@ -21,7 +21,7 @@ function useProfileInfo(memberId) {
     useEffect(() => {
         getProfileInfo();
         // eslint-disable-next-line
-    }, []);
+    }, [memberId]);
 
     // 자신의 프로필인지 확인
     const myMemberId = useSelector(store => store.user.memberId);

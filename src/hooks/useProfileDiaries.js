@@ -19,7 +19,7 @@ function useProfileDiaries(memberId) {
     useEffect(() => {
         getProfileDiaries();
         // eslint-disable-next-line
-    }, []);
+    }, [memberId]);
 
     return profileDiaries;
 }
