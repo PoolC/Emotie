@@ -39,7 +39,7 @@ export const Group = {
         return (
             <MotieLayout>
                 <MotieFrameFlex>
-                    <MotieFrame motie={props.motie}/>
+                    <MotieFrame motie={props.motie} emotion={props.emotion}/>
                 </MotieFrameFlex>
                 <MotieSelector isEditable={props.isEditable}>
                     <MotieCard motie="dust" selected={props.motie === "dust"} onClick={() => props.setTempMotie("dust")}/>

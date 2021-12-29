@@ -83,6 +83,7 @@ function ProfilePage(props) {
             {/* 모티 */}
             <Group.Motie 
                 motie={tempMotie} setTempMotie={setTempMotie}
+                emotion={[profileInfo.recentEmotion[0]?.tag, profileInfo.recentEmotion[1]?.tag]}
                 isEditable={isEditable}/>
             {/* 내용 */}
             <Container.Content>
