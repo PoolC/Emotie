@@ -41,6 +41,15 @@ function LoginPage(props) {
     const authStatus = useSelector(store => store.auth.status);
     
     useEffect(() => loginStateDetect(authStatus), [authStatus]);
+
+    const login = () => {
+        const payload = {
+            email: id,
+            password: password
+        }
+        dispatch(saga.login(payload));
+    }
+
     const loginStateDetect=(authStatus)=>{
         switch (authStatus) {
             case 'FAILED':
@@ -77,12 +86,11 @@ function LoginPage(props) {
         login();
     }
 
-    const login = () => {
-        const payload = {
-            email: id,
-            password: password
+    const handleKeyPress = (e) => {
+        console.log('press');
+        if(e.key === 'Enter') {
+            detectInput();
         }
-        dispatch(saga.login(payload));
     }
 
     return (
@@ -92,7 +100,7 @@ function LoginPage(props) {
             <Title>Emotie 로그인</Title>
             <Text>Emotie에 오신 걸 환영합니다</Text>
             <PillInput name="id" value={id} onChange={onChange} width="200px" placeholder="이메일" type="text"></PillInput>
-            <PillInput name="password" value={password} onChange={onChange} width="200px" placeholder="비밀번호" type="password"></PillInput>
+            <PillInput name="password" value={password} onChange={onChange} width="200px" placeholder="비밀번호" type="password" onKeyPress={handleKeyPress}></PillInput>
             <PillButton width="260px" onClick={detectInput}>로그인</PillButton>
             <ButtonText onClick={goFindPage}>비밀번호를 잊으셨나요?</ButtonText>
             <Switch onClick={goRegisterPage}>계정이 없으신가요? 가입하기</Switch>
