@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import { Container, Profile, Post, ProfileWrapper, ProfileButton, Wrapper, Info, Nickname, Date, Content } from "./style";
+import { Container, Profile, Post, ProfileWrapper, ProfileButton, Wrapper, Info, Nickname, Date, Content, UrlArea} from "./style";
 import Header from "../../common/Header";
 import EmotionTag from '../../common/EmotionTag';
 import IconButton from '../../common/IconButton';
@@ -14,6 +14,7 @@ import * as api from "../../../utils/api";
 function DetailPage(props) {
     const { postId } = useParams();
     const [loading, setLoading] = useState(false);
+    const [fullscreen, setFullscreen] = useState(false);
 
     // const [diary, setDiary] = useState(true);
     const [diary, setDiary] = useState(false);
@@ -27,75 +28,33 @@ function DetailPage(props) {
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
 
+    const [copyOpen, setCopyOpen] = useState(false);
+
     const goFeedPage = () => props.history.push('/feed');
 
+    const url = React.useRef();
 
-    // async function FetchDiary() {
-    //     console.log(postId);
-    //     try {
-    //         setLoading(true);
-    //         setFullscreen(true);
-    //         const response = await api.getDiary(postId);
-    //         setNickname(response.data.nickname);
-    //         setEmotion(response.data.emotion);
-    //         setContent(response.data.content);
-    //         const datetime = response.data.date;
-    //         const datesplit = datetime.split[' '];
-    //         setDate(datesplit[0]);
-    //         setLoading(false);
-    //         setFullscreen(false);
-    //         setDiary(true);
-    //     }
-    //     catch (error) {
-    //         setLoading(false);
-    //         setFullscreen(false);
-    //         if (error.response) {
-    //             // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
-    //             if (error.response.status === 403) {
-    //                 setAlertTitle(error.response.status);
-    //                 setAlertMsg('비공개 게시물입니다');
-    //                 setOpen(true);
-    //             } else if (error.response.status === 404) {
-    //                 setAlertTitle(error.response.status);
-    //                 setAlertMsg('존재하지 않는 게시물입니다');
-    //                 setOpen(true);
-    //             } else {
-    //                 setAlertTitle(error.response.status);
-    //                 setAlertMsg('알 수 없는 에러가 발생했습니다.');
-    //                 setOpen(true);
-    //             }
-    //         }
-    //         else if (error.request) {
-    //             // 요청이 이루어 졌으나 응답을 받지 못함
-    //             setAlertTitle('에러');
-    //             setAlertMsg('서버에서 응답이 오지 않습니다.');
-    //             setOpen(true);
-    //         }
-    //         else {
-    //             setAlertTitle('에러');
-    //             setAlertMsg('알 수 없는 에러가 발생했습니다.');
-    //             setOpen(true);
-    //         }
-    //     }
-    // }
-        const FetchDiary=()=> {
+    async function FetchDiary() {
+        console.log("what");
         console.log(postId);
-        setLoading(true);
-        api.getDiary(postId)
-        .then((response)=>{
+        try {
+            setLoading(true);
+            setFullscreen(true);
+            const response = await api.getDiary(postId);
+            console.log(response);
             setNickname(response.data.nickname);
             setEmotion(response.data.emotion);
             setContent(response.data.content);
-            const datetime = response.data.date;
-            const datesplit = datetime.split[' '];
-            setDate(datesplit[0]);
+            setDate(response.data.date);
+
             setLoading(false);
+            setFullscreen(false);
             setDiary(true);
-        })
-        .catch (error=> {
+        }
+        catch (error) {
             setLoading(false);
+            setFullscreen(false);
             if (error.response) {
-                // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
                 if (error.response.status === 403) {
                     setAlertTitle(error.response.status);
                     setAlertMsg('비공개 게시물입니다');
@@ -121,7 +80,7 @@ function DetailPage(props) {
                 setAlertMsg('알 수 없는 에러가 발생했습니다.');
                 setOpen(true);
             }
-        });
+        }
     }
     useEffect(() => {
         FetchDiary(postId);
@@ -150,15 +109,18 @@ function DetailPage(props) {
                     </Wrapper>
                 </>
             }
-            <Progress isInProgress={loading} fullscreen={true} />
+            <Progress isInProgress={loading} fullscreen={fullscreen} />
             <Alert isOpen={isOpen} message={alertMsg} title={alertTitle} setOpen={setOpen} firstButtonFunc={goFeedPage}></Alert>
+            <Alert isOpen={copyOpen} message="게시물 링크가 클립보드에 복사되었습니다" setOpen={setCopyOpen}></Alert>
+            <UrlArea ref={url} value={window.document.location.href}></UrlArea>
         </Container>
     );
-    function onShare(event) {
-        event.stopPropagation();
-        console.log("share");
+    function onShare() {
+        url.current.select();
+        document.execCommand('copy');
+        url.current.blur();
+
+        setCopyOpen(true);
     }
-
 }
-
 export default DetailPage;

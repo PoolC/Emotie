@@ -98,3 +98,7 @@ export const Content = styled.p`
     line-height: 2;
     word-wrap: break-word;
 `
+
+export const UrlArea = styled.textarea`
+    display: none;
+`
