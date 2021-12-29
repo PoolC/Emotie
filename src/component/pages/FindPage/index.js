@@ -78,13 +78,21 @@ function FindPage(props) {
                 }
             });
     }
+
+    const findKeyPress = (e) => {
+        console.log('press');
+        if(e.key === 'Enter') {
+            detectInput();
+        }
+    }
+
     return (
         <Container>
             <Header />
             <Title>계정 찾기</Title>
             <Text>이메일을 입력하세요</Text>
             <InputGroup>
-                <PillInput width="200px" placeholder="이메일" value={email} onInput={inputChange} onBlur={inputCheck}></PillInput>
+                <PillInput width="200px" placeholder="이메일" value={email} onInput={inputChange} onBlur={inputCheck} onKeyPress={findKeyPress}></PillInput>
                 <InputAlert>{alert}</InputAlert>
             </InputGroup>
             <PillButton width="260px" onClick={()=>detectInput()}>확인 메일 전송</PillButton>

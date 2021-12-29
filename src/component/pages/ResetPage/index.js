@@ -119,17 +119,23 @@ function ResetPage(props) {
             }
         });
     }
+    const resetKeyPress = (e) => {
+        console.log('press');
+        if(e.key === 'Enter') {
+            detectInput();
+        }
+    }
     return (
         <Container>
             <Header/>
             <Title>비밀번호 변경</Title>
                 <Text>변경할 비밀 번호를 입력하세요</Text>
                 <InputGroup>
-                    <PillInput name="password" value={password} onChange={onChange} onBlur={inputCheck} width="200px" placeholder="새 비밀번호" type="password"></PillInput>
+                    <PillInput name="password" value={password} onChange={onChange} onBlur={inputCheck} width="200px" placeholder="새 비밀번호" type="password" onKeyPress={resetKeyPress}></PillInput>
                     <InputAlert>{passwordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="passwordCheck" value={passwordCheck} onChange={onChange} onBlur={inputCheck} width="200px" placeholder="비밀번호 재입력" type="password"></PillInput>
+                    <PillInput name="passwordCheck" value={passwordCheck} onChange={onChange} onBlur={inputCheck} width="200px" placeholder="비밀번호 재입력" type="password" onKeyPress={resetKeyPress}></PillInput>
                     <InputAlert>{rePasswordAlert}</InputAlert>
                 </InputGroup>
                 <FlexBox>

@@ -211,6 +211,20 @@ function RegisterPage(props) {
                 }
             })
     }
+
+    const registerKeyPress = (e) => {
+        console.log('press');
+        if(e.key === 'Enter') {
+            detectInput();
+        }
+    }
+    const duplicateCheckKeyPress = (e) => {
+        console.log('press');
+        if(e.key === 'Enter') {
+            duplicateCheck();
+        }
+    }
+
     return (
         <Container>
             <Header />
@@ -220,23 +234,23 @@ function RegisterPage(props) {
             <Gap>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="email" value={email} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="이메일" type="text"></PillInput>
+                        <PillInput name="email" value={email} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="이메일" type="text" onKeyPress={registerKeyPress}></PillInput>
                     </FlexBox>
                     <InputAlert>{emailAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="password" value={password} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="비밀번호" type="password">
+                    <PillInput name="password" value={password} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="비밀번호" type="password" onKeyPress={registerKeyPress}>
                     </PillInput>
                     <InputAlert>{passwordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
-                    <PillInput name="rePassword" value={rePassword} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="비밀번호 재입력" type="password">
+                    <PillInput name="rePassword" value={rePassword} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="200px" placeholder="비밀번호 재입력" type="password" onKeyPress={registerKeyPress}>
                     </PillInput>
                     <InputAlert>{rePasswordAlert}</InputAlert>
                 </InputGroup>
                 <InputGroup>
                     <FlexBox>
-                        <PillInput name="nickname" value={nickname} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="140px" placeholder="별명" type="text"></PillInput>
+                        <PillInput name="nickname" value={nickname} onInput={inputChange} onChange={inputCheck} onBlur={inputCheck} width="140px" placeholder="별명" type="text" onKeyPress={duplicateCheckKeyPress}></PillInput>
                         <CertButton onClick={() => nicknameCheck()}>중복 확인</CertButton>
                     </FlexBox>
                     <InputAlert></InputAlert>
