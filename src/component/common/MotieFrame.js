@@ -1,47 +1,35 @@
 import styled from 'styled-components';
 
-import dust from "../../image/CharacterImg/dust.png";
-import dust2 from "../../image/CharacterImg/dust2.png";
-import bear from "../../image/CharacterImg/bear.png";
-import cat from "../../image/CharacterImg/cat.png";
-import dog from "../../image/CharacterImg/dog.png";
-import heart from "../../image/CharacterImg/heart.png";
-import slime from "../../image/CharacterImg/slime.png";
-
-import eyes from '../../image/EmotionImg/11.png';
+import { emotionsToIds } from '../../utils/converter';
 
 function MotieFrame(props) {
-    let motieImage = dust;
     const motieName = props.motie;
+    
+    // 캐릭터
+    let motieImage;
 
-    switch (motieName) {
-        case "dust":
-            motieImage = dust;
-            break;
-        case "dust2":
-            motieImage = dust2;
-            break;
-        case "bear":
-            motieImage = bear;
-            break;
-        case "cat":
-            motieImage = cat;
-            break;
-        case "dog":
-            motieImage = dog;
-            break;
-        case "heart":
-            motieImage = heart;
-            break;
-        case "slime":
-            motieImage = slime;
-            break;
+    try {
+        motieImage = require(`../../image/CharacterImg/${motieName}.png`).default;
+    }
+    catch(err) {
+        motieImage = require(`../../image/CharacterImg/dust.png`).default;
+    }
+
+    // 표정
+    const motieEmotion = emotionsToIds(props.emotion).join('');
+    let motieEye;
+
+    try {
+        motieEye = require(`../../image/EmotionImg/${motieEmotion}.png`).default;
+    }
+    catch(err) {
+        motieEye = require(`../../image/EmotionImg/88.png`).default;
     }
 
     return (
         <Frame>
             <Character src={motieImage} alt={motieName}/>
-            <Eyes src={eyes}/>
+            <Eyes src={motieEye} alt={motieEmotion}/>
         </Frame>
     );
 }
