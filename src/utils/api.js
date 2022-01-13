@@ -20,7 +20,7 @@ export const getProfileDiaries = (memberId, pageNum) => server.get(`/diaries/use
 export const uploadPost = (emotion, content, isPrivate) => server.post('/diaries', { emotion: emotion, content: content, isOpened:  isPrivate });
 export const blur = (id) => server.post(`/diaries/blind/${id}`);
 export const reportDiary = (id, reason) => server.post(`/diaries/report/${id}`, { reason: reason });
-export const deleteDiary = (id) => server.delete('/diaries', { diaryId: [id] });
+export const deleteDiary = (id) => server.delete('/diaries', { data: { diaryId: [id] }});
 export const getFeeds = (pageNumber) => server.get(`/diaries/feed?page=${pageNumber}`);
 export const getDiary = (id) => server.get(`/diaries/${id}`);
 
