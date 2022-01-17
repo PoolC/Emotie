@@ -9,38 +9,34 @@ import Progress from "../../common/modal/Progress";
 
 import * as api from "../../../utils/api";
 
-const emotions = [{color:"#FFF27D", tag:"기쁨"}, {color:"#FF855E", tag:"화남"}, {color:"#9FA7EF", tag:"슬픔"}, {color:"#AEE477", tag:"놀람"}, {color:"#9431A4", tag:"질투"}, {color:"#F29CB6", tag:"설렘"}, {color:"#FFFFFF", tag:"무난"}, {color:"#ADADAD", tag:"지침"}];
-
 function RecommendPage(props) {
     const [loading, setLoading] = useState(false);
     const [fullscreen, setFullscreen] = useState(true);
-    // const [recommends, setRecommends] = useState(null);
+    const [recommends, setRecommends] = useState([]);
 
-    const goProfilePage = (index) => props.history.push(`/profile/:${index}`);
+    const goProfilePage = (memberId) => props.history.push(`/profile/:${memberId}`);
     const goWritePage = () => props.history.push('/write');
 
-    const profiles =  emotions.map((emotion, index) => 
-        <ProfileCard key={index} emotion={emotion} onClick={() => goProfilePage(index)}/>
-    );
-
-    // async function fetchRecommends() {
-    //     setLoading(true);
-    //     setFullscreen(true);
-    //     const response = await api.getRecommends();
-    //     setRecommends(response.data);
-    //     setLoading(false);
-    //     setFullscreen(false);
-    // }
-    // useEffect(() => {
-    //     fetchRecommends();
-    // }, []);
+    async function fetchRecommends() {
+        setLoading(true);
+        setFullscreen(true);
+        const response = await api.getRecommends();
+        setRecommends(response.data.profiles);
+        setLoading(false);
+        setFullscreen(false);
+    }
+    useEffect(() => {
+        fetchRecommends();
+    }, []);
 
     return (
         <Container>
             <Header search feed/>
-            <ProfileList>
-                {profiles}
-            </ProfileList>
+            {!loading && <ProfileList>
+                {recommends.map((profile, index) => 
+                    <ProfileCard key={index} profile={profile} onClick={() => goProfilePage(index)}/>
+                )}
+            </ProfileList>}
             <FloatingButton icon={GiPencil} onClick={goWritePage}/>
             {/* 모달 */}
             <Progress isInProgress={loading} fullscreen={fullscreen}/>

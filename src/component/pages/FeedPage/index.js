@@ -23,10 +23,6 @@ function FeedPage(props) {
     const goToTop = () => window.scrollTo(0, 0);
     const goWritePage = () => props.history.push('/write');
 
-    // const feeds =  emotions.map((emotion, index) => 
-    //     <PostCard key={index} emotion={emotion} share blur report onClick={goDetailPage} category="diary" id={index}/>
-    // );
-
     async function fetchFeeds() {
         setLoading(true);
         setFullscreen(true);
@@ -34,7 +30,6 @@ function FeedPage(props) {
         setFeeds(response.data.diaries);
         setLoading(false);
         setFullscreen(false);
-        console.log(feeds);
     }
     useEffect(() => {
         if(page === 0) {
@@ -66,7 +61,6 @@ function FeedPage(props) {
                 {feeds.map((feed, index) => 
                     <PostCard key={index} post={feed} share blur report onClick={() => goDetailPage(feed.diaryId)} category="diary"/>
                 )}
-                {/* {feeds} */}
             </PostList>
             <FloatingButton icon={MdKeyboardArrowUp} onClick={goToTop} bottom="90"/>
             <FloatingButton icon={GiPencil} onClick={goWritePage}/>
