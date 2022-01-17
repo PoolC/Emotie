@@ -5,7 +5,7 @@ function ProfileCard(props) {
     return (
         <Container backgroundColor={props.profile.allEmotion.color} onClick={props.onClick}>
             <Nickname>{props.profile.nickname}</Nickname>
-            <MotieFrame motie={props.profile.characterName} emotion={props.profile.recentEmotion}/>
+            <MotieFrame motie={props.profile.characterName} emotion={[props.profile.recentEmotion[0]?.tag, props.profile.recentEmotion[1]?.tag]}/>
             <Content>{props.profile.introduction}</Content>
         </Container>
     );
