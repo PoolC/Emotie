@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import MotieFrame from "../common/MotieFrame";
 
 function ProfileCard(props) {
     return (
-        <Container backgroundColor={props.emotion?.color} onClick={props.onClick}>
-            <Nickname>{props.nickname || "공릉동 공룡"}</Nickname>
-            <Content>{props.content || "자기소개는 언제나 어려워 두줄만 들어가려면 몇글자 정도여야하는지 모르겠네요 스크롤 생기는 거 싫은데"}</Content>
+        <Container backgroundColor={props.profile.allEmotion.color} onClick={props.onClick}>
+            <Nickname>{props.profile.nickname}</Nickname>
+            <MotieFrame motie={props.profile.characterName} emotion={props.profile.recentEmotion}/>
+            <Content>{props.profile.introduction}</Content>
         </Container>
     );
 }
@@ -43,7 +45,7 @@ const Container = styled.div`
 
 const Nickname = styled.p`
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #000000;
 `
