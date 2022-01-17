@@ -22,6 +22,7 @@ function RecommendPage(props) {
         setFullscreen(true);
         const response = await api.getRecommends();
         setRecommends(response.data.profiles);
+        console.log(response.data.profiles);
         setLoading(false);
         setFullscreen(false);
     }
@@ -34,7 +35,7 @@ function RecommendPage(props) {
             <Header search feed/>
             {!loading && <ProfileList>
                 {recommends.map((profile, index) => 
-                    <ProfileCard key={index} profile={profile} onClick={() => goProfilePage(index)}/>
+                    <ProfileCard key={index} profile={profile} onClick={() => goProfilePage(profile.memberId)}/>
                 )}
             </ProfileList>}
             <FloatingButton icon={GiPencil} onClick={goWritePage}/>
