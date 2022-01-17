@@ -11,8 +11,6 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 import * as api from "../../../utils/api";
 
-const emotions = [{color:"#FFF27D", tag:"기쁨"}, {color:"#FF855E", tag:"화남"}, {color:"#9FA7EF", tag:"슬픔"}, {color:"#AEE477", tag:"놀람"}, {color:"#9431A4", tag:"질투"}, {color:"#F29CB6", tag:"설렘"}, {color:"#FFFFFF", tag:"무난"}, {color:"#ADADAD", tag:"지침"}];
-
 function FeedPage(props) {
     const [loading, setLoading] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
@@ -57,11 +55,11 @@ function FeedPage(props) {
     return (
         <Container>
             <Header search recommend/>
-            <PostList>
+            {!fullscreen && <PostList>
                 {feeds.map((feed, index) => 
                     <PostCard key={index} post={feed} share blur report onClick={() => goDetailPage(feed.diaryId)} category="diary"/>
                 )}
-            </PostList>
+            </PostList>}
             <FloatingButton icon={MdKeyboardArrowUp} onClick={goToTop} bottom="90"/>
             <FloatingButton icon={GiPencil} onClick={goWritePage}/>
             {/* 모달 */}
