@@ -14,7 +14,7 @@ function RecommendPage(props) {
     const [fullscreen, setFullscreen] = useState(true);
     const [recommends, setRecommends] = useState([]);
 
-    const goProfilePage = (memberId) => props.history.push(`/profile/:${memberId}`);
+    const goProfilePage = (memberId) => props.history.push(`/profile/${memberId}`);
     const goWritePage = () => props.history.push('/write');
 
     async function fetchRecommends() {
