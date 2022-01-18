@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import IconButton from './IconButton';
 import EmotionTag from './EmotionTag';
@@ -111,8 +111,7 @@ function PostCard(props) {
 
     function onShare(event) {
         event.stopPropagation();
-       
-        const url = `${server.defaults.baseURL}/profile/post/${props.post.diaryId}`
+        const url = `${window.location.host}/profile/post/${props.post.diaryId}`
         navigator.clipboard.writeText(url);
         setAlertInfo({
             isOpen: true,
