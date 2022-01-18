@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Container, PostList } from "./style";
+import { Container, PostList, Info, WBR } from "./style";
 import Header from "../../common/Header";
 import PostCard from "../../common/PostCard";
 import FloatingButton from "../../common/FloatingButton";
@@ -8,6 +8,7 @@ import { GiPencil } from "react-icons/gi";
 import { MdKeyboardArrowUp } from "react-icons/md"
 import Progress from "../../common/modal/Progress";
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+import { IoPeople } from "react-icons/io5";
 
 import * as api from "../../../utils/api";
 
@@ -55,7 +56,10 @@ function FeedPage(props) {
     return (
         <Container>
             <Header search recommend/>
-            {!fullscreen && <PostList>
+            {!fullscreen && 
+            feeds.length === 0 ?
+            <Info>상단의 <IoPeople/>을 눌러 추천페이지로 이동하여<WBR/> 다른 유저를 팔로우해보세요.</Info>
+            : <PostList>
                 {feeds.map((feed, index) => 
                     <PostCard key={index} post={feed} share blur report onClick={() => goDetailPage(feed.diaryId)} category="diary"/>
                 )}
