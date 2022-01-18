@@ -23,7 +23,7 @@ function ProfilePage(props) {
     const [tempIntroduction, setTempIntroduction] = useState('');
     const [tempMotie, setTempMotie] = useState('dust');
     useEffect(() => setTempIntroduction(profileInfo.introduction), [profileInfo.introduction]);
-    useEffect(() => setTempMotie(profileInfo.motie), [profileInfo.motie]);
+    useEffect(() => setTempMotie(profileInfo.characterName), [profileInfo.characterName]);
 
     // 인터페이스
     const [category, setCategory] = useState(0);
@@ -40,7 +40,7 @@ function ProfilePage(props) {
     const saveEdit = async () => {
         try {
             await api.editProfile(tempIntroduction, tempMotie);
-            setProfileInfo({ ...profileInfo, introduction: tempIntroduction, motie: tempMotie });
+            setProfileInfo({ ...profileInfo, introduction: tempIntroduction, characterName: tempMotie });
             setEditable(false);
         }
         catch(error) {
@@ -50,7 +50,7 @@ function ProfilePage(props) {
     };
     const cancelEdit = () => {
         setTempIntroduction(profileInfo.introduction);
-        setTempMotie(profileInfo.motie);
+        setTempMotie(profileInfo.characterName);
         setEditable(false);
     }
     const write = () => props.history.push(`/write`);
