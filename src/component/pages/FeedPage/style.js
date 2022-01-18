@@ -26,3 +26,17 @@ export const PostList = styled.div`
         min-width: unset;
     }
 `
+
+export const WBR = styled.br`
+    display: none;
+
+    @media only screen and (max-width: 600px) {
+        display: block;
+    }
+`
+
+export const Info = styled.div`
+    margin-top: 100px;
+    color: white;
+    text-align: center;
+`
