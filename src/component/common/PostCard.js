@@ -76,12 +76,11 @@ function PostCard(props) {
                 });
             })
             .catch(error => {
-                if(error.response && error.response.status === 404) {
+                if(error.response) {
                     setAlertInfo({
                         isOpen: true,
                         title: "마음글 신고 실패",
-                        message: "해당 마음글이 존재하지 않습니다.",
-                        firstButtonFunc: () => window.location.reload()
+                        message: error.response.data.message
                     });     
                 }   
             });
@@ -97,12 +96,11 @@ function PostCard(props) {
                 });
             })
             .catch(error => {
-                if(error.response && error.response.status === 404) {
+                if(error.response) {
                     setAlertInfo({
                         isOpen: true,
                         title: "방명록 신고 실패",
-                        message: "해당 방명록이 존재하지 않습니다.",
-                        firstButtonFunc: () => window.location.reload()
+                        message: error.response.data.message
                     });
                 }
             });
