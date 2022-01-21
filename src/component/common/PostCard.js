@@ -321,6 +321,7 @@ const Date = styled.span`
 `
 
 const ContentCont = styled.div`
+    width: 100%;
     height: 5em;
 `
 
