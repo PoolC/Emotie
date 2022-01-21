@@ -38,7 +38,6 @@ const Container = styled.div`
 
     @media only screen and (max-width: 768px) {
         width: 100%;
-        height: auto;
         aspect-ratio: 10/11;
         min-width: 300px;
         mix-height: 330px;
