@@ -51,8 +51,15 @@ const Nickname = styled.p`
 `
 
 const Content = styled.p`
+    display: -webkit-box;
     margin: 0;
     font-size: 0.8rem;
     color: #000000;
     line-height: 1.5;
+    height: 6em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical; 
+    word-break: break-word;
+    -webkit-line-clamp: 3;
 `

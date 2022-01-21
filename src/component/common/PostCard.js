@@ -331,7 +331,7 @@ const Content = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical; 
-    word-break: keep-all;
+    word-break: break-word;
     -webkit-line-clamp: 3;
 `
 
