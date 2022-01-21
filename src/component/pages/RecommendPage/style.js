@@ -27,3 +27,13 @@ export const ProfileList = styled.div`
         max-width: 400px;
     }
 `
+
+export const MobileSpace = styled.div`
+    width: 100%;
+    height: 0px;
+
+    @media only screen and (max-width: 768px) {
+        width: 100%;
+        height: 60px;
+    }
+`
