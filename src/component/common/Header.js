@@ -22,6 +22,7 @@ function Header(props) {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     // 클릭 이벤트
+    const goLandingPage = () => props.history.push('/');
     const goRecommendPage = () => props.history.push('/recommend');
     const goFeedPage = () => props.history.push('/feed');
 	const goProfilePage = () => props.history.push(`/profile/${myMemberId}`);
@@ -30,26 +31,25 @@ function Header(props) {
     const logout = () => dispatch(saga.logout());
     
     // 드롭다운
-    const dropdownOptions = (authStatus === 'AUTHORIZED') 
-        ? [
-            { text: "내 프로필", eventHandler: goProfilePage },
-            { text: "설정", eventHandler: goSettingPage },
-            { text: "seperator" },
-            { text: "로그아웃", eventHandler: logout }
-        ]
-        : [
-            { text: "로그인", eventHandler: goLoginPage }
-        ];
+    const dropdownOptions = 
+    [
+        { text: "내 프로필", eventHandler: goProfilePage },
+        { text: "설정", eventHandler: goSettingPage },
+        { text: "seperator" },
+        { text: "로그아웃", eventHandler: logout }
+    ];
 
     return (
         <Container transparent={props.transparent}>
-            <Icon src={isMobile ? LogoImage : LogoText} transparent={props.transparent}/>
+            <Icon src={isMobile ? LogoImage : LogoText} transparent={props.transparent} onClick={authStatus === 'AUTHORIZED' ? goFeedPage : goLandingPage}/>
             {props.search && !isMobile && <Search width="300px" placeholder="프로필을 검색합니다"/>}
             <MenuLayout>
                 {props.search && isMobile && <IconButton icon={IoSearch} color={props.transparent ? "black" : "white"}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage} color={props.transparent ? "black" : "white"}/>}
                 {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage} color={props.transparent ? "black" : "white"}/>}
-                <DropDown id="profile" width="188" options={dropdownOptions}/>
+                {authStatus === 'AUTHORIZED' ? <DropDown id="profile" width="188" options={dropdownOptions}/>
+                : <Login onClick={goLoginPage}>로그인</Login>
+                }
             </MenuLayout>
         </Container>
     );
@@ -76,6 +76,11 @@ const Icon = styled.img`
     left: 30px;
     display: ${props => props.transparent ? "none" : "unset"};
     height: 25px;
+
+    &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+    }
 `
 const Search = styled(PillInput)`
     position: absolute;
@@ -88,4 +93,13 @@ const MenuLayout = styled.div`
     display: flex;
     flex-flow: row nowrap;
     gap: 30px;
+`
+
+const Login = styled.span`
+    color: white;
+
+    &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+    }
 `

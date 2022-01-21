@@ -22,7 +22,6 @@ function RecommendPage(props) {
         setFullscreen(true);
         const response = await api.getRecommends();
         setRecommends(response.data.profiles);
-        console.log(response.data.profiles);
         setLoading(false);
         setFullscreen(false);
     }
