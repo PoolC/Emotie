@@ -110,3 +110,12 @@ export const RecommendImg = styled.img`
         padding:0;
     }
 `
+
+export const Footer = styled.div`
+    display: flex;
+    backgroud-color:#3C3C3C;
+    font-size:0.5em;
+    width:100%;
+    height:100px;
+    color:white;
+    `

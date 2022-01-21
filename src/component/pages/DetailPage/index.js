@@ -29,9 +29,12 @@ function DetailPage(props) {
     const [alertTitle, setAlertTitle] = useState('경고');
     const [copyOpen, setCopyOpen] = useState(false);
 
+    const [memberId, setMemberId] = useState("");
+
     const [share, setShare] = useState(false);
 
     const goFeedPage = () => props.history.push('/feed');
+    const goProfilePage = () => props.history.push(`/profile/${memberId}`);
 
     const url = React.useRef();
 
@@ -47,6 +50,7 @@ function DetailPage(props) {
             setEmotion(response.data.emotion);
             setContent(response.data.content);
             setDate(response.data.date);
+            setMemberId(response.data.memberId);
 
             setLoading(false);
             setFullscreen(false);
@@ -94,7 +98,7 @@ function DetailPage(props) {
                 <>
                     <Profile>
                         <ProfileWrapper>
-                            <ProfileButton children="프로필 가기"></ProfileButton>
+                            <ProfileButton children="프로필 가기" onClick={goProfilePage}></ProfileButton>
                         </ProfileWrapper>
                     </Profile>
                     <Wrapper>
