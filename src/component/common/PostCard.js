@@ -236,7 +236,9 @@ function PostCard(props) {
                     <Nickname hideEmotion={!props.post.emotion}>{props.post.nickname}</Nickname>
                     <Date>{props.post.date}</Date>
                 </Info>
-                <Content>{props.post.content}</Content>
+                <ContentCont>
+                    <Content>{props.post.content}</Content>
+                </ContentCont>
                 <Icons>
                     {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>}
                     {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E" onClick={onBlur}/>}
@@ -318,6 +320,10 @@ const Date = styled.span`
     color: #ffffff;
 `
 
+const ContentCont = styled.div`
+    height: 5em;
+`
+
 const Content = styled.p`
     display: -webkit-box;
     margin: 0;
@@ -325,7 +331,6 @@ const Content = styled.p`
     font-size: 0.9rem;
     color: #ffffff;
     line-height: 2;
-    height: 6em;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical; 
