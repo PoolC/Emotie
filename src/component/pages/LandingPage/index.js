@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Title, Text, Logo, Wrap, ImagePart, TextPart, MainPart, CharacterImg, FeedImg, RecommendImg} from "./style";
+import { Container, Title, Text, Logo, Wrap, ImagePart, TextPart, MainPart, CharacterImg, FeedImg, RecommendImg, Footer } from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import logo from "../../../image/logo_img.svg";
@@ -16,18 +16,18 @@ function LandingPage(props) {
             <Wrap style={{ backgroundColor: '#1E1E1E' }}>
                 <MainPart>
                     <Logo src={logo}></Logo>
-                    <Title style={{textAlign:'center'}}>매일 당신의 감정을 기록하세요</Title>
-                    <Text style={{textAlign:'center'}}>당신의 감정과 개성이 반영된 프로필로 사람들과 소통하세요</Text>
+                    <Title style={{ textAlign: 'center' }}>매일 당신의 감정을 기록하세요</Title>
+                    <Text style={{ textAlign: 'center' }}>당신의 감정과 개성이 반영된 프로필로 사람들과 소통하세요</Text>
                     <PillButton negative children="지금 쓰러가기" width="200px" onClick={() => goLoginPage()}></PillButton>
                 </MainPart>
             </Wrap>
-            <Wrap style={{ backgroundColor: '#8381E8'}}>
+            <Wrap style={{ backgroundColor: '#8381E8' }}>
                 <ImagePart>
                     <CharacterImg src={character}></CharacterImg>
                 </ImagePart>
                 <TextPart>
-                    <Title style={{color:'#1E1E1E'}}>당신의 마음글을 반영한 프로필</Title>
-                    <Text style={{color:'#1E1E1E'}}>당신의 일기가 쌓여 당신의 감정을 반영한 캐릭터와 프로필을 생성합니다. 프로필을 기반으로 다양한 캐릭터를 커스터마이징 해보세요.</Text>
+                    <Title style={{ color: '#1E1E1E' }}>당신의 마음글을 반영한 프로필</Title>
+                    <Text style={{ color: '#1E1E1E' }}>당신의 일기가 쌓여 당신의 감정을 반영한 캐릭터와 프로필을 생성합니다. 프로필을 기반으로 다양한 캐릭터를 커스터마이징 해보세요.</Text>
                 </TextPart>
             </Wrap>
             <Wrap style={{ backgroundColor: '#333333' }}>
@@ -39,7 +39,7 @@ function LandingPage(props) {
                     <RecommendImg src={recommend}></RecommendImg>
                 </ImagePart>
             </Wrap>
-            <Wrap style={{ backgroundColor: '#1E1E1E'}}>
+            <Wrap style={{ backgroundColor: '#1E1E1E' }}>
                 <ImagePart>
                     <FeedImg src={feed}></FeedImg>
                 </ImagePart>
@@ -48,6 +48,9 @@ function LandingPage(props) {
                     <Text>피드에서 다양한 사람들의 익명 일기를 읽고 프로필에 방명록을 남길 수 있습니다.</Text>
                 </TextPart>
             </Wrap>
+            <Footer>
+                기술 지원/고객 상담: emotie.team@gmail.com
+            </Footer>
         </Container>
     );
 }
