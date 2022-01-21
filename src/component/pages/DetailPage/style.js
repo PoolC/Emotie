@@ -8,7 +8,6 @@ export const Container = styled.div`
     box-sizing: border-box;
     color: white;
 `
-
 export const Profile = styled.div`
     display: flex;
     flex-flow: column nowrap;
@@ -17,12 +16,13 @@ export const Profile = styled.div`
     height:200px;
     box-sizing: border-box;
     color: #1E1E1E;
-    background-color:#FFF27D;
+    background-color:${props=>props.backgroundColor?props.backgroundColor:"#FFF27D"};
     flex-direction: column-reverse;
     &:hover {
         cursor:pointer;
     }
 `
+
 export const ProfileWrapper = styled.div`
     position:relative;
     width:60%;

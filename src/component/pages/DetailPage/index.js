@@ -23,13 +23,17 @@ function DetailPage(props) {
     const [date, setDate] = useState('1999-09-03');
     const [content, setContent] = useState('기본 콘텐츠 내용');
     const [emotion, setEmotion] = useState('');
+    const [memberId, setMemberId] = useState("");
+    const [backgroundColor, setBackgroundColor] = useState('');
+
+
+
 
     const [isOpen, setOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('잘못된 접근입니다');
     const [alertTitle, setAlertTitle] = useState('경고');
     const [copyOpen, setCopyOpen] = useState(false);
 
-    const [memberId, setMemberId] = useState("");
 
     const [share, setShare] = useState(false);
 
@@ -39,18 +43,16 @@ function DetailPage(props) {
     const url = React.useRef();
 
     async function FetchDiary() {
-        console.log("what");
-        console.log(postId);
         try {
             setLoading(true);
             setFullscreen(true);
             const response = await api.getDiary(postId);
-            console.log(response);
             setNickname(response.data.nickname);
             setEmotion(response.data.emotion);
             setContent(response.data.content);
             setDate(response.data.date);
             setMemberId(response.data.memberId);
+            setBackgroundColor(response.data.emotion.color);
 
             setLoading(false);
             setFullscreen(false);
@@ -90,13 +92,13 @@ function DetailPage(props) {
     useEffect(() => {
         FetchDiary(postId);
     }, []);
-
+    
     return (
         <Container>
             <Header></Header>
             {diary &&
                 <>
-                    <Profile>
+                    <Profile backgroundColor={backgroundColor}>
                         <ProfileWrapper>
                             <ProfileButton children="프로필 가기" onClick={goProfilePage}></ProfileButton>
                         </ProfileWrapper>
