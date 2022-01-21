@@ -35,3 +35,4 @@ export const deleteGuestbook = (id) => server.delete(`/guestbooks/${id}`);
 export const getProfileInfo = (memberId) => server.get(`/profiles/${memberId}`);
 export const editProfile = (introduction, motie) => server.put('/profiles', { introduction: introduction, characterName: motie });
 export const getRecommends = () => server.get('/recommend');
+export const getSearch = (keyword, page) => server.get(`/search/${keyword}?page=${page}`);
