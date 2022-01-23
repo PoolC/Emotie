@@ -7,6 +7,7 @@ export const BaseLayout = styled.div`
     padding: 0 calc(15% - 30px) 0 15%;
     box-sizing: border-box;
     background-color: ${props => props.backgroundColor || "white"};
+    transition: background-color ease 300ms;
     
     @media only screen and (max-width: 768px) {
         flex-flow: column nowrap;
@@ -78,6 +79,7 @@ export const ProfileLayout = styled.div`
     z-index: 10;
     background-color: ${props => props.backgroundColor + "CC"};
     backdrop-filter: blur(5px);
+    transition: background-color ease 300ms;
 
     @media only screen and (max-width: 768px) {
         top: 60px;
@@ -208,7 +210,7 @@ export const PostList = styled.div`
     flex: 1 0 0;
     flex-flow: column nowrap;
     gap: 10px;
-    padding: ${props => props.category === 1 ? "15px" : "0"} 30px 90px 30px;
+    padding: ${props => props.category === 'guestbook' && !props.isProfileMine ? "15px" : "0"} 30px 90px 30px;
     opacity: ${props => props.isEditable ? 0.2 : 1};
     transition: opacity 300ms;
     pointer-events: ${props => props.isEditable ? 'none' : 'unset'};
@@ -228,6 +230,7 @@ export const Boundary = styled.div`
     z-index: 10;
     background-color: ${props => props.backgroundColor + "CC"};
     backdrop-filter: blur(5px);
+    transition: background-color ease 300ms;
 
     @media only screen and (max-width: 768px) {
         height: ${props => props.top ? "60px" : "0"};

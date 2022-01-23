@@ -18,9 +18,8 @@ export const profileInfo = {
     followed: false,
     followers: [],
     followees: [],
-    // 임시
-    motie: null,
-    motieItems: null
+    characterName: null,
+    memberId: ''
 };
 
 export const diaries = {
