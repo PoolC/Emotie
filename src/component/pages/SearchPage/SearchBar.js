@@ -4,10 +4,12 @@ import { withRouter } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 
 import { IoSearch } from "react-icons/io5";
-import styled from "styled-components";
-import PillInput from "./PillInput";
+import IconButton from "../../common/IconButton";
 
-import * as api from "../../utils/api";
+import styled from "styled-components";
+import PillInput from "../../common/PillInput";
+
+import * as api from "../../../utils/api";
 
 function SearchBar(props) {
     // 스토어
@@ -28,11 +30,11 @@ function SearchBar(props) {
 
     const SearchKeyPress = (e) => {
         if(e.key === 'Enter') {
-            search();
+            Search();
         }
     }
 
-    async function search() {
+    async function Search() {
         setLoading(true);
         // setFullscreen(true);
         const response = await api.getSearch(value, 1);
@@ -51,7 +53,8 @@ function SearchBar(props) {
     return (
         // isMobile&&
         <Container transparent={props.transparent}>
-            <Search width="300px" placeholder="프로필을 검색합니다" value={value} onChange={onChange} onKeyPress={SearchKeyPress} loading={loading}/>
+            <Search width="250px" placeholder="프로필을 검색합니다" value={value} onChange={onChange} onKeyPress={SearchKeyPress} loading={loading}/>
+            <Icon icon={IoSearch} onClick={Search()} color={props.transparent ? "black" : "white"}/>
         </Container>
     );
 }
@@ -71,10 +74,14 @@ const Container = styled.div`
         background-color: ${props => props.transparent ? "transparent" : "#3C3C3C"};
         z-index: 20;
         box-shadow: ${props => props.transparent ? `unset` : `0 0 2px rgba(0, 0, 0, 0.4)`};
+
+        justify-content:center;
+`
+
+const Icon = styled(IconButton)`
+    margin:10px;
 `
 
 const Search = styled(PillInput)`
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+    margin:10px;
 `

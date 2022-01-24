@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { Container, ProfileList, MobileSpace } from "./style";
 import Header from "../../common/Header";
-import SearchBar from "../../common/SearchBar";
 import ProfileCard from "../../common/ProfileCard";
 import FloatingButton from "../../common/FloatingButton";
 import { GiPencil } from "react-icons/gi";
@@ -33,11 +32,6 @@ function RecommendPage(props) {
     return (
         <Container>
             <Header search feed/>
-            <SearchBar></SearchBar>
-            <MobileSpace></MobileSpace>
-
-
-
             {!loading && <ProfileList>
                 {recommends.map((profile, index) => 
                     <ProfileCard key={index} profile={profile} onClick={() => goProfilePage(profile.memberId)}/>
