@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import queryString from "query-string";
 
 import useProfileInfo from "../../../hooks/useProfileInfo";
 import useProfileDiaries from "../../../hooks/useProfileDiaries";
@@ -14,6 +15,7 @@ import DetailPopup from "../../common/DetailPopup";
 function ProfilePage(props) {
     // 프로필 정보
     const { memberId } = useParams();
+    const { category } = queryString.parse(props.location.search);
 
     const { profileInfo, isProfileMine, setProfileInfo } = useProfileInfo(memberId);
     const profileDiaries = useProfileDiaries(memberId);
@@ -21,12 +23,11 @@ function ProfilePage(props) {
 
     // 수정할 수 있는 데이터
     const [tempIntroduction, setTempIntroduction] = useState('');
-    const [tempMotie, setTempMotie] = useState('dust');
+    const [tempMotie, setTempMotie] = useState(null);
     useEffect(() => setTempIntroduction(profileInfo.introduction), [profileInfo.introduction]);
     useEffect(() => setTempMotie(profileInfo.characterName), [profileInfo.characterName]);
 
     // 인터페이스
-    const [category, setCategory] = useState(0);
     const [isEditable, setEditable] = useState(false);
     const [isCancelAlertOpen, setCancelAlertOpen] = useState(false);
     const [isErrorAlertOpen, setErrorAlertOpen] = useState(false);
@@ -63,10 +64,7 @@ function ProfilePage(props) {
     }
     const uploadGuestbook = (content) => {
         api.uploadGuestbook(memberId, content)
-        .then(response => {
-            // TODO : update
-            console.log('새로고침필요!');
-        })
+        .then(response => window.location.reload())
         .catch(error => showErrorAlert());
     }
 
@@ -108,7 +106,8 @@ function ProfilePage(props) {
                         write={write} toggleFollow={toggleFollow} 
                         isProfileMine={isProfileMine} isFollowed={profileInfo.followed} isEditable={isEditable}/>
                     <Group.Category 
-                        category={category} setCategory={setCategory} 
+                        category={category}
+                        history={props.history}
                         isEditable={isEditable}/>
                     <Group.GuestbookInput 
                         category={category}
@@ -117,7 +116,7 @@ function ProfilePage(props) {
                         showErrorAlert={showErrorAlert}/>
                 </Container.Profile>
                 <Group.Post 
-                    category={category} 
+                    memberId={memberId} category={category} 
                     diaries={profileDiaries.diaries} guestbooks={profileGuestbooks.guestbooks} 
                     showDiaryPopup={showDiaryPopup} showGuestbookPopup={showGuestbookPopup}
                     isProfileMine={isProfileMine} isEditable={isEditable}/>

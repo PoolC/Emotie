@@ -25,7 +25,7 @@ export const Container = {
         return <BaseLayout backgroundColor={props.backgroundColor}>{props.children}</BaseLayout>
     },
     Content: function(props) {
-        return <ContentLayout>{props.children}</ContentLayout>
+        return <ContentLayout id="content">{props.children}</ContentLayout>
     },
     Profile: function(props) {
         return <ProfileLayout backgroundColor={props.backgroundColor}>{props.children}</ProfileLayout>
@@ -95,22 +95,27 @@ export const Group = {
         );
     },
     Category: function(props) {
+        const changeCategory = (category) => {
+            document.getElementById('content').scrollTo(0, 0);
+            props.history.replace(`${window.location.pathname}?category=${category}`);
+        };
+
         return (
             <CategoryLayout isEditable={props.isEditable}>
-                <Category onClick={() => props.setCategory(0)} selected={props.category === 0}>마음글</Category>
-                <Category onClick={() => props.setCategory(1)} selected={props.category === 1}>방명록</Category>
+                <Category onClick={() => changeCategory('diary')} selected={props.category !== 'guestbook'}>마음글</Category>
+                <Category onClick={() => changeCategory('guestbook')} selected={props.category === 'guestbook'}>방명록</Category>
             </CategoryLayout>
         );
     },
     GuestbookInput: function(props) {
         const [input, setInput] = useState('');
-        const onInputChange = useCallback(event => setInput(event.target.value));
+        const onInputChange = useCallback(event => setInput(event.target.value), []);
         const writeGuestbook = () => {
             props.uploadGuestbook(input);
             setInput('');
         }
 
-        return (props.category === 1 && !props.isProfileMine && 
+        return (props.category === 'guestbook' && !props.isProfileMine && 
             <InputLayout isEditable={props.isEditable}>
                 <Input width="100%" placeholder="방명록을 남기세요" value={input} onChange={onInputChange} disabled={props.isEditable}/>
                 <IconButton icon={IoPencil} color="white" size="1rem" onClick={writeGuestbook}/>
@@ -119,16 +124,17 @@ export const Group = {
     },
     Post: function(props) {
         const options = {
-            share: props.category === 0,
+            share: props.category !== 'guestbook',
             blur: false,
-            report: (props.category === 0 && !props.isProfileMine) || props.category === 1,
-            delete: props.category === 0 && props.isProfileMine
+            report: (props.category !== 'guestbook' && !props.isProfileMine) || props.category === 'guestbook',
+            delete: props.category !== 'guestbook' && props.isProfileMine
         };
+        
         return (
-            <PostList category={props.category} isEditable={props.isEditable}>
-                {props.category === 0 
-                ? props.diaries.map((post, index) => <PostCard key={index} category="diary" post={post} onClick={() => props.showDiaryPopup(index)} {...options}/>)
-                : props.guestbooks.map((post, index) => <PostCard key={index} category="guestbook" post={post} onClick={() => props.showGuestbookPopup(index)} {...options}/>)}
+            <PostList category={props.category} isProfileMine={props.isProfileMine} isEditable={props.isEditable}>
+                {props.category !== 'guestbook' 
+                ? props.diaries.map((post, index) => <PostCard key={props.memberId + index + 'd'} category="diary" post={post} onClick={() => props.showDiaryPopup(index)} {...options}/>)
+                : props.guestbooks.map((post, index) => <PostCard key={props.memberId + index + 'g'} category="guestbook" post={post} onClick={() => props.showGuestbookPopup(index)} {...options}/>)}
             </PostList>
         );
     },

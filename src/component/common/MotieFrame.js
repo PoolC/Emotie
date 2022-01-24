@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Progress from './modal/Progress';
+
 import { emotionsToIds } from '../../utils/converter';
 
 function MotieFrame(props) {
@@ -28,8 +30,12 @@ function MotieFrame(props) {
 
     return (
         <Frame>
-            <Character src={motieImage} alt={motieName}/>
-            <Eyes src={motieEye} alt={motieEmotion}/>
+            {motieName !== null 
+                ? (<>
+                    <Character src={motieImage} alt={motieName}/>
+                    <Eyes src={motieEye} alt={motieEmotion}/>
+                </>) 
+                : (<Progress isInProgress={true} fullscreen={false}/>)}
         </Frame>
     );
 }

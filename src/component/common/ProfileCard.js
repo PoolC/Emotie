@@ -6,7 +6,9 @@ function ProfileCard(props) {
         <Container backgroundColor={props.profile.allEmotion.color} onClick={props.onClick}>
             <Nickname>{props.profile.nickname}</Nickname>
             <MotieFrame motie={props.profile.characterName} emotion={[props.profile.recentEmotion[0]?.tag, props.profile.recentEmotion[1]?.tag]}/>
-            <Content>{props.profile.introduction}</Content>
+            <ContentCont>
+                <Content>{props.profile.introduction}</Content>
+            </ContentCont>
         </Container>
     );
 }
@@ -36,7 +38,6 @@ const Container = styled.div`
 
     @media only screen and (max-width: 768px) {
         width: 100%;
-        height: auto;
         aspect-ratio: 10/11;
         min-width: 300px;
         mix-height: 330px;
@@ -50,9 +51,20 @@ const Nickname = styled.p`
     color: #000000;
 `
 
+const ContentCont = styled.div`
+    width: 100%;
+    height: 5em;
+`
+
 const Content = styled.p`
+    display: -webkit-box;
     margin: 0;
     font-size: 0.8rem;
     color: #000000;
     line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical; 
+    word-break: break-word;
+    -webkit-line-clamp: 3;
 `
