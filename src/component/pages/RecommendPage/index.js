@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Container, ProfileList } from "./style";
+import { Container, ProfileList, MobileSpace } from "./style";
 import Header from "../../common/Header";
 import ProfileCard from "../../common/ProfileCard";
 import FloatingButton from "../../common/FloatingButton";

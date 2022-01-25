@@ -18,6 +18,7 @@ import DetailPage from "./component/pages/DetailPage/index";
 import WritePage from "./component/pages/WritePage/index";
 import FeedPage from "./component/pages/FeedPage/index";
 import RecommendPage from "./component/pages/RecommendPage/index";
+import SearchPage from "./component/pages/SearchPage/index";
 import SettingPage from "./component/pages/SettingPage/index";
 import ErrorPage from "./component/pages/ErrorPage/index";
 import TestPage from "./component/pages/TestPage/index";
@@ -62,6 +63,7 @@ function App() {
 
                 <Route exact path="/feed" component={forAuthorized(withRouter(FeedPage), authStatus)}/>
                 <Route exact path="/recommend" component={forAuthorized(withRouter(RecommendPage), authStatus)}/>
+                <Route exact path="/search" component={forAuthorized(withRouter(SearchPage), authStatus)}/>
 
                 <Route exact path="/setting" component={forAuthorized(withRouter(SettingPage), authStatus)}/>
                 

@@ -24,6 +24,7 @@ function Header(props) {
     // 클릭 이벤트
     const goLandingPage = () => props.history.push('/');
     const goRecommendPage = () => props.history.push('/recommend');
+    const goSearchPage = () => props.history.push('/search');
     const goFeedPage = () => props.history.push('/feed');
 	const goProfilePage = () => props.history.push(`/profile/${myMemberId}`);
     const goSettingPage = () => props.history.push('/setting');
@@ -42,9 +43,8 @@ function Header(props) {
     return (
         <Container transparent={props.transparent}>
             <Icon src={isMobile ? LogoImage : LogoText} transparent={props.transparent} onClick={authStatus === 'AUTHORIZED' ? goFeedPage : goLandingPage}/>
-            {props.search && !isMobile && <Search width="300px" placeholder="프로필을 검색합니다"/>}
             <MenuLayout>
-                {props.search && isMobile && <IconButton icon={IoSearch} color={props.transparent ? "black" : "white"}/>}
+                {props.search && <IconButton icon={IoSearch} onClick={goSearchPage} color={props.transparent ? "black" : "white"}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage} color={props.transparent ? "black" : "white"}/>}
                 {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage} color={props.transparent ? "black" : "white"}/>}
                 {authStatus === 'AUTHORIZED' ? <DropDown id="profile" width="188" options={dropdownOptions}/>
