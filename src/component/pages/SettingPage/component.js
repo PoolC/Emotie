@@ -150,9 +150,7 @@ export const Group = {
             <Section>
                 <Description>
                     <strong>{props.nickname} ({props.email})</strong> 계정을 삭제합니다. 
-                    삭제 즉시 계정 사용이 제한되며 마음글을 비롯한 모든 정보가 모두 비공개 처리됩니다. 
-                    데이터는 한 달 간 보관 후 자동으로 삭제 됩니다.
-                    한 달 내 재로그인시 계정이 활성화되며 계정 삭제 요청이 취소됩니다.
+                    삭제 즉시 계정 사용이 제한되며 마음글을 비롯한 모든 정보가 모두 삭제 처리됩니다. 
                 </Description>
             </Section>
         );
