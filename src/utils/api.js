@@ -12,7 +12,7 @@ export const toggleFollow = (memberId) => server.post(`/members/follow/${memberI
 // 인증
 export const pwResetEmail = (email) => server.post(`/auth/password-reset?email=${email}`);
 export const pwResetCheck = (token, email, password, passwordCheck) => server.put(`/auth/password-reset?passwordResetToken=${token}`, {email: email, password: password, passwordCheck: passwordCheck});
-export const activateAccount = (email, token) => server.put(`/auth/authorization?email=${email}&AuthorizationToken=${token}`);
+export const activateAccount = (email, token) => server.put(`/auth/authorization?email=${email}&authorizationToken=${token}`);
 export const login = ({ email, password }) => server.post('/auth/login', { email: email, password: password });
 
 // 다이어리
