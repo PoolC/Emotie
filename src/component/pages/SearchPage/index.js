@@ -14,6 +14,8 @@ import styled from "styled-components";
 import * as api from "../../../utils/api";
 
 function SearchPage(props) {
+    const [debug, setDebug] = useState(false);
+
     const goProfilePage = (memberId) => props.history.push(`/profile/${memberId}`);
 
     const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ function SearchPage(props) {
 
     const onChange = (e) => {
         setValue(e.target.value);
-        console.log(value);
+        if(debug) console.log(value);
     }
 
     const SearchKeyPress = (e) => {
@@ -37,9 +39,8 @@ function SearchPage(props) {
         setLoading(true);
         // setFullscreen(true);
         const response = await api.getSearch(value, 0);
-        console.log(response);
+        if(debug) console.log(response);
         setProfiles(response.data.profiles);
-        console.log(profiles);
         setLoading(false);
     }
 
@@ -56,7 +57,6 @@ function SearchPage(props) {
                     <ProfileCard key={index} profile={profile} onClick={() => goProfilePage(profile.memberId)}/>
                 )}
             </ProfileList>}
-
             <Progress isInProgress={loading} fullscreen={fullscreen} />
         </Container>
     );
