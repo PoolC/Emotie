@@ -11,7 +11,7 @@ function DetailPopup(props, ref) {
     }));
 
     const goProfilePage = (nickname) => props.history.push(`/profile/${nickname}`);
-    const slidePost = (neigh) => {setIdx(idx + neigh); console.log(props.details);}
+    const slidePost = (neigh) => setIdx(idx + neigh);
 
     return (
         props.isOpen && props.details.length !== 0 && 
