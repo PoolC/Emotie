@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import IconButton from './IconButton';
 import EmotionTag from './EmotionTag';
@@ -11,9 +12,10 @@ import Alert from './modal/Alert';
 import Reasons from './modal/Reasons';
 
 import * as api from "../../utils/api";
-import server from '../../utils/server';
 
 function PostCard(props) {
+    const isMobile = useMediaQuery({ query: '(max-width: 1100px)' });
+
     const options = [
         props.share ? {
             text: "공유하기",
@@ -156,6 +158,7 @@ function PostCard(props) {
 
     function onReport(event) {
         event.stopPropagation();
+        console.log('report');
         setReportOpen(true);
     }
 
@@ -239,16 +242,16 @@ function PostCard(props) {
                 <ContentCont>
                     <Content>{props.post.content}</Content>
                 </ContentCont>
-                <Icons>
+                {!isMobile && <Icons>
                     {props.share && <IconButton icon={AiOutlineShareAlt} size="1.2rem" color="#7E7E7E" onClick={onShare}/>}
                     {props.blur && <IconButton icon={AiOutlineEyeInvisible} size="1.2rem" color="#7E7E7E" onClick={onBlur}/>}
                     {props.report && <IconButton icon={RiAlarmWarningLine} size="1.2rem" color="#7E7E7E" onClick={onReport}/>}
                     {props.delete && <IconButton icon={RiDeleteBinLine} size="1.2rem" color="#7E7E7E" onClick={onDelete}/>}
-                </Icons>
+                </Icons>}
             </Container>
             }
             {/* 모달 */}
-            {(props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.post?.diaryId}/></DropDownContainer>}
+            {isMobile && (props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.post?.diaryId}/></DropDownContainer>}
             <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButton={alertInfo.firstButton} firstButtonFunc={alertInfo.firstButtonFunc} secondButton={alertInfo.secondButton} secondButtonInfo={alertInfo.secondButtonFunc}/>
             <Reasons title={reportInfo.title} options={reportInfo.options} isOpen={reportInfo.isOpen} setOpen={setReportOpen} firstButton={reportInfo.firstButton} firstButtonFunc={reportInfo.firstButtonFunc} secondButton={reportInfo.secondButton} reportReason={reportReason} setReportReason={setReportReason}/>
         </Wrapper>
@@ -346,17 +349,11 @@ const Icons = styled.div`
     display: flex;
     flex-flow: row nowrap;
     gap: 10px;
-    @media only screen and (max-width: 1100px) {
-        display: none;
-    }
 `
 
 const DropDownContainer = styled.div`
     position: absolute;
     bottom: 20px;
     right: 40px;
-    display: none;
-    @media only screen and (max-width: 1100px) {
-        display: flex;
-    }
+    display: flex;
 `
