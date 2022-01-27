@@ -14,8 +14,8 @@ function DetailPopup(props, ref) {
     const slidePost = (neigh) => setIdx(idx + neigh);
 
     return (
-        props.details.length !== 0 &&
-        <Container isOpen={props.isOpen} onClick={() => props.setOpen(false)}>
+        props.isOpen && props.details.length !== 0 && 
+        <Container onClick={() => props.setOpen(false)}>
             <PostContainer>
                 <LeftContainer $start={idx === 0}>
                     <BsChevronCompactLeft fontSize="5rem" onClick={(e) => {e.stopPropagation(); slidePost(-1);}}/>
@@ -51,9 +51,6 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     background-color: #00000050;
-    opacity: ${props => props.isOpen ? "1" : "0"};
-    visibility: ${props => props.isOpen ? "visible" : "hidden"};
-    transition: 200ms all;
     z-index: 15;
 `
 
