@@ -10,6 +10,7 @@ import IconButton from "./IconButton";
 import LogoText from "../../image/logo_text.svg";
 import LogoImage from "../../image/logo_img.svg";
 import { IoSearch, IoPeople, IoLayers } from "react-icons/io5";
+import { RiHomeSmileFill } from "react-icons/ri";
 import DropDown from "./DropDown";
 
 function Header(props) {
@@ -47,7 +48,7 @@ function Header(props) {
                 {props.search && <IconButton icon={IoSearch} onClick={goSearchPage} color={props.transparent ? "black" : "white"}/>}
                 {props.recommend && <IconButton icon={IoPeople} onClick={goRecommendPage} color={props.transparent ? "black" : "white"}/>}
                 {props.feed && <IconButton icon={IoLayers} onClick={goFeedPage} color={props.transparent ? "black" : "white"}/>}
-                {authStatus === 'AUTHORIZED' ? <DropDown id="profile" width="188" options={dropdownOptions}/>
+                {authStatus === 'AUTHORIZED' ? <DropDown id="profile" icon={RiHomeSmileFill} width="188" options={dropdownOptions} color={props.transparent ? "black" : "white"}/>
                 : <Login onClick={goLoginPage}>로그인</Login>
                 }
             </MenuLayout>

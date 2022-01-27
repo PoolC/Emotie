@@ -18,11 +18,7 @@ function DropDown(props){
 
     return (
         <DropDownContainer>
-            {
-                (props.id === "profile") ?
-                <Profile onClick={toggle}/>
-                : <IconButton icon={props.icon} size="1.2rem" color="#7E7E7E" onClick={toggle}/>
-            }
+            <IconButton icon={props.icon} size={props.id === "profile" ? '' : '1.2rem'} color={props.id === "profile" ? props.color : '#7E7E7E'} onClick={toggle}/>
             {
                 isOpen ?
                 <DropDownBox width={props.width} id={props.id}>
@@ -87,12 +83,4 @@ const DropDownContent = styled.button`
     &:active {
         opacity: 0.6;
     }
-`
-
-const Profile = styled.div`
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
 `
