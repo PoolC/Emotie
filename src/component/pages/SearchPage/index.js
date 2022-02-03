@@ -35,6 +35,9 @@ function SearchPage(props) {
     }
 
     async function Search() {
+        if(value===""){
+            return;
+        }
         setLoading(true);
         setProfiles([]);
         // setFullscreen(true);
