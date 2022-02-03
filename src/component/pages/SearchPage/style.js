@@ -31,3 +31,9 @@ export const MobileSpace = styled.div`
     width: 100%;
     height: 60px;
 `
+
+export const Info = styled.div`
+    margin-top: 100px;
+    color: white;
+    text-align: center;
+`
