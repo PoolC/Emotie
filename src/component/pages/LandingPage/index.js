@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Title, Text, Logo, Wrap, ImagePart, TextPart, MainPart, CharacterImg, FeedImg, RecommendImg, Footer } from "./style";
+import { Container, Title, Text, Logo, Wrap, ImagePart, TextPart, MainPart, CharacterImg, FeedImg, RecommendImg, Footer, FooterContent } from "./style";
 import Header from "../../common/Header";
 import PillButton from "../../common/PillButton";
 import logo from "../../../image/logo_img.svg";
@@ -49,7 +49,9 @@ function LandingPage(props) {
                 </TextPart>
             </Wrap>
             <Footer>
+                <FooterContent>
                 기술 지원/고객 상담: emotie.team@gmail.com
+                </FooterContent>
             </Footer>
         </Container>
     );

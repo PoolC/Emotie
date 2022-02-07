@@ -113,9 +113,18 @@ export const RecommendImg = styled.img`
 
 export const Footer = styled.div`
     display: flex;
+    justify-content:center;
     backgroud-color:#3C3C3C;
-    font-size:0.5em;
     width:100%;
-    height:100px;
-    color:white;
+    height:30px;
+    padding-bottom:30px;
+    
+    `
+export const FooterContent = styled.div`
+    display:flex;
+    justify-content:end;
+    align-items:end;
+    width:90%;
+    font-size:1em;
+    color:#757575;
     `
