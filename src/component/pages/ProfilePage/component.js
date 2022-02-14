@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, forwardRef } from "react";
 
 import { 
     BaseLayout,
@@ -97,6 +97,7 @@ export const Group = {
     Category: function(props) {
         const changeCategory = (category) => {
             document.getElementById('content').scrollTo(0, 0);
+            props.resetPageCount();
             props.history.replace(`${window.location.pathname}?category=${category}`);
         };
 
@@ -147,4 +148,7 @@ export const Element = {
     Boundary: function(props) {
         return <Boundary backgroundColor={props.backgroundColor} top={props.top} bottom={props.bottom}/>
     },
+    LoadTrigger: forwardRef(function(_props, ref) {
+        return <div ref={ref}/>
+    }),
 };

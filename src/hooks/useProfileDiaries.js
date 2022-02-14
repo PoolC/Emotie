@@ -1,27 +1,40 @@
+import { useCallback } from "react";
 import { useState, useEffect } from "react";
 
 import * as api from "../utils/api";
-import * as defaultData from "../utils/defaultData";
 
-function useProfileDiaries(memberId) {
-    const [profileDiaries, setProfileDiaries] = useState(defaultData.diaries);
+function useProfileDiaries(memberId, pageCount) {
+    const [profileDiaries, setProfileDiaries] = useState([]);
+    const [isLoadingDiaries, setLoadingDiaries] = useState(true);
 
     // 프로필 마음글 불러오기
-    const getProfileDiaries = async () => {
+    const getProfileDiaries = useCallback(async () => {
         try {
-            const response = await api.getProfileDiaries(memberId, 0);
-            setProfileDiaries(response.data);
+            setLoadingDiaries(true);
+
+            const response = await api.getProfileDiaries(memberId, pageCount);
+            const responseDiaries = response.data.diaries ?? [];
+
+            console.log('diary : ' + pageCount);
+
+            if (responseDiaries.length <= 0) return;
+
+            if (pageCount === 0) setProfileDiaries(responseDiaries);
+            else setProfileDiaries([...profileDiaries, ...responseDiaries]);
+
+            setLoadingDiaries(false);
         }
         catch(error) {
-            setProfileDiaries(defaultData.diaries);
+            console.log('마음글을 불러올 수 없습니다.');
         }
-    };
+    }, [memberId, pageCount, profileDiaries]);
+
     useEffect(() => {
         getProfileDiaries();
         // eslint-disable-next-line
-    }, [memberId]);
+    }, [memberId, pageCount]);
 
-    return profileDiaries;
+    return { profileDiaries, isLoadingDiaries };
 }
 
 export default useProfileDiaries;

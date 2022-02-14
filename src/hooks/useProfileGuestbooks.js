@@ -1,27 +1,40 @@
+import { useCallback } from "react";
 import { useState, useEffect } from "react";
 
 import * as api from "../utils/api";
-import * as defaultData from "../utils/defaultData";
 
-function useProfileGuestbooks(memberId) {
-    const [profileGuestbooks, setProfileGuestbooks] = useState(defaultData.guestbooks);
+function useProfileGuestbooks(memberId, pageCount) {
+    const [profileGuestbooks, setProfileGuestbooks] = useState([]);
+    const [isLoadingGuestbooks, setLoadingGuestbooks] = useState(true);
 
     // 프로필 방명록 불러오기
-    const getProfileGuestbooks = async () => {
+    const getProfileGuestbooks = useCallback(async () => {
         try {
-            const response = await api.getProfileGuestbooks(memberId, 0);
-            setProfileGuestbooks(response.data);
+            setLoadingGuestbooks(true);
+
+            const response = await api.getProfileGuestbooks(memberId, pageCount);
+            const responseGuestbooks = response.data.guestbooks ?? [];
+            
+            console.log('guestbook : ' + pageCount);
+
+            if (responseGuestbooks.length <= 0) return;
+
+            if (pageCount === 0) setProfileGuestbooks(responseGuestbooks);
+            else setProfileGuestbooks([...profileGuestbooks, ...responseGuestbooks]);
+
+            setLoadingGuestbooks(false);
         }
         catch(error) {
-            setProfileGuestbooks(defaultData.guestbooks);
+            console.log('방명록을 불러올 수 없습니다.');
         }
-    };
+    }, [memberId, pageCount, profileGuestbooks]);
+
     useEffect(() => {
         getProfileGuestbooks();
         // eslint-disable-next-line
-    }, [memberId]);
+    }, [memberId, pageCount]);
 
-    return profileGuestbooks;
+    return { profileGuestbooks, isLoadingGuestbooks };
 }
 
 export default useProfileGuestbooks;

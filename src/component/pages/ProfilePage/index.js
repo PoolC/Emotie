@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import queryString from "query-string";
 
@@ -17,9 +17,12 @@ function ProfilePage(props) {
     const { memberId } = useParams();
     const { category } = queryString.parse(props.location.search);
 
+    const [diaryPageCount, setDiaryPageCount] = useState(0);
+    const [guestbookPageCount, setGuestbookPageCount] = useState(0);
+
     const { profileInfo, isProfileMine, setProfileInfo } = useProfileInfo(memberId);
-    const profileDiaries = useProfileDiaries(memberId);
-    const profileGuestbooks = useProfileGuestbooks(memberId);
+    const { profileDiaries, isLoadingDiaries } = useProfileDiaries(memberId, diaryPageCount);
+    const { profileGuestbooks, isLoadingGuestbooks } = useProfileGuestbooks(memberId, guestbookPageCount);
 
     // 수정할 수 있는 데이터
     const [tempIntroduction, setTempIntroduction] = useState('');
@@ -35,6 +38,31 @@ function ProfilePage(props) {
     const [isGuestbookPopupOpen, setGuestbookPopupOpen] = useState(false);
     const diaryPopup = useRef();
     const guestbookPopup = useRef();
+    const loadTrigger = useRef();
+
+    // 무한 스크롤
+    const updatePageCount = useCallback((entries) => {
+        if (entries[0].isIntersecting) {
+            if (!isLoadingDiaries && category !== 'guestbook') setDiaryPageCount(prev => prev + 1);
+            else if(!isLoadingGuestbooks && category === 'guestbook') setGuestbookPageCount(prev => prev + 1);
+        }
+    }, [category, isLoadingDiaries, isLoadingGuestbooks]);
+    const resetPageCount = useCallback(() => {
+        if (category !== 'guestbook') setDiaryPageCount(0);
+        else setGuestbookPageCount(0);
+    }, [category]);
+
+    useEffect(() => {
+        const intersectingOption = {
+            root: null,
+            rootMargin: '90px',
+            threshold: 0
+        }
+        const observer = new IntersectionObserver(updatePageCount, intersectingOption);
+
+        if (loadTrigger.current) observer.observe(loadTrigger.current);
+        return () => observer.disconnect();
+    }, [updatePageCount]);
 
     // 클릭 이벤트 (본인 프로필)
     const startEdit = () => setEditable(true);
@@ -108,6 +136,7 @@ function ProfilePage(props) {
                     <Group.Category 
                         category={category}
                         history={props.history}
+                        resetPageCount={resetPageCount}
                         isEditable={isEditable}/>
                     <Group.GuestbookInput 
                         category={category}
@@ -117,16 +146,17 @@ function ProfilePage(props) {
                 </Container.Profile>
                 <Group.Post 
                     memberId={memberId} category={category} 
-                    diaries={profileDiaries.diaries} guestbooks={profileGuestbooks.guestbooks} 
+                    diaries={profileDiaries} guestbooks={profileGuestbooks} 
                     showDiaryPopup={showDiaryPopup} showGuestbookPopup={showGuestbookPopup}
                     isProfileMine={isProfileMine} isEditable={isEditable}/>
+                <Element.LoadTrigger ref={loadTrigger}/>
             </Container.Content>
             {/* 바운더리 */}
             <Element.Boundary backgroundColor={profileInfo.allEmotion.color} top/>
             <Element.Boundary backgroundColor={profileInfo.allEmotion.color} bottom/>
             {/* 모달 */}
-            <DetailPopup ref={diaryPopup} isOpen={isDiaryPopupOpen} setOpen={setDiaryPopupOpen} history={props.history} details={profileDiaries.diaries}/>
-            <DetailPopup ref={guestbookPopup} isOpen={isGuestbookPopupOpen} setOpen={setGuestbookPopupOpen} history={props.history} details={profileGuestbooks.guestbooks}/>
+            <DetailPopup ref={diaryPopup} isOpen={isDiaryPopupOpen} setOpen={setDiaryPopupOpen} history={props.history} details={profileDiaries}/>
+            <DetailPopup ref={guestbookPopup} isOpen={isGuestbookPopupOpen} setOpen={setGuestbookPopupOpen} history={props.history} details={profileGuestbooks}/>
             <Alert
                 title="프로필 수정 취소"
                 message="모티 및 소개글 수정 내역이 저장되지 않습니다."
