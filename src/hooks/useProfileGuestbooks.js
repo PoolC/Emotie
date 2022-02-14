@@ -14,12 +14,11 @@ function useProfileGuestbooks(memberId, pageCount) {
 
             const response = await api.getProfileGuestbooks(memberId, pageCount);
             const responseGuestbooks = response.data.guestbooks ?? [];
-            
-            console.log('guestbook : ' + pageCount);
 
+            // 추가 방명록이 없다면 더 이상의 pagination을 진행하지 않는다.
             if (responseGuestbooks.length <= 0) return;
 
-            if (pageCount === 0) setProfileGuestbooks(responseGuestbooks);
+            if (pageCount <= 0) setProfileGuestbooks(responseGuestbooks);
             else setProfileGuestbooks([...profileGuestbooks, ...responseGuestbooks]);
 
             setLoadingGuestbooks(false);

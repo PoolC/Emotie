@@ -15,11 +15,10 @@ function useProfileDiaries(memberId, pageCount) {
             const response = await api.getProfileDiaries(memberId, pageCount);
             const responseDiaries = response.data.diaries ?? [];
 
-            console.log('diary : ' + pageCount);
-
+            // 추가 마음글이 없다면 더 이상의 pagination을 진행하지 않는다.
             if (responseDiaries.length <= 0) return;
 
-            if (pageCount === 0) setProfileDiaries(responseDiaries);
+            if (pageCount <= 0) setProfileDiaries(responseDiaries);
             else setProfileDiaries([...profileDiaries, ...responseDiaries]);
 
             setLoadingDiaries(false);
