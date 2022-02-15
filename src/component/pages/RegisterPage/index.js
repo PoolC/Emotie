@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import Header from "../../common/Header";
+import Header from "../../common/widget/Header";
 import logo from "../../../image/logo_img.svg";
-import PillButton from "../../common/PillButton";
-import PillInput from "../../common/PillInput";
-import CheckBox from "../../common/CheckBox";
-import SelectGroup from "../../common/SelectGroup";
+import PillButton from "../../common/button/PillButton";
+import PillInput from "../../common/input/PillInput";
+import CheckBox from "../../common/input/CheckBox";
+import SelectGroup from "../../common/input/SelectGroup";
 import Alert from "../../common/modal/Alert";
 import Progress from "../../common/modal/Progress";
 import Term from "./component"

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useState } from "react";
 import onClickOutside from "react-onclickoutside";
 
-import IconButton from './IconButton';
+import IconButton from '../button/IconButton';
 
 function DropDown(props){
     const [isOpen, setIsOpen] = useState(false);

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import MotieFrame from "../common/MotieFrame";
+import MotieFrame from "../frame/MotieFrame";
 
 function ProfileCard(props) {
     return (

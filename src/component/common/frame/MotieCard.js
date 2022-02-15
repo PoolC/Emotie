@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-import dust from "../../../image/CharacterImg/dust.png";
-import dust2 from "../../../image/CharacterImg/dust2.png";
-import bear from "../../../image/CharacterImg/bear.png";
-import cat from "../../../image/CharacterImg/cat.png";
-import dog from "../../../image/CharacterImg/dog.png";
-import heart from "../../../image/CharacterImg/heart.png";
-import slime from "../../../image/CharacterImg/slime.png";
+import dust from "@image/CharacterImg/dust.png";
+import dust2 from "@image/CharacterImg/dust2.png";
+import bear from "@image/CharacterImg/bear.png";
+import cat from "@image/CharacterImg/cat.png";
+import dog from "@image/CharacterImg/dog.png";
+import heart from "@image/CharacterImg/heart.png";
+import slime from "@image/CharacterImg/slime.png";
 
 function MotieCard(props) {
-    let motieImage = dust;
+    let motieImage;
     const motieName = props.motie;
 
     switch (motieName) {
@@ -33,6 +33,9 @@ function MotieCard(props) {
             break;
         case "slime":
             motieImage = slime;
+            break;
+        default:
+            motieImage = dust;
             break;
     }
 

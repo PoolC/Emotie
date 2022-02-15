@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import Header from "../../common/Header";
-import PillButton from "../../common/PillButton";
-import PillInput from "../../common/PillInput";
+import Header from "../../common/widget/Header";
+import PillButton from "../../common/button/PillButton";
+import PillInput from "../../common/input/PillInput";
 import Alert from "../../common/modal/Alert"
 
 import * as api from "../../../utils/api";

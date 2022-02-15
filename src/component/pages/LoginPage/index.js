@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import * as saga from "../../../store/actions/_saga";
 import * as auth from "../../../store/actions/auth";
 
-import Header from "../../common/Header";
+import Header from "../../common/widget/Header";
 import logo from "../../../image/logo_img.svg";
-import PillButton from "../../common/PillButton";
-import PillInput from "../../common/PillInput";
+import PillButton from "../../common/button/PillButton";
+import PillInput from "../../common/input/PillInput";
 import Alert from "../../common/modal/Alert"
 
 import * as reg from "../../../utils/regex"

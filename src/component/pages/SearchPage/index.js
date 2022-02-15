@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import { Container, ProfileList, MobileSpace, Info } from "./style";
-import Header from "../../common/Header";
+import Header from "../../common/widget/Header";
 import Progress from "../../common/modal/Progress";
-import PillInput from "../../common/PillInput";
+import PillInput from "../../common/input/PillInput";
 import { IoSearch } from "react-icons/io5";
-import IconButton from "../../common/IconButton";
-import ProfileCard from "../../common/ProfileCard";
+import IconButton from "../../common/button/IconButton";
+import ProfileCard from "../../common/card/ProfileCard";
 
 import styled from "styled-components";
 

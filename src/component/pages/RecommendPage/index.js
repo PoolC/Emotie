@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import { Container, ProfileList, MobileSpace } from "./style";
-import Header from "../../common/Header";
-import ProfileCard from "../../common/ProfileCard";
-import FloatingButton from "../../common/FloatingButton";
+import Header from "../../common/widget/Header";
+import ProfileCard from "../../common/card/ProfileCard";
+import FloatingButton from "../../common/button/FloatingButton";
 import { GiPencil } from "react-icons/gi";
 import Progress from "../../common/modal/Progress";
 

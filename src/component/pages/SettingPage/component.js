@@ -5,11 +5,11 @@ import {
     CategoryLayout, Category,
     FrameLayout, Title, Section, SemiSection, Description, Label, Alert, PillInputWrapper
 } from "./style";
-import Header from "../../common/Header";
-import PillButton from "../../common/PillButton";
-import PillInput from "../../common/PillInput";
-import RadioGroup from "../../common/RadioGroup";
-import SelectGroup from "../../common/SelectGroup";
+import Header from "../../common/widget/Header";
+import PillButton from "../../common/button/PillButton";
+import PillInput from "../../common/input/PillInput";
+import RadioGroup from "../../common/input/RadioGroup";
+import SelectGroup from "../../common/input/SelectGroup";
 
 export const Container = {
     Base: function(props) {

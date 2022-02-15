@@ -11,14 +11,14 @@ import {
     PostList,
     Boundary
 } from "./style";
-import Header from "../../common/Header";
-import MotieFrame from "../../common/MotieFrame";
-import PillShadowButton from "../../common/PillShadowButton";
-import PostCard from "../../common/PostCard";
-import IconButton from "../../common/IconButton";
+import Header from "../../common/widget/Header";
+import MotieFrame from "../../common/frame/MotieFrame";
+import PillShadowButton from "../../common/button/PillShadowButton";
+import PostCard from "../../common/card/PostCard";
+import IconButton from "../../common/button/IconButton";
 import { IoPencil } from "react-icons/io5";
 
-import MotieCard from "../../common/card/MotieCard";
+import MotieCard from "../../common/frame/MotieCard";
 
 export const Container = {
     Base: function(props) {

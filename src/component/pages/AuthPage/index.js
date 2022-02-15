@@ -1,7 +1,7 @@
 import React, { useState, useEffect  } from "react";
 
-import Header from "../../common/Header";
-import PillButton from "../../common/PillButton";
+import Header from "../../common/widget/Header";
+import PillButton from "../../common/button/PillButton";
 import Alert from "../../common/modal/Alert"
 import queryString from "query-string";
 
