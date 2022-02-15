@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import IconButton from '../button/IconButton';
-import EmotionTag from '../widget/EmotionTag';
-import DropDown from '../modal/DropDown';
+import IconButton from '@common/button/IconButton';
+import EmotionTag from '@common/widget/EmotionTag';
+import DropDown from '@common/modal/DropDown';
 import { AiOutlineShareAlt, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RiAlarmWarningLine, RiDeleteBinLine } from "react-icons/ri";
 import { BiDotsHorizontalRounded } from "react-icons/bi";

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import PillShadowButton from "../button/PillShadowButton";
-import RadioGroup from "../input/RadioGroup";
+import PillShadowButton from "@common/button/PillShadowButton";
+import RadioGroup from "@common/input/RadioGroup";
 
 function Reasons(props) {
     const onFirstClick = () => {

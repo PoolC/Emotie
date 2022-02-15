@@ -1,17 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
-import * as saga from "../../../store/actions/_saga";
+import * as saga from "@store/actions/_saga";
 
 import styled from "styled-components";
 
-import PillInput from "../input/PillInput";
-import IconButton from "../button/IconButton";
+import PillInput from "@common/input/PillInput";
+import IconButton from "@common/button/IconButton";
 import LogoText from "@image/logo_text.svg";
 import LogoImage from "@image/logo_img.svg";
 import { IoSearch, IoPeople, IoLayers } from "react-icons/io5";
 import { RiHomeSmileFill } from "react-icons/ri";
-import DropDown from "../modal/DropDown";
+import DropDown from "@common/modal/DropDown";
 
 function Header(props) {
     // 스토어

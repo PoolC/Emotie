@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, forwardRef, useImperativeHandle } from 'react';
 
-import EmotionTag from '../widget/EmotionTag';
+import EmotionTag from '@common/widget/EmotionTag';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 
 function DetailPopup(props, ref) {

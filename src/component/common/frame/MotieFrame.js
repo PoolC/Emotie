@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import Progress from '../modal/Progress';
+import Progress from '@common/modal/Progress';
 
-import { emotionsToIds } from '../../../utils/converter';
+import { emotionsToIds } from '@utils/converter';
 
 function MotieFrame(props) {
     const motieName = props.motie;
