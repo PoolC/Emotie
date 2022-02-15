@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import * as api from "../../../../utils/api";
-import * as saga from "../../../../store/actions/_saga";
+import * as api from "@utils/api";
+import * as saga from "@store/actions/_saga";
 
 import { Container, Group, Element } from "../component";
 

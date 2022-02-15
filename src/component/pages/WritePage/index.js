@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import emotions from "../../../utils/Emotions";
+import emotions from "@utils/Emotions";
 import { Container, Body, TagContainer, Tag, TextSection, TextArea, CheckBoxContainer, ButtonSection } from "./style";
-import EmotionTag from "../../common/widget/EmotionTag";
-import Header from "../../common/widget/Header";
-import PillButton from "../../common/button/PillButton";
-import CheckBox from "../../common/input/CheckBox";
-import Alert from "../../common/modal/Alert";
+import EmotionTag from "@common/widget/EmotionTag";
+import Header from "@common/widget/Header";
+import PillButton from "@common/button/PillButton";
+import CheckBox from "@common/input/CheckBox";
+import Alert from "@common/modal/Alert";
 
-import * as api from "../../../utils/api";
+import * as api from "@utils/api";
 
 function WritePage(props) {
     const [ isPrivate, setPrivate ] = useState(false);

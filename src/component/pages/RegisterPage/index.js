@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
-import Header from "../../common/widget/Header";
-import logo from "../../../image/logo_img.svg";
-import PillButton from "../../common/button/PillButton";
-import PillInput from "../../common/input/PillInput";
-import CheckBox from "../../common/input/CheckBox";
-import SelectGroup from "../../common/input/SelectGroup";
-import Alert from "../../common/modal/Alert";
-import Progress from "../../common/modal/Progress";
+import Header from "@common/widget/Header";
+import logo from "@image/logo_img.svg";
+import PillButton from "@common/button/PillButton";
+import PillInput from "@common/input/PillInput";
+import CheckBox from "@common/input/CheckBox";
+import SelectGroup from "@common/input/SelectGroup";
+import Alert from "@common/modal/Alert";
+import Progress from "@common/modal/Progress";
 import Term from "./component"
 
-import * as api from "../../../utils/api";
-import * as reg from "../../../utils/regex";
-import * as conv from "../../../utils/converter";
+import * as api from "@utils/api";
+import * as reg from "@utils/regex";
+import * as conv from "@utils/converter";
 
 import {
     Container, Title, Text, Logo, InputAlert, InputGroup, Gap, FlexBox, ButtonText, Border, Link, CertButton

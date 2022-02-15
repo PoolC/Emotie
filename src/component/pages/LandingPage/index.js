@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Container, Title, Text, Logo, Wrap, ImagePart, TextPart, MainPart, CharacterImg, FeedImg, RecommendImg, Footer, FooterContent } from "./style";
-import Header from "../../common/widget/Header";
-import PillButton from "../../common/button/PillButton";
-import logo from "../../../image/logo_img.svg";
-import character from "../../../image/LandingPageImg/character.png";
-import feed from "../../../image/LandingPageImg/feed.png";
-import recommend from "../../../image/LandingPageImg/recommend.png";
+import Header from "@common/widget/Header";
+import PillButton from "@common/button/PillButton";
+import logo from "@image/logo_img.svg";
+import character from "@image/LandingPageImg/character.png";
+import feed from "@image/LandingPageImg/feed.png";
+import recommend from "@image/LandingPageImg/recommend.png";
 
 function LandingPage(props) {
     const goLoginPage = () => props.history.push('/login');

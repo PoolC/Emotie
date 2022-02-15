@@ -13,7 +13,6 @@ import FindPage from "./component/pages/FindPage/index";
 import ResetPage from "./component/pages/ResetPage/index";
 import AuthPage from "./component/pages/AuthPage/index";
 import ProfilePage from "./component/pages/ProfilePage/index";
-import MotieEditPage from "./component/pages/MotieEditPage/index";
 import DetailPage from "./component/pages/DetailPage/index";
 import WritePage from "./component/pages/WritePage/index";
 import FeedPage from "./component/pages/FeedPage/index";
@@ -57,7 +56,6 @@ function App() {
                 <Route exact path="/auth/password-reset" component={forUnauthorized(withRouter(ResetPage), authStatus)}/>
 
                 <Route exact path="/profile/:memberId" render={(props) => forAuthorized(withRouter(ProfilePage), authStatus)({ key: props.match.params.memberId, ...props })}/>
-                <Route exact path="/motie-edit" component={forAuthorized(withRouter(MotieEditPage), authStatus)}/>
                 <Route exact path="/profile/post/:postId" component={withRouter(DetailPage)}/>
                 <Route exact path="/write" component={forAuthorized(withRouter(WritePage), authStatus)}/>
 

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-import Header from "../../common/widget/Header";
-import PillButton from "../../common/button/PillButton";
-import PillInput from "../../common/input/PillInput";
-import Alert from "../../common/modal/Alert"
+import Header from "@common/widget/Header";
+import PillButton from "@common/button/PillButton";
+import PillInput from "@common/input/PillInput";
+import Alert from "@common/modal/Alert"
 
-import * as api from "../../../utils/api";
-import * as reg from "../../../utils/regex"
+import * as api from "@utils/api";
+import * as reg from "@utils/regex"
 
 
 import {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import * as api from "../../../../utils/api";
+import * as api from "@utils/api";
 
 import { Container, Group, Element } from "../component";
 

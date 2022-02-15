@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import PillShadowButton from "../../common/button/PillShadowButton";
+import PillShadowButton from "@common/button/PillShadowButton";
 
 import Template from "./template";
 

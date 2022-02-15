@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { Container, ProfileList, MobileSpace } from "./style";
-import Header from "../../common/widget/Header";
-import ProfileCard from "../../common/card/ProfileCard";
-import FloatingButton from "../../common/button/FloatingButton";
+import Header from "@common/widget/Header";
+import ProfileCard from "@common/card/ProfileCard";
+import FloatingButton from "@common/button/FloatingButton";
 import { GiPencil } from "react-icons/gi";
-import Progress from "../../common/modal/Progress";
+import Progress from "@common/modal/Progress";
 
-import * as api from "../../../utils/api";
+import * as api from "@utils/api";
 
 function RecommendPage(props) {
     const [loading, setLoading] = useState(false);

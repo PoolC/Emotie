@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import * as api from "../../../../utils/api";
-import { numberToTwoString } from "../../../../utils/converter";
-import * as saga from "../../../../store/actions/_saga";
+import * as api from "@utils/api";
+import { numberToTwoString } from "@utils/converter";
+import * as saga from "@store/actions/_saga";
 
 import { Container, Group, Element } from "../component";
 
