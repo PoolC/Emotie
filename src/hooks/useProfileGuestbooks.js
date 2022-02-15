@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useState, useEffect } from "react";
 
-import * as api from "../utils/api";
+import * as api from "@utils/api";
 
 function useProfileGuestbooks(memberId, pageCount) {
     const [profileGuestbooks, setProfileGuestbooks] = useState([]);

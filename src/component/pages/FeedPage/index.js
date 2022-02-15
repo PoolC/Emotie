@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 import { Container, PostList, Info, WBR } from "./style";
-import Header from "../../common/Header";
-import PostCard from "../../common/PostCard";
-import FloatingButton from "../../common/FloatingButton";
+import Header from "@common/widget/Header";
+import PostCard from "@common/card/PostCard";
+import FloatingButton from "@common/button/FloatingButton";
 import { GiPencil } from "react-icons/gi";
 import { MdKeyboardArrowUp } from "react-icons/md"
-import Progress from "../../common/modal/Progress";
+import Progress from "@common/modal/Progress";
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { IoPeople } from "react-icons/io5";
 
-import * as api from "../../../utils/api";
+import * as api from "@utils/api";
 
 function FeedPage(props) {
     const [loading, setLoading] = useState(false);

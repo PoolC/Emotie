@@ -1,27 +1,26 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as saga from "./store/actions/_saga";
-import * as user from "./store/actions/user";
+import * as saga from "@store/actions/_saga";
+import * as user from "@store/actions/user";
 
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from "react-router-dom";
-import { forAuthorized, forUnauthorized } from "./hoc/authChecker";
+import { forAuthorized, forUnauthorized } from "@hoc/authChecker";
 
-import LandingPage from "./component/pages/LandingPage/index";
-import LoginPage from "./component/pages/LoginPage/index";
-import RegisterPage from "./component/pages/RegisterPage/index";
-import FindPage from "./component/pages/FindPage/index";
-import ResetPage from "./component/pages/ResetPage/index";
-import AuthPage from "./component/pages/AuthPage/index";
-import ProfilePage from "./component/pages/ProfilePage/index";
-import MotieEditPage from "./component/pages/MotieEditPage/index";
-import DetailPage from "./component/pages/DetailPage/index";
-import WritePage from "./component/pages/WritePage/index";
-import FeedPage from "./component/pages/FeedPage/index";
-import RecommendPage from "./component/pages/RecommendPage/index";
-import SearchPage from "./component/pages/SearchPage/index";
-import SettingPage from "./component/pages/SettingPage/index";
-import ErrorPage from "./component/pages/ErrorPage/index";
-import TestPage from "./component/pages/TestPage/index";
+import LandingPage from "@pages/LandingPage/index";
+import LoginPage from "@pages/LoginPage/index";
+import RegisterPage from "@pages/RegisterPage/index";
+import FindPage from "@pages/FindPage/index";
+import ResetPage from "@pages/ResetPage/index";
+import AuthPage from "@pages/AuthPage/index";
+import ProfilePage from "@pages/ProfilePage/index";
+import DetailPage from "@pages/DetailPage/index";
+import WritePage from "@pages/WritePage/index";
+import FeedPage from "@pages/FeedPage/index";
+import RecommendPage from "@pages/RecommendPage/index";
+import SearchPage from "@pages/SearchPage/index";
+import SettingPage from "@pages/SettingPage/index";
+import ErrorPage from "@pages/ErrorPage/index";
+import TestPage from "@pages/TestPage/index";
 
 function App() {
     const authStatus = useSelector(store => store.auth.status);
@@ -57,7 +56,6 @@ function App() {
                 <Route exact path="/auth/password-reset" component={forUnauthorized(withRouter(ResetPage), authStatus)}/>
 
                 <Route exact path="/profile/:memberId" render={(props) => forAuthorized(withRouter(ProfilePage), authStatus)({ key: props.match.params.memberId, ...props })}/>
-                <Route exact path="/motie-edit" component={forAuthorized(withRouter(MotieEditPage), authStatus)}/>
                 <Route exact path="/profile/post/:postId" component={withRouter(DetailPage)}/>
                 <Route exact path="/write" component={forAuthorized(withRouter(WritePage), authStatus)}/>
 

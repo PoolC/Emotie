@@ -1,7 +1,7 @@
 import { takeLatest } from "redux-saga/effects";
 
-import { LOGIN, LOGOUT, EXPIRE, INIT_USER } from "../actions/_saga";
-import { loginSaga, logoutSaga, expireSaga, initUserSaga } from "../reducers/_saga";
+import { LOGIN, LOGOUT, EXPIRE, INIT_USER } from "@store/actions/_saga";
+import { loginSaga, logoutSaga, expireSaga, initUserSaga } from "@store/reducers/_saga";
 
 function* rootSaga() {
     yield takeLatest(LOGIN, loginSaga);

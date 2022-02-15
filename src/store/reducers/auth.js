@@ -1,4 +1,4 @@
-import { UPDATE_STATUS } from '../actions/auth';
+import { UPDATE_STATUS } from '@store/actions/auth';
 
 const initialState = {
     /* 

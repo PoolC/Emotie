@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import PillShadowButton from "../PillShadowButton";
+import PillShadowButton from "@common/button/PillShadowButton";
 
 function Alert(props) {
     const onFirstClick = () => {

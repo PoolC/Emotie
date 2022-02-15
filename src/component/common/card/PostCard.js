@@ -2,16 +2,16 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import IconButton from './IconButton';
-import EmotionTag from './EmotionTag';
-import DropDown from './DropDown';
+import IconButton from '@common/button/IconButton';
+import EmotionTag from '@common/widget/EmotionTag';
+import DropDown from '@common/modal/DropDown';
 import { AiOutlineShareAlt, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RiAlarmWarningLine, RiDeleteBinLine } from "react-icons/ri";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import Alert from './modal/Alert';
-import Reasons from './modal/Reasons';
+import Alert from '@common/modal/Alert';
+import Reasons from '@common/modal/Reasons';
 
-import * as api from "../../utils/api";
+import * as api from "@utils/api";
 
 function PostCard(props) {
     const isMobile = useMediaQuery({ query: '(max-width: 1100px)' });

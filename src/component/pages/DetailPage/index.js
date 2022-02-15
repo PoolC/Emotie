@@ -2,14 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import { Container, Profile, Post, ProfileWrapper, ProfileButton, Wrapper, Info, Nickname, Date, Content, UrlArea} from "./style";
-import Header from "../../common/Header";
-import EmotionTag from '../../common/EmotionTag';
-import IconButton from '../../common/IconButton';
+import Header from "@common/widget/Header";
+import EmotionTag from '@common/widget/EmotionTag';
+import IconButton from '@common/button/IconButton';
 import { AiOutlineShareAlt } from "react-icons/ai";
-import Alert from "../../common/modal/Alert";
-import Progress from "../../common/modal/Progress";
+import Alert from "@common/modal/Alert";
+import Progress from "@common/modal/Progress";
 
-import * as api from "../../../utils/api";
+import * as api from "@utils/api";
 
 function DetailPage(props) {
     const { postId } = useParams();

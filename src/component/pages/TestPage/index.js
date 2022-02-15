@@ -1,20 +1,20 @@
 import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as saga from "../../../store/actions/_saga";
+import * as saga from "@store/actions/_saga";
 
-import Emotions from "../../../utils/Emotions";
+import Emotions from "@utils/Emotions";
 
 import { Container, LoginContainer, LoginToken, PostList, ProfileList } from "./style";
-import FloatingButton from "../../common/FloatingButton";
-import Header from "../../common/Header";
-import IconButton from "../../common/IconButton";
-import PillButton from "../../common/PillButton";
-import PostCard from "../../common/PostCard";
-import ProfileCard from "../../common/ProfileCard";
-import DetailPopup from "../../common/DetailPopup";
+import FloatingButton from "@common/button/FloatingButton";
+import Header from "@common/widget/Header";
+import IconButton from "@common/button/IconButton";
+import PillButton from "@common/button/PillButton";
+import PostCard from "@common/card/PostCard";
+import ProfileCard from "@common/card/ProfileCard";
+import DetailPopup from "@common/modal/DetailPopup";
 import { IoPersonOutline } from "react-icons/io5";
 
-import Alert from "../../common/modal/Alert";
+import Alert from "@common/modal/Alert";
 
 function TestPage(props) {
     const authStatus = useSelector(store => store.auth.status);

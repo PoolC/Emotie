@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@public/*": ["public/*"],
+      "@common/*": ["src/component/common/*"],
+      "@pages/*": ["src/component/pages/*"],
+      "@hoc/*": ["src/hoc/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@image/*": ["src/image/*"],
+      "@store/*": ["src/store/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "exclude": ["node_modules", "build"],
+  "include": ["**/*.js"]
+}

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import * as api from "../utils/api";
-import * as defaultData from "../utils/defaultData";
+import * as api from "@utils/api";
+import * as defaultData from "@utils/defaultData";
 
 function useProfileInfo(memberId) {
     const [profileInfo, setProfileInfo] = useState(defaultData.profileInfo);

@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import queryString from "query-string";
 
-import useProfileInfo from "../../../hooks/useProfileInfo";
-import useProfileDiaries from "../../../hooks/useProfileDiaries";
-import useProfileGuestbooks from "../../../hooks/useProfileGuestbooks";
+import useProfileInfo from "@hooks/useProfileInfo";
+import useProfileDiaries from "@hooks/useProfileDiaries";
+import useProfileGuestbooks from "@hooks/useProfileGuestbooks";
 
-import * as api from "../../../utils/api";
+import * as api from "@utils/api";
 
 import { Container, Group, Element } from "./component";
-import Alert from "../../common/modal/Alert";
-import DetailPopup from "../../common/DetailPopup";
+import Alert from "@common/modal/Alert";
+import DetailPopup from "@common/modal/DetailPopup";
 
 function ProfilePage(props) {
     // 프로필 정보

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import * as saga from "../../../store/actions/_saga";
-import * as auth from "../../../store/actions/auth";
+import * as saga from "@store/actions/_saga";
+import * as auth from "@store/actions/auth";
 
-import Header from "../../common/Header";
-import logo from "../../../image/logo_img.svg";
-import PillButton from "../../common/PillButton";
-import PillInput from "../../common/PillInput";
-import Alert from "../../common/modal/Alert"
+import Header from "@common/widget/Header";
+import logo from "@image/logo_img.svg";
+import PillButton from "@common/button/PillButton";
+import PillInput from "@common/input/PillInput";
+import Alert from "@common/modal/Alert"
 
-import * as reg from "../../../utils/regex"
+import * as reg from "@utils/regex"
 
 import {
     Container, Title, Text, Logo, Switch, ButtonText

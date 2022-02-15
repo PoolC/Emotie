@@ -1,8 +1,8 @@
 import { call, put } from "redux-saga/effects";
-import { login, getUserInfo } from "../../utils/api";
+import { login, getUserInfo } from "@utils/api";
 
-import * as auth from "../actions/auth";
-import * as user from "../actions/user";
+import * as auth from "@store/actions/auth";
+import * as user from "@store/actions/user";
 
 export function* loginSaga(action) {
     try {

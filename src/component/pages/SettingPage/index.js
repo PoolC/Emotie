@@ -4,7 +4,7 @@ import { Container, Group, Element } from "./component";
 import UpdateInfoFragment from "./fragment/UpdateInfoFragment";
 import ChangePasswordFragment from "./fragment/ChangePasswordFragment";
 import DeleteAccountFragment from "./fragment/DeleteAccountFragment";
-import Alert from "../../common/modal/Alert";
+import Alert from "@common/modal/Alert";
 
 function SettingPage(props) {
     // 인터페이스

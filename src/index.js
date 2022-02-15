@@ -4,9 +4,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 
-import rootSaga from './store/middleware/saga';
-import reducers from './store/reducers/_all';
-import * as auth from './store/actions/auth';
+import rootSaga from '@store/middleware/saga';
+import reducers from '@store/reducers/_all';
+import * as auth from '@store/actions/auth';
 
 import App from './App';
 import './index.css';

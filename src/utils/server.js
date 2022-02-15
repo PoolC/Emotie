@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { store } from "../index";
-import { expire } from "../store/actions/_saga";
+import { expire } from "@store/actions/_saga";
 
 const server = axios.create();
 server.defaults.baseURL = "https://api.emotie.me";

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import Progress from './modal/Progress';
+import Progress from '@common/modal/Progress';
 
-import { emotionsToIds } from '../../utils/converter';
+import { emotionsToIds } from '@utils/converter';
 
 function MotieFrame(props) {
     const motieName = props.motie;
@@ -11,10 +11,10 @@ function MotieFrame(props) {
     let motieImage;
 
     try {
-        motieImage = require(`../../image/CharacterImg/${motieName}.png`).default;
+        motieImage = require(`@image/CharacterImg/${motieName}.png`).default;
     }
     catch(err) {
-        motieImage = require(`../../image/CharacterImg/dust.png`).default;
+        motieImage = require(`@image/CharacterImg/dust.png`).default;
     }
 
     // 표정
@@ -22,10 +22,10 @@ function MotieFrame(props) {
     let motieEye;
 
     try {
-        motieEye = require(`../../image/EmotionImg/${motieEmotion}.png`).default;
+        motieEye = require(`@image/EmotionImg/${motieEmotion}.png`).default;
     }
     catch(err) {
-        motieEye = require(`../../image/EmotionImg/88.png`).default;
+        motieEye = require(`@image/EmotionImg/88.png`).default;
     }
 
     return (
