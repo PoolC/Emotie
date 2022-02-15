@@ -1,6 +1,6 @@
-import { UPDATE_INFO, RESET_INFO } from '../actions/user';
+import { UPDATE_INFO, RESET_INFO } from '@store/actions/user';
 
-import { stringToNumber } from "../../utils/converter";
+import { stringToNumber } from "@utils/converter";
 
 const initialState = {
     memberId: "",

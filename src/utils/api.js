@@ -1,4 +1,4 @@
-import server from "./server";
+import server from "@utils/server";
 
 // 회원
 export const register = (nickname, password, rePassword, gender, dateOfBirth, email) => server.post('/members', {nickname: nickname, password: password, passwordCheck: rePassword, gender: gender, dateOfBirth: dateOfBirth, email: email});
