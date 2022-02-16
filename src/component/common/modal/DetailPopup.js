@@ -10,7 +10,7 @@ function DetailPopup(props, ref) {
         setIdx,
     }));
 
-    const goProfilePage = (nickname) => props.history.push(`/profile/${nickname}`);
+    const goProfilePage = (writerId) => props.history.push(`/profile/${writerId}`);
     const slidePost = (neigh) => setIdx(idx + neigh);
 
     return (
@@ -24,7 +24,7 @@ function DetailPopup(props, ref) {
                     <DetailCard>
                         <Info>
                             {props.details[idx].emotion && <EmotionTag emotion={props.details[idx].emotion}/>}
-                            <Nickname emotion={props.details[idx].emotion} onClick={() => goProfilePage(props.details[idx].nickname)}>{props.details[idx].nickname}</Nickname>
+                            <Nickname emotion={props.details[idx].emotion} valid={props.goProfile} onClick={() => props.goProfile && goProfilePage(props.details[idx].writerId)}>{props.details[idx].nickname}</Nickname>
                             <Date>{props.details[idx].date}</Date>
                         </Info>
                         <Content>{props.details[idx].content}</Content>
@@ -128,8 +128,9 @@ const Info = styled.div`
     }
 `
 const Nickname = styled.div`
+    cursor: ${props => props.valid ? `pointer` : ``};
     flex: 1 0 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
     margin-left: ${props => props.emotion ? `20px` : `0`};

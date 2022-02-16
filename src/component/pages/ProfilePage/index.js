@@ -156,7 +156,7 @@ function ProfilePage(props) {
             <Element.Boundary backgroundColor={profileInfo.allEmotion.color} bottom/>
             {/* 모달 */}
             <DetailPopup ref={diaryPopup} isOpen={isDiaryPopupOpen} setOpen={setDiaryPopupOpen} history={props.history} details={profileDiaries}/>
-            <DetailPopup ref={guestbookPopup} isOpen={isGuestbookPopupOpen} setOpen={setGuestbookPopupOpen} history={props.history} details={profileGuestbooks}/>
+            <DetailPopup ref={guestbookPopup} isOpen={isGuestbookPopupOpen} setOpen={setGuestbookPopupOpen} history={props.history} details={profileGuestbooks} goProfile={true}/>
             <Alert
                 title="프로필 수정 취소"
                 message="모티 및 소개글 수정 내역이 저장되지 않습니다."
