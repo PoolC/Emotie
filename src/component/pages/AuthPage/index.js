@@ -69,10 +69,10 @@ function AuthPage(props) {
 
     }
 
-    window.onload=tokenRequest();
+    //window.onload=tokenRequest();
 
     useEffect(() => {
-        tokenRequest();
+        if(step===false) tokenRequest();
     }, []);
 
     return (
