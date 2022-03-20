@@ -134,8 +134,8 @@ export const Group = {
         return (
             <PostList category={props.category} isProfileMine={props.isProfileMine} isEditable={props.isEditable}>
                 {props.category !== 'guestbook' 
-                ? props.diaries.map((post, index) => <PostCard key={props.memberId + index + 'd'} category="diary" post={post} onClick={() => props.showDiaryPopup(index)} {...options}/>)
-                : props.guestbooks.map((post, index) => <PostCard key={props.memberId + index + 'g'} category="guestbook" post={post} onClick={() => props.showGuestbookPopup(index)} {...options}/>)}
+                ? props.diaries.map((post, index) => <PostCard key={props.memberId + index + 'd'} id={props.memberId + post.diaryId + 'd'} category="diary" post={post} onClick={() => props.showDiaryPopup(index)} {...options}/>)
+                : props.guestbooks.map((post, index) => <PostCard key={props.memberId + index + 'g'} id={props.memberId + post.guestbookId + 'g'} category="guestbook" post={post} onClick={() => props.showGuestbookPopup(index)} {...options}/>)}
             </PostList>
         );
     },

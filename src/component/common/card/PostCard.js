@@ -158,7 +158,6 @@ function PostCard(props) {
 
     function onReport(event) {
         event.stopPropagation();
-        console.log('report');
         setReportOpen(true);
     }
 
@@ -251,7 +250,7 @@ function PostCard(props) {
             </Container>
             }
             {/* 모달 */}
-            {isMobile && (props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.post?.diaryId}/></DropDownContainer>}
+            {isMobile && (props.share || props.blur || props.report || props.delete) && <DropDownContainer><DropDown options={options} icon={BiDotsHorizontalRounded} id={props.id}/></DropDownContainer>}
             <Alert title={alertInfo.title} message={alertInfo.message} isOpen={alertInfo.isOpen} setOpen={setIsOpen} firstButton={alertInfo.firstButton} firstButtonFunc={alertInfo.firstButtonFunc} secondButton={alertInfo.secondButton} secondButtonInfo={alertInfo.secondButtonFunc}/>
             <Reasons title={reportInfo.title} options={reportInfo.options} isOpen={reportInfo.isOpen} setOpen={setReportOpen} firstButton={reportInfo.firstButton} firstButtonFunc={reportInfo.firstButtonFunc} secondButton={reportInfo.secondButton} reportReason={reportReason} setReportReason={setReportReason}/>
         </Wrapper>
